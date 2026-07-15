@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E9E9FF"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="24dp"
+    tools:context=".activity_main">
+
+    <!-- Logo -->
+
+    <ImageView
+        android:id="@+id/imgLogo"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:layout_marginBottom="20dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/logo" />
+
+    <!-- Title -->
+
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MULTIMODAL AI"
+        android:textStyle="bold"
+        android:textSize="34sp"
+        android:textColor="#153A8A"
+        android:fontFamily="sans-serif-black"/>
+
+    <!-- Subtitle -->
+
+    <TextView
+        android:id="@+id/txtSub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Explainable Deep Learning"
+        android:textSize="18sp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"/>
+
+    <!-- Space -->
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="120dp"/>
+
+    <!-- Get Started Button -->
+
+    <Button
+        android:id="@+id/btnGetStarted"
+        android:layout_width="280dp"
+        android:layout_height="55dp"
+        android:backgroundTint="#FFFFFF"
+        android:text="Get Started"
+        android:textAllCaps="false"
+        android:textColor="#153A8A"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+
+</LinearLayout>

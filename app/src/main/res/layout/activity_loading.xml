@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="#ECECFF"
+    android:padding="24dp">
+
+    <!-- Logo -->
+
+    <ImageView
+        android:id="@+id/imgLogo"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:src="@drawable/logo"
+        android:scaleType="fitCenter"
+        android:layout_marginBottom="25dp"/>
+
+    <!-- Title -->
+
+    <TextView
+        android:id="@+id/txtLoadingTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Verifying News..."
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="#173B91"
+        android:layout_marginBottom="10dp"/>
+
+    <!-- Subtitle -->
+
+    <TextView
+        android:id="@+id/txtLoadingSub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Please wait while our AI model analyzes your news."
+        android:textSize="16sp"
+        android:textColor="#666666"
+        android:gravity="center"
+        android:layout_marginBottom="30dp"/>
+
+    <!-- Progress Bar -->
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="70dp"
+        android:layout_height="70dp"/>
+
+    <!-- Status -->
+
+    <TextView
+        android:id="@+id/txtStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Analyzing..."
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#173B91"
+        android:layout_marginTop="25dp"/>
+
+    <!-- Progress Message -->
+
+    <TextView
+        android:id="@+id/txtStep"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Checking Text • Image • AI Model"
+        android:textSize="14sp"
+        android:textColor="#777777"
+        android:gravity="center"
+        android:layout_marginTop="10dp"/>
+
+</LinearLayout>

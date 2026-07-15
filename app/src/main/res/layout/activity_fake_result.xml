@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ECECFF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:gravity="center_horizontal">
+
+        <!-- Result Icon -->
+
+        <ImageView
+            android:id="@+id/imgResult"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="20dp"
+            android:src="@android:drawable/ic_delete"/>
+
+        <!-- Title -->
+
+        <TextView
+            android:id="@+id/txtResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FAKE NEWS DETECTED"
+            android:textColor="#D32F2F"
+            android:textStyle="bold"
+            android:textSize="30sp"
+            android:layout_marginTop="15dp"/>
+
+        <!-- Confidence -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Confidence Score"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginTop="25dp"/>
+
+        <ProgressBar
+            android:id="@+id/progressConfidence"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="12dp"
+            android:max="100"
+            android:progress="96"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/txtConfidence"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="96%"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#173B91"
+            android:layout_marginTop="8dp"/>
+
+        <!-- AI Explanation -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AI Explanation"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_marginTop="30dp"/>
+
+        <TextView
+            android:id="@+id/txtReason"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:padding="15dp"
+            android:text="• Manipulated image detected.\n\n• Suspicious headline.\n\n• Text and image do not match.\n\n• AI classified this content as Fake News."
+            android:textSize="16sp"
+            android:layout_marginTop="10dp"/>
+
+        <!-- Analyze Again -->
+
+        <Button
+            android:id="@+id/btnAgain"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:text="Analyze Again"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textAllCaps="false"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="#173B91"
+            android:textColor="#FFFFFF"/>
+
+        <!-- Report -->
+
+        <Button
+            android:id="@+id/btnReport"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:text="Report Problem"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textAllCaps="false"
+            android:layout_marginTop="15dp"
+            android:backgroundTint="#D32F2F"
+            android:textColor="#FFFFFF"/>
+
+        <!-- Home -->
+
+        <Button
+            android:id="@+id/btnHome"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:text="Back to Home"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textAllCaps="false"
+            android:layout_marginTop="15dp"
+            android:backgroundTint="#4CAF50"
+            android:textColor="#FFFFFF"/>
+
+    </LinearLayout>
+
+</ScrollView>

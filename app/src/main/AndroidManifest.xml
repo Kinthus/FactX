@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="FactX"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.FactX">
+
+        <!-- First Screen -->
+        <activity
+            android:name=".activity_main"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+
+        </activity>
+
+        <activity android:name=".activity_login" />
+        <activity android:name=".activity_register" />
+        <activity android:name=".activity_reset_password" />
+        <activity android:name=".activity_profile" />
+        <activity android:name=".activity_news_type" />
+        <activity android:name=".activity_text_analysis" />
+        <activity android:name=".activity_image_analysis" />
+        <activity android:name=".activity_multimodal" />
+        <activity android:name=".activity_loading" />
+        <activity android:name=".activity_fake_result" />
+        <activity android:name=".activity_real_result" />
+        <activity android:name=".activity_report_problem" />
+        <activity android:name=".activity_logout" />
+
+    </application>
+
+</manifest>
