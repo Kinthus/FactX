@@ -7,7 +7,9 @@
         android:label="FactX"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.FactX">
+        android:theme="@style/Theme.FactX"
+        android:usesCleartextTraffic="true">
+
 
         <!-- First Screen -->
         <activity

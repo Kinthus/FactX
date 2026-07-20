@@ -13,14 +13,13 @@ public class activity_main extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
 
         btnGetStarted = findViewById(R.id.btnGetStarted);
 
         btnGetStarted.setOnClickListener(v -> {
 
-            Intent intent = new Intent(activity_main.this, activity_login.class);
+            Intent intent = new Intent(activity_main.this, activity_register.class);
             startActivity(intent);
 
         });
