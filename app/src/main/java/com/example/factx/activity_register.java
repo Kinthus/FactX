@@ -10,14 +10,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.factx.api.ApiService;
-import com.example.factx.api.RetrofitClient;
-import com.example.factx.model.RegisterRequest;
-import com.example.factx.model.RegisterResponse;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class activity_register extends AppCompatActivity {
 
@@ -94,11 +86,19 @@ public class activity_register extends AppCompatActivity {
                     etConfirmPassword.requestFocus();
                     return;
                 }
-                registerUser(name, email, password);
 
+                /*
+                 * Next Step
+                 * Here we will call FastAPI Register API
+                 * Backend will:
+                 * 1. Check email already exists
+                 * 2. Send verification email
+                 * 3. Save user in MySQL
+                 */
 
-
-
+                Toast.makeText(activity_register.this,
+                        "Validation Successful",
+                        Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -116,45 +116,5 @@ public class activity_register extends AppCompatActivity {
             }
         });
 
-    }
-    private void registerUser(String name, String email, String password) {
-
-        ApiService apiService = RetrofitClient
-                .getClient()
-                .create(ApiService.class);
-
-        RegisterRequest request = new RegisterRequest(name, email, password);
-
-        apiService.registerUser(request).enqueue(new Callback<RegisterResponse>() {
-            @Override
-            public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
-
-                if (response.isSuccessful() && response.body() != null) {
-
-                    Toast.makeText(activity_register.this,
-                            response.body().getMessage(),
-                            Toast.LENGTH_SHORT).show();
-
-                    startActivity(new Intent(activity_register.this, activity_login.class));
-                    finish();
-
-                } else {
-
-                    Toast.makeText(activity_register.this,
-                            "Registration Failed",
-                            Toast.LENGTH_SHORT).show();
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<RegisterResponse> call, Throwable t) {
-
-                Toast.makeText(activity_register.this,
-                        "Error : " + t.getMessage(),
-                        Toast.LENGTH_LONG).show();
-
-            }
-        });
     }
 }
