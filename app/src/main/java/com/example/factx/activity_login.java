@@ -147,19 +147,6 @@ public class activity_login extends AppCompatActivity {
 
          */
 
-        // Temporary Login
-
-        Toast.makeText(activity_login.this,
-                "Login Successful",
-                Toast.LENGTH_SHORT).show();
-
-        Intent intent =
-                new Intent(activity_login.this,
-                        activity_news_type.class);
-
-        startActivity(intent);
-
-        finish();
 
     }
 
