@@ -81,19 +81,8 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2a76a21f-0ea4-4fad-9a90-50bb9ada93ec" name="Changes" comment="update34">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/factx/api/ApiService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/factx/api/RetrofitClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/factx/model/RegisterRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/factx/model/RegisterResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_7_20_2026_11_58_PM__Changes_.xml" beforeDir="false" />
+    <list default="true" id="2a76a21f-0ea4-4fad-9a90-50bb9ada93ec" name="Changes" comment="update all files">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/factx/activity_login.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/factx/activity_login.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/factx/activity_register.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/factx/activity_register.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/factx/activity_reset_password.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/factx/activity_reset_password.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -390,7 +379,15 @@
       <option name="project" value="LOCAL" />
       <updated>1784572637726</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="update all files">
+      <option name="closed" value="true" />
+      <created>1784698222411</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1784698222411</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -399,7 +396,8 @@
     <MESSAGE value="login34" />
     <MESSAGE value="update" />
     <MESSAGE value="update34" />
-    <option name="LAST_COMMIT_MESSAGE" value="update34" />
+    <MESSAGE value="update all files" />
+    <option name="LAST_COMMIT_MESSAGE" value="update all files" />
   </component>
   <component name="play_dynamic_filters_status">
     <option name="appIdToCheckInfo">
