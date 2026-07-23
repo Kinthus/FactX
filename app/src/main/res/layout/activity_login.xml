@@ -3,7 +3,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ECECFF">
+    android:background="#C7C7E6">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,24 +16,24 @@
 
         <ImageView
             android:id="@+id/imgLogo"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
+            android:layout_width="289dp"
+            android:layout_height="159dp"
             android:layout_marginTop="30dp"
-            android:src="@drawable/logo"
-            android:scaleType="fitCenter"/>
+            android:scaleType="fitCenter"
+            android:src="@drawable/logo" />
 
         <!-- Welcome -->
+
+        <!-- Subtitle -->
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:text="Welcome Back!"
-            android:textSize="28sp"
-            android:textStyle="bold"
             android:textColor="#173B91"
-            android:layout_marginTop="20dp"/>
-
-        <!-- Subtitle -->
+            android:textSize="28sp"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -88,12 +88,12 @@
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="60dp"
             android:text="LOGIN"
             android:textStyle="bold"
-            android:textSize="18sp"
-            android:layout_marginTop="25dp"
-            android:backgroundTint="#173B91"
+            android:textSize="22sp"
+            android:layout_marginTop="35dp"
+            android:backgroundTint="#08134D"
             android:textColor="#FFFFFF"/>
 
         <!-- Register -->

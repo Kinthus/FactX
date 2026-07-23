@@ -8,6 +8,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import com.example.factx.api.ApiService;
+import com.example.factx.api.RetrofitClient;
+
+import com.example.factx.model.LoginRequest;
+import com.example.factx.model.LoginResponse;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -132,20 +140,53 @@ public class activity_login extends AppCompatActivity {
 
         }
 
-        /*
-         ==========================================
-         DATABASE LOGIN WILL COME HERE
-         ==========================================
+        LoginRequest request = new LoginRequest(email, password);
 
-         FastAPI
+        ApiService apiService =
+                RetrofitClient.getClient().create(ApiService.class);
 
-         POST /login
+        Call<LoginResponse> call = apiService.loginUser(request);
 
-         Email
+        call.enqueue(new Callback<LoginResponse>() {
 
-         Password
+            @Override
+            public void onResponse(Call<LoginResponse> call,
+                                   Response<LoginResponse> response) {
 
-         */
+                if (response.isSuccessful() && response.body() != null) {
+
+                    LoginResponse result = response.body();
+
+                    Toast.makeText(activity_login.this,
+                            result.getMessage(),
+                            Toast.LENGTH_SHORT).show();
+
+                    if (result.isSuccess()) {
+
+                        Intent intent = new Intent(activity_login.this,
+                                activity_profile.class);
+
+                        startActivity(intent);
+                        finish();
+                    }
+
+                } else {
+
+                    Toast.makeText(activity_login.this,
+                            "Login Failed",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginResponse> call,
+                                  Throwable t) {
+
+                Toast.makeText(activity_login.this,
+                        "Connection Error: " + t.getMessage(),
+                        Toast.LENGTH_LONG).show();
+            }
+        });
 
 
     }

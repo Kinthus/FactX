@@ -10,15 +10,15 @@
 
     <!-- Logo -->
 
+    <!-- Title -->
+
     <ImageView
         android:id="@+id/imgLogo"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:src="@drawable/logo"
+        android:layout_width="186dp"
+        android:layout_height="200dp"
+        android:layout_marginBottom="25dp"
         android:scaleType="fitCenter"
-        android:layout_marginBottom="25dp"/>
-
-    <!-- Title -->
+        android:src="@drawable/logo" />
 
     <TextView
         android:id="@+id/txtLoadingTitle"

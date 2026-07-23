@@ -8,9 +8,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:padding="20dp"
-        android:gravity="center_horizontal">
+        android:padding="20dp">
 
         <!-- Result Icon -->
 
@@ -19,7 +19,8 @@
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_marginTop="20dp"
-            android:src="@android:drawable/ic_delete"/>
+            android:rotationX="21"
+            android:src="@android:drawable/ic_delete" />
 
         <!-- Title -->
 
@@ -27,60 +28,60 @@
             android:id="@+id/txtResult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:text="FAKE NEWS DETECTED"
             android:textColor="#D32F2F"
-            android:textStyle="bold"
             android:textSize="30sp"
-            android:layout_marginTop="15dp"/>
+            android:textStyle="bold" />
 
         <!-- Confidence -->
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
             android:text="Confidence Score"
-            android:textStyle="bold"
             android:textSize="18sp"
-            android:layout_marginTop="25dp"/>
+            android:textStyle="bold" />
 
         <ProgressBar
             android:id="@+id/progressConfidence"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="12dp"
+            android:layout_marginTop="10dp"
             android:max="100"
-            android:progress="96"
-            android:layout_marginTop="10dp"/>
+            android:progress="96" />
 
         <TextView
             android:id="@+id/txtConfidence"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="96%"
-            android:textSize="20sp"
-            android:textStyle="bold"
             android:textColor="#173B91"
-            android:layout_marginTop="8dp"/>
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <!-- AI Explanation -->
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:text="AI Explanation"
-            android:textStyle="bold"
             android:textSize="20sp"
-            android:layout_marginTop="30dp"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/txtReason"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:background="#FFFFFF"
             android:padding="15dp"
             android:text="• Manipulated image detected.\n\n• Suspicious headline.\n\n• Text and image do not match.\n\n• AI classified this content as Fake News."
-            android:textSize="16sp"
-            android:layout_marginTop="10dp"/>
+            android:textSize="16sp" />
 
         <!-- Analyze Again -->
 
@@ -88,13 +89,13 @@
             android:id="@+id/btnAgain"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:text="Analyze Again"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:textAllCaps="false"
             android:layout_marginTop="30dp"
             android:backgroundTint="#173B91"
-            android:textColor="#FFFFFF"/>
+            android:text="Analyze Again"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <!-- Report -->
 
@@ -102,13 +103,13 @@
             android:id="@+id/btnReport"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:text="Report Problem"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:textAllCaps="false"
             android:layout_marginTop="15dp"
             android:backgroundTint="#D32F2F"
-            android:textColor="#FFFFFF"/>
+            android:text="Report Problem"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <!-- Home -->
 
@@ -116,13 +117,13 @@
             android:id="@+id/btnHome"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:text="Back to Home"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:textAllCaps="false"
             android:layout_marginTop="15dp"
             android:backgroundTint="#4CAF50"
-            android:textColor="#FFFFFF"/>
+            android:text="Back to Home"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
