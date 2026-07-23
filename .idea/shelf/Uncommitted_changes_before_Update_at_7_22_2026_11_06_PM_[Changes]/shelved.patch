@@ -1,0 +1,313 @@
+Index: app/src/main/res/layout/activity_login.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n\r\n<ScrollView xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:background=\"#ECECFF\">\r\n\r\n    <LinearLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:orientation=\"vertical\"\r\n        android:gravity=\"center_horizontal\"\r\n        android:padding=\"24dp\">\r\n\r\n        <!-- Logo -->\r\n\r\n        <ImageView\r\n            android:id=\"@+id/imgLogo\"\r\n            android:layout_width=\"140dp\"\r\n            android:layout_height=\"140dp\"\r\n            android:layout_marginTop=\"30dp\"\r\n            android:src=\"@drawable/logo\"\r\n            android:scaleType=\"fitCenter\"/>\r\n\r\n        <!-- Welcome -->\r\n\r\n        <TextView\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:text=\"Welcome Back!\"\r\n            android:textSize=\"28sp\"\r\n            android:textStyle=\"bold\"\r\n            android:textColor=\"#173B91\"\r\n            android:layout_marginTop=\"20dp\"/>\r\n\r\n        <!-- Subtitle -->\r\n\r\n        <TextView\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:text=\"Sign in to continue\"\r\n            android:textSize=\"16sp\"\r\n            android:textColor=\"#666666\"\r\n            android:layout_marginBottom=\"30dp\"/>\r\n\r\n        <!-- Email -->\r\n\r\n        <EditText\r\n            android:id=\"@+id/etEmail\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"55dp\"\r\n            android:hint=\"Email\"\r\n            android:inputType=\"textEmailAddress\"\r\n            android:padding=\"15dp\"\r\n            android:background=\"@android:drawable/edit_text\"/>\r\n\r\n        <!-- Space -->\r\n\r\n        <Space\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"15dp\"/>\r\n\r\n        <!-- Password -->\r\n\r\n        <EditText\r\n            android:id=\"@+id/etPassword\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"55dp\"\r\n            android:hint=\"Password\"\r\n            android:inputType=\"textPassword\"\r\n            android:padding=\"15dp\"\r\n            android:background=\"@android:drawable/edit_text\"/>\r\n\r\n        <!-- Forgot Password -->\r\n\r\n        <TextView\r\n            android:id=\"@+id/txtForgot\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:text=\"Forgot Password?\"\r\n            android:textColor=\"#173B91\"\r\n            android:textStyle=\"bold\"\r\n            android:layout_gravity=\"end\"\r\n            android:layout_marginTop=\"10dp\"/>\r\n\r\n        <!-- Login Button -->\r\n\r\n        <Button\r\n            android:id=\"@+id/btnLogin\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"55dp\"\r\n            android:text=\"LOGIN\"\r\n            android:textStyle=\"bold\"\r\n            android:textSize=\"18sp\"\r\n            android:layout_marginTop=\"25dp\"\r\n            android:backgroundTint=\"#173B91\"\r\n            android:textColor=\"#FFFFFF\"/>\r\n\r\n        <!-- Register -->\r\n\r\n        <LinearLayout\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:orientation=\"horizontal\"\r\n            android:layout_marginTop=\"25dp\">\r\n\r\n            <TextView\r\n                android:layout_width=\"wrap_content\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:text=\"Don't have an account? \"\r\n                android:textColor=\"#666666\"/>\r\n\r\n            <TextView\r\n                android:id=\"@+id/txtRegister\"\r\n                android:layout_width=\"wrap_content\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:text=\"Register\"\r\n                android:textStyle=\"bold\"\r\n                android:textColor=\"#173B91\"/>\r\n\r\n        </LinearLayout>\r\n\r\n    </LinearLayout>\r\n\r\n</ScrollView>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_login.xml b/app/src/main/res/layout/activity_login.xml
+--- a/app/src/main/res/layout/activity_login.xml	(revision 15df1fc5bc4426b9900247a055403c5b499c9e24)
++++ b/app/src/main/res/layout/activity_login.xml	(date 1784111866374)
+@@ -3,7 +3,7 @@
+ <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+-    android:background="#ECECFF">
++    android:background="#C7C7E6">
+ 
+     <LinearLayout
+         android:layout_width="match_parent"
+@@ -16,24 +16,24 @@
+ 
+         <ImageView
+             android:id="@+id/imgLogo"
+-            android:layout_width="140dp"
+-            android:layout_height="140dp"
++            android:layout_width="289dp"
++            android:layout_height="159dp"
+             android:layout_marginTop="30dp"
+-            android:src="@drawable/logo"
+-            android:scaleType="fitCenter"/>
++            android:scaleType="fitCenter"
++            android:src="@drawable/logo" />
+ 
+         <!-- Welcome -->
+ 
++        <!-- Subtitle -->
++
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
++            android:layout_marginTop="20dp"
+             android:text="Welcome Back!"
+-            android:textSize="28sp"
+-            android:textStyle="bold"
+             android:textColor="#173B91"
+-            android:layout_marginTop="20dp"/>
+-
+-        <!-- Subtitle -->
++            android:textSize="28sp"
++            android:textStyle="bold" />
+ 
+         <TextView
+             android:layout_width="wrap_content"
+@@ -88,12 +88,12 @@
+         <Button
+             android:id="@+id/btnLogin"
+             android:layout_width="match_parent"
+-            android:layout_height="55dp"
++            android:layout_height="60dp"
+             android:text="LOGIN"
+             android:textStyle="bold"
+-            android:textSize="18sp"
+-            android:layout_marginTop="25dp"
+-            android:backgroundTint="#173B91"
++            android:textSize="22sp"
++            android:layout_marginTop="35dp"
++            android:backgroundTint="#08134D"
+             android:textColor="#FFFFFF"/>
+ 
+         <!-- Register -->
+Index: app/src/main/res/layout/activity_loading.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n\r\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:orientation=\"vertical\"\r\n    android:gravity=\"center\"\r\n    android:background=\"#ECECFF\"\r\n    android:padding=\"24dp\">\r\n\r\n    <!-- Logo -->\r\n\r\n    <ImageView\r\n        android:id=\"@+id/imgLogo\"\r\n        android:layout_width=\"140dp\"\r\n        android:layout_height=\"140dp\"\r\n        android:src=\"@drawable/logo\"\r\n        android:scaleType=\"fitCenter\"\r\n        android:layout_marginBottom=\"25dp\"/>\r\n\r\n    <!-- Title -->\r\n\r\n    <TextView\r\n        android:id=\"@+id/txtLoadingTitle\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:text=\"Verifying News...\"\r\n        android:textSize=\"28sp\"\r\n        android:textStyle=\"bold\"\r\n        android:textColor=\"#173B91\"\r\n        android:layout_marginBottom=\"10dp\"/>\r\n\r\n    <!-- Subtitle -->\r\n\r\n    <TextView\r\n        android:id=\"@+id/txtLoadingSub\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:text=\"Please wait while our AI model analyzes your news.\"\r\n        android:textSize=\"16sp\"\r\n        android:textColor=\"#666666\"\r\n        android:gravity=\"center\"\r\n        android:layout_marginBottom=\"30dp\"/>\r\n\r\n    <!-- Progress Bar -->\r\n\r\n    <ProgressBar\r\n        android:id=\"@+id/progressBar\"\r\n        style=\"?android:attr/progressBarStyleLarge\"\r\n        android:layout_width=\"70dp\"\r\n        android:layout_height=\"70dp\"/>\r\n\r\n    <!-- Status -->\r\n\r\n    <TextView\r\n        android:id=\"@+id/txtStatus\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:text=\"Analyzing...\"\r\n        android:textSize=\"18sp\"\r\n        android:textStyle=\"bold\"\r\n        android:textColor=\"#173B91\"\r\n        android:layout_marginTop=\"25dp\"/>\r\n\r\n    <!-- Progress Message -->\r\n\r\n    <TextView\r\n        android:id=\"@+id/txtStep\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:text=\"Checking Text • Image • AI Model\"\r\n        android:textSize=\"14sp\"\r\n        android:textColor=\"#777777\"\r\n        android:gravity=\"center\"\r\n        android:layout_marginTop=\"10dp\"/>\r\n\r\n</LinearLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_loading.xml b/app/src/main/res/layout/activity_loading.xml
+--- a/app/src/main/res/layout/activity_loading.xml	(revision 15df1fc5bc4426b9900247a055403c5b499c9e24)
++++ b/app/src/main/res/layout/activity_loading.xml	(date 1784108152981)
+@@ -10,15 +10,15 @@
+ 
+     <!-- Logo -->
+ 
++    <!-- Title -->
++
+     <ImageView
+         android:id="@+id/imgLogo"
+-        android:layout_width="140dp"
+-        android:layout_height="140dp"
+-        android:src="@drawable/logo"
++        android:layout_width="186dp"
++        android:layout_height="200dp"
++        android:layout_marginBottom="25dp"
+         android:scaleType="fitCenter"
+-        android:layout_marginBottom="25dp"/>
+-
+-    <!-- Title -->
++        android:src="@drawable/logo" />
+ 
+     <TextView
+         android:id="@+id/txtLoadingTitle"
+Index: .idea/deploymentTargetSelector.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"deploymentTargetSelector\">\r\n    <selectionStates>\r\n      <SelectionState runConfigName=\"app\">\r\n        <option name=\"selectionMode\" value=\"DROPDOWN\" />\r\n        <DropdownSelection timestamp=\"2026-07-14T08:14:36.566940400Z\">\r\n          <Target type=\"DEFAULT_BOOT\">\r\n            <handle>\r\n              <DeviceId pluginId=\"PhysicalDevice\" identifier=\"serial=7e6a5eda\" />\r\n            </handle>\r\n          </Target>\r\n        </DropdownSelection>\r\n        <DialogSelection />\r\n      </SelectionState>\r\n      <SelectionState runConfigName=\"activity_main\">\r\n        <option name=\"selectionMode\" value=\"DROPDOWN\" />\r\n        <DialogSelection />\r\n      </SelectionState>\r\n    </selectionStates>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/deploymentTargetSelector.xml b/.idea/deploymentTargetSelector.xml
+--- a/.idea/deploymentTargetSelector.xml	(revision 15df1fc5bc4426b9900247a055403c5b499c9e24)
++++ b/.idea/deploymentTargetSelector.xml	(date 1784107139403)
+@@ -13,10 +13,6 @@
+         </DropdownSelection>
+         <DialogSelection />
+       </SelectionState>
+-      <SelectionState runConfigName="activity_main">
+-        <option name="selectionMode" value="DROPDOWN" />
+-        <DialogSelection />
+-      </SelectionState>
+     </selectionStates>
+   </component>
+ </project>
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_register.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n\r\n<ScrollView xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:background=\"#ECECFF\">\r\n\r\n    <LinearLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:orientation=\"vertical\"\r\n        android:gravity=\"center_horizontal\"\r\n        android:padding=\"24dp\">\r\n\r\n        <!-- Logo -->\r\n\r\n        <ImageView\r\n            android:id=\"@+id/imgLogo\"\r\n            android:layout_width=\"130dp\"\r\n            android:layout_height=\"130dp\"\r\n            android:layout_marginTop=\"20dp\"\r\n            android:src=\"@drawable/logo\"\r\n            android:scaleType=\"fitCenter\"/>\r\n\r\n        <!-- Title -->\r\n\r\n        <TextView\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:text=\"Create Account\"\r\n            android:textSize=\"30sp\"\r\n            android:textStyle=\"bold\"\r\n            android:textColor=\"#173B91\"\r\n            android:layout_marginTop=\"15dp\"/>\r\n\r\n        <!-- Subtitle -->\r\n\r\n        <TextView\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:text=\"Register to continue\"\r\n            android:textSize=\"16sp\"\r\n            android:textColor=\"#666666\"\r\n            android:layout_marginBottom=\"25dp\"/>\r\n\r\n        <!-- Full Name -->\r\n\r\n        <EditText\r\n            android:id=\"@+id/etName\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"55dp\"\r\n            android:hint=\"Full Name\"\r\n            android:padding=\"15dp\"\r\n            android:inputType=\"textPersonName\"/>\r\n\r\n        <Space\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"12dp\"/>\r\n\r\n        <!-- Email -->\r\n\r\n        <EditText\r\n            android:id=\"@+id/etEmail\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"55dp\"\r\n            android:hint=\"Email Address\"\r\n            android:padding=\"15dp\"\r\n            android:inputType=\"textEmailAddress\"/>\r\n\r\n        <Space\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"12dp\"/>\r\n\r\n        <!-- Phone -->\r\n\r\n        <EditText\r\n            android:id=\"@+id/etPhone\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"55dp\"\r\n            android:hint=\"Phone Number\"\r\n            android:padding=\"15dp\"\r\n            android:inputType=\"phone\"/>\r\n\r\n        <Space\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"12dp\"/>\r\n\r\n        <!-- Password -->\r\n\r\n        <EditText\r\n            android:id=\"@+id/etPassword\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"55dp\"\r\n            android:hint=\"Password\"\r\n            android:padding=\"15dp\"\r\n            android:inputType=\"textPassword\"/>\r\n\r\n        <Space\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"12dp\"/>\r\n\r\n        <!-- Confirm Password -->\r\n\r\n        <EditText\r\n            android:id=\"@+id/etConfirmPassword\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"55dp\"\r\n            android:hint=\"Confirm Password\"\r\n            android:padding=\"15dp\"\r\n            android:inputType=\"textPassword\"/>\r\n\r\n        <!-- Register Button -->\r\n\r\n        <Button\r\n            android:id=\"@+id/btnRegister\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"55dp\"\r\n            android:layout_marginTop=\"30dp\"\r\n            android:text=\"CREATE ACCOUNT\"\r\n            android:textAllCaps=\"false\"\r\n            android:textStyle=\"bold\"\r\n            android:textSize=\"18sp\"\r\n            android:backgroundTint=\"#173B91\"\r\n            android:textColor=\"#FFFFFF\"/>\r\n\r\n        <!-- Login Link -->\r\n\r\n        <LinearLayout\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:orientation=\"horizontal\"\r\n            android:layout_marginTop=\"20dp\">\r\n\r\n            <TextView\r\n                android:layout_width=\"wrap_content\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:text=\"Already have an account? \"\r\n                android:textColor=\"#666666\"/>\r\n\r\n            <TextView\r\n                android:id=\"@+id/txtLogin\"\r\n                android:layout_width=\"wrap_content\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:text=\"Login\"\r\n                android:textStyle=\"bold\"\r\n                android:textColor=\"#173B91\"/>\r\n\r\n        </LinearLayout>\r\n\r\n    </LinearLayout>\r\n\r\n</ScrollView>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_register.xml b/app/src/main/res/layout/activity_register.xml
+--- a/app/src/main/res/layout/activity_register.xml	(revision 15df1fc5bc4426b9900247a055403c5b499c9e24)
++++ b/app/src/main/res/layout/activity_register.xml	(date 1784109976864)
+@@ -16,11 +16,11 @@
+ 
+         <ImageView
+             android:id="@+id/imgLogo"
+-            android:layout_width="130dp"
+-            android:layout_height="130dp"
++            android:layout_width="203dp"
++            android:layout_height="116dp"
+             android:layout_marginTop="20dp"
+-            android:src="@drawable/logo"
+-            android:scaleType="fitCenter"/>
++            android:scaleType="fitCenter"
++            android:src="@drawable/logo" />
+ 
+         <!-- Title -->
+ 
+Index: app/src/main/res/layout/activity_fake_result.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n\r\n<ScrollView xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:background=\"#ECECFF\">\r\n\r\n    <LinearLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:orientation=\"vertical\"\r\n        android:padding=\"20dp\"\r\n        android:gravity=\"center_horizontal\">\r\n\r\n        <!-- Result Icon -->\r\n\r\n        <ImageView\r\n            android:id=\"@+id/imgResult\"\r\n            android:layout_width=\"120dp\"\r\n            android:layout_height=\"120dp\"\r\n            android:layout_marginTop=\"20dp\"\r\n            android:src=\"@android:drawable/ic_delete\"/>\r\n\r\n        <!-- Title -->\r\n\r\n        <TextView\r\n            android:id=\"@+id/txtResult\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:text=\"FAKE NEWS DETECTED\"\r\n            android:textColor=\"#D32F2F\"\r\n            android:textStyle=\"bold\"\r\n            android:textSize=\"30sp\"\r\n            android:layout_marginTop=\"15dp\"/>\r\n\r\n        <!-- Confidence -->\r\n\r\n        <TextView\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:text=\"Confidence Score\"\r\n            android:textStyle=\"bold\"\r\n            android:textSize=\"18sp\"\r\n            android:layout_marginTop=\"25dp\"/>\r\n\r\n        <ProgressBar\r\n            android:id=\"@+id/progressConfidence\"\r\n            style=\"?android:attr/progressBarStyleHorizontal\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"12dp\"\r\n            android:max=\"100\"\r\n            android:progress=\"96\"\r\n            android:layout_marginTop=\"10dp\"/>\r\n\r\n        <TextView\r\n            android:id=\"@+id/txtConfidence\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:text=\"96%\"\r\n            android:textSize=\"20sp\"\r\n            android:textStyle=\"bold\"\r\n            android:textColor=\"#173B91\"\r\n            android:layout_marginTop=\"8dp\"/>\r\n\r\n        <!-- AI Explanation -->\r\n\r\n        <TextView\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:text=\"AI Explanation\"\r\n            android:textStyle=\"bold\"\r\n            android:textSize=\"20sp\"\r\n            android:layout_marginTop=\"30dp\"/>\r\n\r\n        <TextView\r\n            android:id=\"@+id/txtReason\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:background=\"#FFFFFF\"\r\n            android:padding=\"15dp\"\r\n            android:text=\"• Manipulated image detected.\\n\\n• Suspicious headline.\\n\\n• Text and image do not match.\\n\\n• AI classified this content as Fake News.\"\r\n            android:textSize=\"16sp\"\r\n            android:layout_marginTop=\"10dp\"/>\r\n\r\n        <!-- Analyze Again -->\r\n\r\n        <Button\r\n            android:id=\"@+id/btnAgain\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"55dp\"\r\n            android:text=\"Analyze Again\"\r\n            android:textStyle=\"bold\"\r\n            android:textSize=\"18sp\"\r\n            android:textAllCaps=\"false\"\r\n            android:layout_marginTop=\"30dp\"\r\n            android:backgroundTint=\"#173B91\"\r\n            android:textColor=\"#FFFFFF\"/>\r\n\r\n        <!-- Report -->\r\n\r\n        <Button\r\n            android:id=\"@+id/btnReport\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"55dp\"\r\n            android:text=\"Report Problem\"\r\n            android:textStyle=\"bold\"\r\n            android:textSize=\"18sp\"\r\n            android:textAllCaps=\"false\"\r\n            android:layout_marginTop=\"15dp\"\r\n            android:backgroundTint=\"#D32F2F\"\r\n            android:textColor=\"#FFFFFF\"/>\r\n\r\n        <!-- Home -->\r\n\r\n        <Button\r\n            android:id=\"@+id/btnHome\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"55dp\"\r\n            android:text=\"Back to Home\"\r\n            android:textStyle=\"bold\"\r\n            android:textSize=\"18sp\"\r\n            android:textAllCaps=\"false\"\r\n            android:layout_marginTop=\"15dp\"\r\n            android:backgroundTint=\"#4CAF50\"\r\n            android:textColor=\"#FFFFFF\"/>\r\n\r\n    </LinearLayout>\r\n\r\n</ScrollView>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_fake_result.xml b/app/src/main/res/layout/activity_fake_result.xml
+--- a/app/src/main/res/layout/activity_fake_result.xml	(revision 15df1fc5bc4426b9900247a055403c5b499c9e24)
++++ b/app/src/main/res/layout/activity_fake_result.xml	(date 1784108152958)
+@@ -8,9 +8,9 @@
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
++        android:gravity="center_horizontal"
+         android:orientation="vertical"
+-        android:padding="20dp"
+-        android:gravity="center_horizontal">
++        android:padding="20dp">
+ 
+         <!-- Result Icon -->
+ 
+@@ -19,7 +19,8 @@
+             android:layout_width="120dp"
+             android:layout_height="120dp"
+             android:layout_marginTop="20dp"
+-            android:src="@android:drawable/ic_delete"/>
++            android:rotationX="21"
++            android:src="@android:drawable/ic_delete" />
+ 
+         <!-- Title -->
+ 
+@@ -27,60 +28,60 @@
+             android:id="@+id/txtResult"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
++            android:layout_marginTop="15dp"
+             android:text="FAKE NEWS DETECTED"
+             android:textColor="#D32F2F"
+-            android:textStyle="bold"
+             android:textSize="30sp"
+-            android:layout_marginTop="15dp"/>
++            android:textStyle="bold" />
+ 
+         <!-- Confidence -->
+ 
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
++            android:layout_marginTop="25dp"
+             android:text="Confidence Score"
+-            android:textStyle="bold"
+             android:textSize="18sp"
+-            android:layout_marginTop="25dp"/>
++            android:textStyle="bold" />
+ 
+         <ProgressBar
+             android:id="@+id/progressConfidence"
+             style="?android:attr/progressBarStyleHorizontal"
+             android:layout_width="match_parent"
+             android:layout_height="12dp"
++            android:layout_marginTop="10dp"
+             android:max="100"
+-            android:progress="96"
+-            android:layout_marginTop="10dp"/>
++            android:progress="96" />
+ 
+         <TextView
+             android:id="@+id/txtConfidence"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
++            android:layout_marginTop="8dp"
+             android:text="96%"
++            android:textColor="#173B91"
+             android:textSize="20sp"
+-            android:textStyle="bold"
+-            android:textColor="#173B91"
+-            android:layout_marginTop="8dp"/>
++            android:textStyle="bold" />
+ 
+         <!-- AI Explanation -->
+ 
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
++            android:layout_marginTop="30dp"
+             android:text="AI Explanation"
+-            android:textStyle="bold"
+             android:textSize="20sp"
+-            android:layout_marginTop="30dp"/>
++            android:textStyle="bold" />
+ 
+         <TextView
+             android:id="@+id/txtReason"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
++            android:layout_marginTop="10dp"
+             android:background="#FFFFFF"
+             android:padding="15dp"
+             android:text="• Manipulated image detected.\n\n• Suspicious headline.\n\n• Text and image do not match.\n\n• AI classified this content as Fake News."
+-            android:textSize="16sp"
+-            android:layout_marginTop="10dp"/>
++            android:textSize="16sp" />
+ 
+         <!-- Analyze Again -->
+ 
+@@ -88,13 +89,13 @@
+             android:id="@+id/btnAgain"
+             android:layout_width="match_parent"
+             android:layout_height="55dp"
++            android:layout_marginTop="30dp"
++            android:backgroundTint="#173B91"
+             android:text="Analyze Again"
+-            android:textStyle="bold"
+-            android:textSize="18sp"
+             android:textAllCaps="false"
+-            android:layout_marginTop="30dp"
+-            android:backgroundTint="#173B91"
+-            android:textColor="#FFFFFF"/>
++            android:textColor="#FFFFFF"
++            android:textSize="18sp"
++            android:textStyle="bold" />
+ 
+         <!-- Report -->
+ 
+@@ -102,13 +103,13 @@
+             android:id="@+id/btnReport"
+             android:layout_width="match_parent"
+             android:layout_height="55dp"
+-            android:text="Report Problem"
+-            android:textStyle="bold"
+-            android:textSize="18sp"
+-            android:textAllCaps="false"
+             android:layout_marginTop="15dp"
+             android:backgroundTint="#D32F2F"
+-            android:textColor="#FFFFFF"/>
++            android:text="Report Problem"
++            android:textAllCaps="false"
++            android:textColor="#FFFFFF"
++            android:textSize="18sp"
++            android:textStyle="bold" />
+ 
+         <!-- Home -->
+ 
+@@ -116,13 +117,13 @@
+             android:id="@+id/btnHome"
+             android:layout_width="match_parent"
+             android:layout_height="55dp"
++            android:layout_marginTop="15dp"
++            android:backgroundTint="#4CAF50"
+             android:text="Back to Home"
+-            android:textStyle="bold"
++            android:textAllCaps="false"
++            android:textColor="#FFFFFF"
+             android:textSize="18sp"
+-            android:textAllCaps="false"
+-            android:layout_marginTop="15dp"
+-            android:backgroundTint="#4CAF50"
+-            android:textColor="#FFFFFF"/>
++            android:textStyle="bold" />
+ 
+     </LinearLayout>
+ 
