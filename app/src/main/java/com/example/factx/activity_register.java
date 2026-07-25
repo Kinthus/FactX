@@ -137,7 +137,7 @@ public class activity_register extends AppCompatActivity {
                     if (result.isSuccess()) {
 
                         Intent intent = new Intent(activity_register.this,
-                                activity_login.class);
+                                activity_verify_otp.class);
 
                         startActivity(intent);
                         finish();

@@ -3,6 +3,9 @@ package com.example.factx.api;
 import com.example.factx.model.RegisterRequest;
 import com.example.factx.model.RegisterResponse;
 
+import com.example.factx.model.VerifyOTPRequest;
+import com.example.factx.model.VerifyOTPResponse;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -16,5 +19,8 @@ public interface ApiService {
 
     @POST("login")
     Call<LoginResponse> loginUser(@Body LoginRequest request);
+
+    @POST("verify")
+    Call<VerifyOTPResponse> verifyOtp(@Body VerifyOTPRequest request);
 }
 
