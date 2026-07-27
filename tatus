@@ -1,0 +1,14 @@
+[1mdiff --git a/app/src/main/java/com/example/factx/activity_login.java b/app/src/main/java/com/example/factx/activity_login.java[m
+[1mindex 6d17250..bdc711b 100644[m
+[1m--- a/app/src/main/java/com/example/factx/activity_login.java[m
+[1m+++ b/app/src/main/java/com/example/factx/activity_login.java[m
+[36m@@ -189,8 +189,6 @@[m [mpublic class activity_login extends AppCompatActivity {[m
+         });[m
+ [m
+ [m
+[31m-[m
+[31m-[m
+     }[m
+ [m
+ }[m
+\ No newline at end of file[m
