@@ -20,6 +20,8 @@ import retrofit2.Response;
 import com.example.factx.model.ProfileUpdateRequest;
 import com.example.factx.model.RegisterResponse;
 
+import android.content.Intent;
+
 public class activity_profile extends AppCompatActivity {
 
     EditText etName, etEmail, etPhone, etDob;
@@ -100,6 +102,12 @@ public class activity_profile extends AppCompatActivity {
                         Toast.makeText(activity_profile.this,
                                 response.body().getMessage(),
                                 Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(activity_profile.this,
+                                activity_news_type.class);
+
+                        startActivity(intent);
+                        finish();
 
                     } else {
 

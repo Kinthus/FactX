@@ -28,6 +28,10 @@
         <activity android:name=".activity_reset_password" />
         <activity android:name=".activity_verify_otp"/>
         <activity android:name=".activity_profile"/>
+        <activity android:name=".activity_news_type"/>
+        <activity android:name=".activity_text_analysis"/>
+        <activity android:name=".activity_image_analysis"/>
+        <activity android:name=".activity_multimodal"/>
 
 
     </application>
