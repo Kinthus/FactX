@@ -16,6 +16,9 @@ import com.example.factx.model.LoginResponse;
 import com.example.factx.model.ProfileResponse;
 import com.example.factx.model.ProfileUpdateRequest;
 
+import com.example.factx.model.TextAnalysisRequest;
+import com.example.factx.model.TextAnalysisResponse;
+
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
@@ -35,6 +38,11 @@ public interface ApiService {
 
     @PUT("profile")
     Call<RegisterResponse> updateProfile(@Body ProfileUpdateRequest request);
+
+    @POST("text-analysis")
+    Call<TextAnalysisResponse> analyzeText(
+            @Body TextAnalysisRequest request
+    );
 
 }
 
