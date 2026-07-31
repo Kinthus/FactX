@@ -166,6 +166,9 @@ public class activity_login extends AppCompatActivity {
                         Intent intent = new Intent(activity_login.this,
                                 activity_profile.class);
 
+                        // Send logged-in user's email to Profile Activity
+                        intent.putExtra("email", email);
+
                         startActivity(intent);
                         finish();
                     }

@@ -27,6 +27,7 @@
         <activity android:name=".activity_register" />
         <activity android:name=".activity_reset_password" />
         <activity android:name=".activity_verify_otp"/>
+        <activity android:name=".activity_profile"/>
 
 
     </application>

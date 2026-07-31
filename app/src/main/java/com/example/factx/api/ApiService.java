@@ -9,8 +9,15 @@ import com.example.factx.model.VerifyOTPResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import com.example.factx.model.LoginRequest;
 import com.example.factx.model.LoginResponse;
+
+import com.example.factx.model.ProfileResponse;
+import com.example.factx.model.ProfileUpdateRequest;
+
+import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 public interface ApiService {
 
@@ -22,5 +29,12 @@ public interface ApiService {
 
     @POST("verify")
     Call<VerifyOTPResponse> verifyOtp(@Body VerifyOTPRequest request);
+
+    @GET("profile/{email}")
+    Call<ProfileResponse> getProfile(@Path("email") String email);
+
+    @PUT("profile")
+    Call<RegisterResponse> updateProfile(@Body ProfileUpdateRequest request);
+
 }
 

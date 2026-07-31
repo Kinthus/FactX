@@ -88,10 +88,8 @@ public class activity_verify_otp extends AppCompatActivity {
 
                     if (result.isSuccess()) {
 
-                        Intent intent =
-                                new Intent(activity_verify_otp.this,
-                                        activity_login.class);
-
+                        Intent intent = new Intent(activity_verify_otp.this, activity_profile.class);
+                        intent.putExtra("email", email);
                         startActivity(intent);
                         finish();
                     }
