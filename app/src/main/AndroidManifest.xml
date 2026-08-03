@@ -34,6 +34,9 @@
         <activity android:name=".activity_multimodal"/>
         <activity android:name=".activity_loading"/>
         <activity android:name=".activity_real_result"/>
+        <activity android:name=".activity_fake_result"/>
+        <activity android:name=".activity_report_problem"/>
+        <activity android:name=".activity_logout"/>
 
     </application>
 
