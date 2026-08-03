@@ -19,6 +19,11 @@ import com.example.factx.model.ProfileUpdateRequest;
 import com.example.factx.model.TextAnalysisRequest;
 import com.example.factx.model.TextAnalysisResponse;
 
+import com.example.factx.model.ForgotPasswordRequest;
+import com.example.factx.model.ForgotPasswordResponse;
+import com.example.factx.model.ResetPasswordRequest;
+import com.example.factx.model.ResetPasswordResponse;
+
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
@@ -42,6 +47,15 @@ public interface ApiService {
     @POST("text-analysis")
     Call<TextAnalysisResponse> analyzeText(
             @Body TextAnalysisRequest request
+    );
+    @POST("forgot-password")
+    Call<ForgotPasswordResponse> forgotPassword(
+            @Body ForgotPasswordRequest request
+    );
+
+    @POST("reset-password")
+    Call<ResetPasswordResponse> resetPassword(
+            @Body ResetPasswordRequest request
     );
 
 }
