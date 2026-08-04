@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E9E9FF"
+    android:background="#F5F7FA"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="24dp"
@@ -11,15 +11,15 @@
 
     <!-- Logo -->
 
+    <!-- Title -->
+
     <ImageView
         android:id="@+id/imgLogo"
         android:layout_width="170dp"
         android:layout_height="170dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="60dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/logo" />
-
-    <!-- Title -->
+        android:src="@drawable/img" />
 
     <TextView
         android:id="@+id/txtTitle"
@@ -28,7 +28,7 @@
         android:text="MULTIMODAL AI"
         android:textStyle="bold"
         android:textSize="34sp"
-        android:textColor="#153A8A"
+        android:textColor="#003366"
         android:fontFamily="sans-serif-black"/>
 
     <!-- Subtitle -->
@@ -40,7 +40,7 @@
         android:layout_marginTop="8dp"
         android:text="Explainable Deep Learning"
         android:textSize="18sp"
-        android:textColor="#FFFFFF"
+        android:textColor="#808080"
         android:textStyle="bold"/>
 
     <!-- Space -->
@@ -55,10 +55,10 @@
         android:id="@+id/btnGetStarted"
         android:layout_width="280dp"
         android:layout_height="55dp"
-        android:backgroundTint="#FFFFFF"
+        android:backgroundTint="#070c38"
         android:text="Get Started"
         android:textAllCaps="false"
-        android:textColor="#153A8A"
+        android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="bold"/>
 

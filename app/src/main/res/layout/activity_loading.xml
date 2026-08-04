@@ -26,6 +26,7 @@
         android:layout_height="wrap_content"
         android:text="Verifying News..."
         android:textSize="28sp"
+        android:fontFamily="sans-serif-black"
         android:textStyle="bold"
         android:textColor="#173B91"
         android:layout_marginBottom="10dp"/>
@@ -38,7 +39,7 @@
         android:layout_height="wrap_content"
         android:text="Please wait while our AI model analyzes your news."
         android:textSize="16sp"
-        android:textColor="#666666"
+        android:textColor="#0B0A0A"
         android:gravity="center"
         android:layout_marginBottom="30dp"/>
 
@@ -70,7 +71,7 @@
         android:layout_height="wrap_content"
         android:text="Checking Text • Image • AI Model"
         android:textSize="14sp"
-        android:textColor="#777777"
+        android:textColor="#050505"
         android:gravity="center"
         android:layout_marginTop="10dp"/>
 
