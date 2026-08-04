@@ -75,7 +75,7 @@ public class activity_login extends AppCompatActivity {
 
                 Intent intent =
                         new Intent(activity_login.this,
-                                activity_reset_password.class);
+                                activity_forgot_password.class);
 
                 startActivity(intent);
 

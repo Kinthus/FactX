@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F7FA"
+    android:background="#FFFCFC"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="24dp"
@@ -28,7 +28,7 @@
         android:text="MULTIMODAL AI"
         android:textStyle="bold"
         android:textSize="34sp"
-        android:textColor="#003366"
+        android:textColor="#08125F"
         android:fontFamily="sans-serif-black"/>
 
     <!-- Subtitle -->
@@ -40,7 +40,7 @@
         android:layout_marginTop="8dp"
         android:text="Explainable Deep Learning"
         android:textSize="18sp"
-        android:textColor="#808080"
+        android:textColor="#525252"
         android:textStyle="bold"/>
 
     <!-- Space -->
