@@ -20,7 +20,6 @@ public class activity_real_result extends AppCompatActivity {
 
         // Analyze Again
         btnAgain.setOnClickListener(v -> {
-
             Intent intent = new Intent(
                     activity_real_result.this,
                     activity_news_type.class);

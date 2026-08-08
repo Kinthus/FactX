@@ -57,9 +57,18 @@ public class activity_text_analysis extends AppCompatActivity {
             // AI MODEL IS NOT CONNECTED YET
             // --------------------------------
 
+            String lowerNews = news.toLowerCase();
+
             String resultType;
 
-            if (news.toLowerCase().contains("fake")) {
+            if (lowerNews.contains("fake")
+                    || lowerNews.contains("hoax")
+                    || lowerNews.contains("rumor")
+                    || lowerNews.contains("rumour")
+                    || lowerNews.contains("shocking")
+                    || lowerNews.contains("miracle cure")
+                    || lowerNews.contains("secret cure")
+                    || lowerNews.contains("100% guaranteed")) {
 
                 resultType = "fake";
 
