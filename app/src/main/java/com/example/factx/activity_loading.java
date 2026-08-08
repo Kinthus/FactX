@@ -3,27 +3,71 @@ package com.example.factx;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class activity_loading extends AppCompatActivity {
+
+    ProgressBar progressBar;
+    TextView txtLoadingTitle;
+    TextView txtLoadingSub;
+    TextView txtStatus;
+    TextView txtStep;
+
+    String resultType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
 
-        // Wait for 3 seconds then open Result Page
-        new Handler().postDelayed(() -> {
+        progressBar = findViewById(R.id.progressBar);
+        txtLoadingTitle = findViewById(R.id.txtLoadingTitle);
+        txtLoadingSub = findViewById(R.id.txtLoadingSub);
+        txtStatus = findViewById(R.id.txtStatus);
+        txtStep = findViewById(R.id.txtStep);
 
-            Intent intent = new Intent(
-                    activity_loading.this,
-                    activity_real_result.class);
+        resultType = getIntent().getStringExtra("resultType");
 
-            startActivity(intent);
-            finish();
+        if (resultType == null) {
+            resultType = "real";
+        }
 
-        }, 3000);
+        txtStatus.setText("Analyzing...");
+        txtStep.setText("Checking Text • Image • AI Model");
 
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+
+            txtStatus.setText("Analysis Complete");
+            txtStep.setText("Preparing Result...");
+
+            new Handler(Looper.getMainLooper()).postDelayed(() -> {
+
+                Intent intent;
+
+                if (resultType.equalsIgnoreCase("fake")) {
+
+                    intent = new Intent(
+                            activity_loading.this,
+                            activity_fake_result.class
+                    );
+
+                } else {
+
+                    intent = new Intent(
+                            activity_loading.this,
+                            activity_real_result.class
+                    );
+                }
+
+                startActivity(intent);
+                finish();
+
+            }, 500);
+
+        }, 2000);
     }
 }
