@@ -25,7 +25,24 @@
 
         <activity android:name=".activity_login" />
         <activity android:name=".activity_register" />
-        <activity android:name=".activity_reset_password" />
+        <activity
+            android:name=".activity_reset_password"
+            android:exported="true">
+
+            <intent-filter>
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="factx"
+                    android:host="reset-password" />
+
+            </intent-filter>
+
+        </activity>
         <activity android:name=".activity_forgot_password" />
         <activity android:name=".activity_verify_otp"/>
         <activity android:name=".activity_profile"/>
@@ -38,6 +55,7 @@
         <activity android:name=".activity_fake_result"/>
         <activity android:name=".activity_report_problem"/>
         <activity android:name=".activity_logout"/>
+
 
     </application>
 

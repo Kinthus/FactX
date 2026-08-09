@@ -1,6 +1,5 @@
 package com.example.factx;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.widget.Button;
@@ -21,11 +20,13 @@ import retrofit2.Response;
 public class activity_forgot_password extends AppCompatActivity {
 
     EditText etEmail;
-    Button btnSend, btnBack;
+    Button btnSend;
+    Button btnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_forgot_password);
 
         etEmail = findViewById(R.id.etEmail);
@@ -38,12 +39,16 @@ public class activity_forgot_password extends AppCompatActivity {
             String email = etEmail.getText().toString().trim();
 
             if (email.isEmpty()) {
+
                 etEmail.setError("Enter Email");
+                etEmail.requestFocus();
                 return;
             }
 
             if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+
                 etEmail.setError("Enter Valid Email");
+                etEmail.requestFocus();
                 return;
             }
 
@@ -51,7 +56,8 @@ public class activity_forgot_password extends AppCompatActivity {
                     new ForgotPasswordRequest(email);
 
             ApiService apiService =
-                    RetrofitClient.getClient().create(ApiService.class);
+                    RetrofitClient.getClient()
+                            .create(ApiService.class);
 
             Call<ForgotPasswordResponse> call =
                     apiService.forgotPassword(request);
@@ -59,11 +65,12 @@ public class activity_forgot_password extends AppCompatActivity {
             call.enqueue(new Callback<ForgotPasswordResponse>() {
 
                 @Override
-                public void onResponse(Call<ForgotPasswordResponse> call,
-                                       Response<ForgotPasswordResponse> response) {
+                public void onResponse(
+                        Call<ForgotPasswordResponse> call,
+                        Response<ForgotPasswordResponse> response) {
 
-                    if (response.isSuccessful() &&
-                            response.body() != null) {
+                    if (response.isSuccessful()
+                            && response.body() != null) {
 
                         Toast.makeText(
                                 activity_forgot_password.this,
@@ -75,35 +82,28 @@ public class activity_forgot_password extends AppCompatActivity {
 
                         Toast.makeText(
                                 activity_forgot_password.this,
-                                "Failed to send reset link",
+                                "Invalid email address",
                                 Toast.LENGTH_LONG
                         ).show();
                     }
-
                 }
 
                 @Override
-                public void onFailure(Call<ForgotPasswordResponse> call,
-                                      Throwable t) {
+                public void onFailure(
+                        Call<ForgotPasswordResponse> call,
+                        Throwable t) {
 
                     Toast.makeText(
                             activity_forgot_password.this,
-                            t.getMessage(),
+                            "Connection failed: "
+                                    + t.getMessage(),
                             Toast.LENGTH_LONG
                     ).show();
-
                 }
-
             });
-
         });
 
         // Back to Login
-        btnBack.setOnClickListener(v -> {
-
-            finish();
-
-        });
-
+        btnBack.setOnClickListener(v -> finish());
     }
 }
