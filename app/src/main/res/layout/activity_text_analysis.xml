@@ -3,7 +3,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ECECFF">
+    android:background="#FFFFFF">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,7 +35,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="45dp"/>
 
-        <!-- News Heading -->
+        <!-- News Title -->
 
         <TextView
             android:layout_width="wrap_content"
@@ -48,9 +48,10 @@
             android:id="@+id/etTitle"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:hint="Enter News Title"
+            android:hint="Enter News Title (Optional)"
             android:layout_marginTop="8dp"
             android:padding="15dp"
+            android:inputType="text"
             android:background="@android:drawable/edit_text"/>
 
         <!-- News Content -->
@@ -58,7 +59,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="News Content"
+            android:text="News Content (Optional)"
             android:textStyle="bold"
             android:textSize="17sp"
             android:layout_marginTop="20dp"/>
@@ -67,14 +68,14 @@
             android:id="@+id/etNews"
             android:layout_width="match_parent"
             android:layout_height="220dp"
-            android:hint="Paste the complete news article here..."
+            android:hint="Paste news content (Optional)"
             android:gravity="top|start"
             android:padding="15dp"
             android:background="@android:drawable/edit_text"
             android:inputType="textMultiLine"
             android:minLines="8"/>
 
-        <!-- News URL - Optional -->
+        <!-- News URL -->
 
         <TextView
             android:layout_width="wrap_content"
@@ -89,8 +90,8 @@
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:hint="Paste News URL (Optional)"
-            android:padding="15dp"
             android:inputType="textUri"
+            android:padding="15dp"
             android:background="@android:drawable/edit_text"/>
 
         <!-- Analyze Button -->
