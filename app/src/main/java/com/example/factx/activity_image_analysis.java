@@ -1,12 +1,10 @@
 package com.example.factx;
 
 import android.content.Intent;
-<<<<<<< HEAD
-=======
 import android.content.pm.PackageManager;
->>>>>>> 64c0247 (analysis update 89)
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -25,32 +23,6 @@ public class activity_image_analysis extends AppCompatActivity {
     Button btnCamera;
     Button btnAnalyzeImage;
     Button btnClearImage;
-<<<<<<< HEAD
-
-    Uri imageUri = null;
-
-    // Modern Android Image Picker
-    private final ActivityResultLauncher<String> imagePickerLauncher =
-            registerForActivityResult(
-                    new ActivityResultContracts.GetContent(),
-                    uri -> {
-
-                        if (uri != null) {
-
-                            imageUri = uri;
-
-                            // Show selected image
-                            imgPreview.setImageURI(imageUri);
-
-                            Toast.makeText(
-                                    activity_image_analysis.this,
-                                    "Image selected successfully",
-                                    Toast.LENGTH_SHORT
-                            ).show();
-                        }
-                    }
-            );
-=======
 
     Uri imageUri = null;
 
@@ -114,39 +86,11 @@ public class activity_image_analysis extends AppCompatActivity {
                     }
             );
 
->>>>>>> 64c0247 (analysis update 89)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-<<<<<<< HEAD
-
-        setContentView(R.layout.activity_image_analysis);
-
-        // Find Views
-        imgPreview = findViewById(R.id.imgPreview);
-
-        btnGallery = findViewById(R.id.btnGallery);
-
-        btnCamera = findViewById(R.id.btnCamera);
-
-        btnAnalyzeImage =
-                findViewById(R.id.btnAnalyzeImage);
-
-        btnClearImage =
-                findViewById(R.id.btnClearImage);
-
-
-        // ==========================================
-        // GALLERY
-        // ==========================================
-
-        btnGallery.setOnClickListener(v -> {
-
-            // Open phone/emulator gallery
-            imagePickerLauncher.launch("image/*");
-=======
 
         setContentView(
                 R.layout.activity_image_analysis
@@ -176,18 +120,11 @@ public class activity_image_analysis extends AppCompatActivity {
         btnGallery.setOnClickListener(v -> {
 
             galleryLauncher.launch("image/*");
->>>>>>> 64c0247 (analysis update 89)
 
         });
 
 
-<<<<<<< HEAD
-        // ==========================================
-        // CAMERA
-        // ==========================================
-=======
 
->>>>>>> 64c0247 (analysis update 89)
 
         btnCamera.setOnClickListener(v -> {
 
@@ -212,20 +149,6 @@ public class activity_image_analysis extends AppCompatActivity {
         });
 
 
-<<<<<<< HEAD
-        // ==========================================
-        // ANALYZE IMAGE
-        // ==========================================
-
-        btnAnalyzeImage.setOnClickListener(v -> {
-
-            if (imageUri == null) {
-
-                Toast.makeText(
-                        activity_image_analysis.this,
-                        "Please Select Image",
-                        Toast.LENGTH_SHORT
-=======
 
 
         btnAnalyzeImage.setOnClickListener(v -> {
@@ -237,16 +160,11 @@ public class activity_image_analysis extends AppCompatActivity {
                         activity_image_analysis.this,
                         "Please select or capture an image",
                         Toast.LENGTH_LONG
->>>>>>> 64c0247 (analysis update 89)
                 ).show();
 
                 return;
             }
 
-<<<<<<< HEAD
-            // Dummy result for now
-            String resultType = "fake";
-=======
 
             // Dummy result
             String resultType;
@@ -256,7 +174,6 @@ public class activity_image_analysis extends AppCompatActivity {
             } else {
                 resultType = "fake";
             }
->>>>>>> 64c0247 (analysis update 89)
 
             Intent intent = new Intent(
                     activity_image_analysis.this,
@@ -278,13 +195,6 @@ public class activity_image_analysis extends AppCompatActivity {
         });
 
 
-        // ==========================================
-<<<<<<< HEAD
-        // CLEAR IMAGE
-=======
-        // Clear Image
->>>>>>> 64c0247 (analysis update 89)
-        // ==========================================
 
         btnClearImage.setOnClickListener(v -> {
 
@@ -297,8 +207,6 @@ public class activity_image_analysis extends AppCompatActivity {
         });
 
     }
-<<<<<<< HEAD
-=======
 
 
     // ==========================================
@@ -326,5 +234,4 @@ public class activity_image_analysis extends AppCompatActivity {
             ).show();
         }
     }
->>>>>>> 64c0247 (analysis update 89)
 }
