@@ -3,20 +3,20 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ECECFF">
+    android:background="#FFFCFC">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:padding="30dp">
 
         <!-- Title -->
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Analyze Multimodal News"
+            android:text="Multimodal Analysis"
             android:textSize="28sp"
             android:textStyle="bold"
             android:textColor="#173B91"
@@ -26,15 +26,14 @@
         <!-- Description -->
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Upload both news text and image for verification."
+            android:text="Analyze news using both text and image."
             android:textSize="16sp"
             android:textColor="#666666"
             android:gravity="center"
-            android:layout_gravity="center"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="25dp"/>
+            android:layout_marginBottom="30dp"/>
 
         <!-- News Title -->
 
@@ -42,16 +41,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="News Title"
-            android:textStyle="bold"
-            android:textSize="16sp"/>
+            android:textSize="17sp"
+            android:textStyle="bold"/>
 
         <EditText
             android:id="@+id/etTitle"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:hint="Enter News Title"
+            android:hint="Enter News Title (Optional)"
             android:padding="15dp"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp"
+            android:background="@android:drawable/edit_text"/>
 
         <!-- News Content -->
 
@@ -59,19 +59,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="News Content"
+            android:textSize="17sp"
             android:textStyle="bold"
-            android:textSize="16sp"
             android:layout_marginTop="20dp"/>
 
         <EditText
             android:id="@+id/etNews"
             android:layout_width="match_parent"
             android:layout_height="180dp"
+            android:hint="Enter News Content (Optional)"
             android:gravity="top|start"
-            android:hint="Paste the complete news article..."
             android:padding="15dp"
             android:inputType="textMultiLine"
-            android:minLines="6"/>
+            android:layout_marginTop="8dp"
+            android:background="@android:drawable/edit_text"/>
 
         <!-- Image Preview -->
 
@@ -79,46 +80,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="News Image"
+            android:textSize="17sp"
             android:textStyle="bold"
-            android:textSize="16sp"
             android:layout_marginTop="20dp"/>
 
         <ImageView
             android:id="@+id/imgPreview"
-            android:layout_width="220dp"
-            android:layout_height="220dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:background="#DDDDDD"
-            android:src="@android:drawable/ic_menu_gallery"
-            android:scaleType="centerInside"/>
-
-        <!-- Gallery -->
-
-        <Button
-            android:id="@+id/btnGallery"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginTop="20dp"
-            android:text="Choose From Gallery"
-            android:textAllCaps="false"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:backgroundTint="#173B91"
-            android:textColor="#FFFFFF"/>
+            android:layout_height="220dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/logo"
+            android:scaleType="centerInside"
+            android:background="#E8E8E8"
+            android:contentDescription="Selected news image"/>
 
-        <!-- Camera -->
+        <!-- Select Image -->
 
         <Button
-            android:id="@+id/btnCamera"
+            android:id="@+id/btnSelectImage"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginTop="15dp"
-            android:text="Open Camera"
+            android:text="Select Image"
             android:textAllCaps="false"
+            android:textSize="17sp"
             android:textStyle="bold"
-            android:textSize="18sp"
-            android:backgroundTint="#1976D2"
+            android:backgroundTint="#173B91"
             android:textColor="#FFFFFF"/>
 
         <!-- Analyze -->
@@ -128,11 +115,11 @@
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginTop="20dp"
-            android:text="Analyze Multimodal News"
+            android:text="Analyze News"
             android:textAllCaps="false"
-            android:textStyle="bold"
             android:textSize="18sp"
-            android:backgroundTint="#4CAF50"
+            android:textStyle="bold"
+            android:backgroundTint="#173B91"
             android:textColor="#FFFFFF"/>
 
         <!-- Clear -->
@@ -144,8 +131,8 @@
             android:layout_marginTop="15dp"
             android:text="Clear"
             android:textAllCaps="false"
-            android:textStyle="bold"
             android:textSize="18sp"
+            android:textStyle="bold"
             android:backgroundTint="#BDBDBD"
             android:textColor="#000000"/>
 

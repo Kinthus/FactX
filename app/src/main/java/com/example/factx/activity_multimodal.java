@@ -3,7 +3,6 @@ package com.example.factx;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -15,119 +14,174 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class activity_multimodal extends AppCompatActivity {
 
-    EditText etTitle, etNews;
+    EditText etTitle;
+    EditText etNews;
+
     ImageView imgPreview;
 
-    Button btnGallery, btnCamera, btnAnalyze, btnClear;
+    Button btnSelectImage;
+    Button btnAnalyze;
+    Button btnClear;
 
-    Uri imageUri;
+    Uri imageUri = null;
 
-    ActivityResultLauncher<Intent> imagePickerLauncher;
+
+    // ==========================================
+    // Image Picker
+    // ==========================================
+
+    private final ActivityResultLauncher<String> imagePickerLauncher =
+            registerForActivityResult(
+                    new ActivityResultContracts.GetContent(),
+                    uri -> {
+
+                        if (uri != null) {
+
+                            imageUri = uri;
+
+                            imgPreview.setImageURI(imageUri);
+
+                            Toast.makeText(
+                                    activity_multimodal.this,
+                                    "Image selected successfully",
+                                    Toast.LENGTH_SHORT
+                            ).show();
+                        }
+                    }
+            );
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_multimodal);
 
-        // Initialize Views
-        etTitle = findViewById(R.id.etTitle);
-        etNews = findViewById(R.id.etNews);
+        setContentView(
+                R.layout.activity_multimodal
+        );
 
-        imgPreview = findViewById(R.id.imgPreview);
 
-        btnGallery = findViewById(R.id.btnGallery);
-        btnCamera = findViewById(R.id.btnCamera);
-        btnAnalyze = findViewById(R.id.btnAnalyze);
-        btnClear = findViewById(R.id.btnClear);
+        // ==========================================
+        // Find Views
+        // ==========================================
 
-        // Image Picker
-        imagePickerLauncher =
-                registerForActivityResult(
-                        new ActivityResultContracts.StartActivityForResult(),
-                        result -> {
+        etTitle =
+                findViewById(R.id.etTitle);
 
-                            if (result.getResultCode() == RESULT_OK &&
-                                    result.getData() != null) {
+        etNews =
+                findViewById(R.id.etNews);
 
-                                imageUri = result.getData().getData();
-                                imgPreview.setImageURI(imageUri);
-                            }
-                        });
+        imgPreview =
+                findViewById(R.id.imgPreview);
 
-        // Gallery Button
-        btnGallery.setOnClickListener(v -> {
+        btnSelectImage =
+                findViewById(R.id.btnSelectImage);
 
-            Intent intent = new Intent(
-                    Intent.ACTION_PICK,
-                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        btnAnalyze =
+                findViewById(R.id.btnAnalyze);
 
-            imagePickerLauncher.launch(intent);
+        btnClear =
+                findViewById(R.id.btnClear);
 
-        });
 
-        // Camera Button (Implementation 1)
-        btnCamera.setOnClickListener(v -> {
+        // ==========================================
+        // Select Image
+        // ==========================================
 
-            Toast.makeText(
-                    activity_multimodal.this,
-                    "Camera Feature will be added in Implementation 2",
-                    Toast.LENGTH_SHORT
-            ).show();
+        btnSelectImage.setOnClickListener(v -> {
+
+            imagePickerLauncher.launch("image/*");
 
         });
 
-        // Analyze Button
+
+        // ==========================================
+        // Analyze Multimodal
+        // ==========================================
+
         btnAnalyze.setOnClickListener(v -> {
 
-            String title = etTitle.getText().toString().trim();
-            String news = etNews.getText().toString().trim();
+            String title =
+                    etTitle.getText()
+                            .toString()
+                            .trim();
 
-            if (title.isEmpty()) {
-                etTitle.setError("Enter News Title");
-                etTitle.requestFocus();
-                return;
-            }
+            String news =
+                    etNews.getText()
+                            .toString()
+                            .trim();
 
-            if (news.isEmpty()) {
-                etNews.setError("Enter News Content");
-                etNews.requestFocus();
-                return;
-            }
 
-            if (imageUri == null) {
+            // At least text OR image
+            if (news.isEmpty()
+                    && imageUri == null) {
+
                 Toast.makeText(
                         activity_multimodal.this,
-                        "Please Select an Image",
-                        Toast.LENGTH_SHORT
+                        "Please enter News Content or select an Image",
+                        Toast.LENGTH_LONG
                 ).show();
+
                 return;
             }
 
-            // Open Loading Page
+
+            // ======================================
+            // Dummy Result
+            // AI NOT CONNECTED YET
+            // ======================================
+
+            String resultType;
+
+            if (System.currentTimeMillis() % 2 == 0) {
+
+                resultType = "real";
+
+            } else {
+
+                resultType = "fake";
+            }
+
+
+            // ======================================
+            // Loading Screen
+            // ======================================
+
             Intent intent = new Intent(
                     activity_multimodal.this,
-                    activity_loading.class);
+                    activity_loading.class
+            );
+
+            intent.putExtra(
+                    "resultType",
+                    resultType
+            );
+
+            intent.putExtra(
+                    "analysis_type",
+                    "multimodal"
+            );
 
             startActivity(intent);
 
         });
 
-        // Clear Button
+
+        // ==========================================
+        // Clear
+        // ==========================================
+
         btnClear.setOnClickListener(v -> {
 
             etTitle.setText("");
-            etNews.setText("");
 
-            imgPreview.setImageResource(
-                    android.R.drawable.ic_menu_gallery);
+            etNews.setText("");
 
             imageUri = null;
 
-            Toast.makeText(
-                    activity_multimodal.this,
-                    "Cleared Successfully",
-                    Toast.LENGTH_SHORT
-            ).show();
+            imgPreview.setImageResource(
+                    R.drawable.logo
+            );
 
         });
 
