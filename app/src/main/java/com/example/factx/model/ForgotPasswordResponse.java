@@ -5,16 +5,19 @@ public class ForgotPasswordResponse {
     private boolean success;
     private String message;
 
+    public ForgotPasswordResponse() {
+    }
+
     public boolean isSuccess() {
         return success;
     }
 
-    public String getMessage() {
-        return message;
-    }
-
     public void setSuccess(boolean success) {
         this.success = success;
+    }
+
+    public String getMessage() {
+        return message;
     }
 
     public void setMessage(String message) {
