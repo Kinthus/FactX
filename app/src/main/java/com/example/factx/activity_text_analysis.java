@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -31,39 +32,46 @@ public class activity_text_analysis extends AppCompatActivity {
         btnClear = findViewById(R.id.btnClear);
 
 
+        // ==========================================
         // Analyze Button
+        // ==========================================
+
         btnAnalyze.setOnClickListener(v -> {
 
-            String title = etTitle.getText().toString().trim();
-            String news = etNews.getText().toString().trim();
-            String url = etUrl.getText().toString().trim();
+            String title =
+                    etTitle.getText().toString().trim();
 
-            // Title validation
-            if (title.isEmpty()) {
+            String news =
+                    etNews.getText().toString().trim();
 
-                etTitle.setError("Enter News Title");
-                etTitle.requestFocus();
+            String url =
+                    etUrl.getText().toString().trim();
+
+
+            // ==========================================
+            // Content OR URL must be provided
+            // ==========================================
+
+            if (news.isEmpty() && url.isEmpty()) {
+
+                Toast.makeText(
+                        activity_text_analysis.this,
+                        "Please enter News Content or News URL",
+                        Toast.LENGTH_LONG
+                ).show();
+
                 return;
             }
 
-            // Content validation
-            if (news.isEmpty()) {
 
-                etNews.setError("Enter News Content");
-                etNews.requestFocus();
-                return;
-            }
-
-            // URL is OPTIONAL
-            // So we do not show an error if URL is empty.
-
-            // -----------------------------
-            // DEMO RESULT
+            // ==========================================
+            // Demo Result
             // AI MODEL NOT CONNECTED YET
-            // -----------------------------
+            // ==========================================
 
             String textToCheck =
-                    (title + " " + news + " " + url).toLowerCase();
+                    (title + " " + news + " " + url)
+                            .toLowerCase();
 
             String resultType;
 
@@ -82,18 +90,34 @@ public class activity_text_analysis extends AppCompatActivity {
                 resultType = "real";
             }
 
+
+            // ==========================================
             // Open Loading Screen
+            // ==========================================
+
             Intent intent = new Intent(
                     activity_text_analysis.this,
                     activity_loading.class
             );
 
-            intent.putExtra("resultType", resultType);
+            intent.putExtra(
+                    "resultType",
+                    resultType
+            );
+
+            intent.putExtra(
+                    "analysis_type",
+                    "text"
+            );
 
             startActivity(intent);
         });
 
+
+        // ==========================================
         // Clear Button
+        // ==========================================
+
         btnClear.setOnClickListener(v -> {
 
             etTitle.setText("");
