@@ -16,6 +16,9 @@ import com.example.factx.model.LoginResponse;
 import com.example.factx.model.ProfileResponse;
 import com.example.factx.model.ProfileUpdateRequest;
 
+import com.example.factx.model.ReportRequest;
+import com.example.factx.model.ReportResponse;
+
 import com.example.factx.model.TextAnalysisRequest;
 import com.example.factx.model.TextAnalysisResponse;
 
@@ -56,6 +59,11 @@ public interface ApiService {
     @POST("reset-password")
     Call<ResetPasswordResponse> resetPassword(
             @Body ResetPasswordRequest request
+    );
+
+    @POST("report")
+    Call<ReportResponse> submitReport(
+            @Body ReportRequest request
     );
 
 
