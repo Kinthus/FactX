@@ -74,6 +74,25 @@
             android:inputType="textMultiLine"
             android:minLines="8"/>
 
+        <!-- News URL - Optional -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="News URL (Optional)"
+            android:textStyle="bold"
+            android:textSize="17sp"
+            android:layout_marginTop="20dp"/>
+
+        <EditText
+            android:id="@+id/etUrl"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:hint="Paste News URL (Optional)"
+            android:padding="15dp"
+            android:inputType="textUri"
+            android:background="@android:drawable/edit_text"/>
+
         <!-- Analyze Button -->
 
         <Button

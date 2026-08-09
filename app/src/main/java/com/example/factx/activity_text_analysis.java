@@ -11,6 +11,7 @@ public class activity_text_analysis extends AppCompatActivity {
 
     EditText etTitle;
     EditText etNews;
+    EditText etUrl;
 
     Button btnAnalyze;
     Button btnClear;
@@ -24,51 +25,55 @@ public class activity_text_analysis extends AppCompatActivity {
         // Find views
         etTitle = findViewById(R.id.etTitle);
         etNews = findViewById(R.id.etNews);
+        etUrl = findViewById(R.id.etUrl);
 
         btnAnalyze = findViewById(R.id.btnAnalyze);
         btnClear = findViewById(R.id.btnClear);
+
 
         // Analyze Button
         btnAnalyze.setOnClickListener(v -> {
 
             String title = etTitle.getText().toString().trim();
             String news = etNews.getText().toString().trim();
+            String url = etUrl.getText().toString().trim();
 
-            // Check title
+            // Title validation
             if (title.isEmpty()) {
 
                 etTitle.setError("Enter News Title");
                 etTitle.requestFocus();
-
                 return;
             }
 
-            // Check news
+            // Content validation
             if (news.isEmpty()) {
 
                 etNews.setError("Enter News Content");
                 etNews.requestFocus();
-
                 return;
             }
 
-            // --------------------------------
-            // DEMO RESULT
-            // AI MODEL IS NOT CONNECTED YET
-            // --------------------------------
+            // URL is OPTIONAL
+            // So we do not show an error if URL is empty.
 
-            String lowerNews = news.toLowerCase();
+            // -----------------------------
+            // DEMO RESULT
+            // AI MODEL NOT CONNECTED YET
+            // -----------------------------
+
+            String textToCheck =
+                    (title + " " + news + " " + url).toLowerCase();
 
             String resultType;
 
-            if (lowerNews.contains("fake")
-                    || lowerNews.contains("hoax")
-                    || lowerNews.contains("rumor")
-                    || lowerNews.contains("rumour")
-                    || lowerNews.contains("shocking")
-                    || lowerNews.contains("miracle cure")
-                    || lowerNews.contains("secret cure")
-                    || lowerNews.contains("100% guaranteed")) {
+            if (textToCheck.contains("fake")
+                    || textToCheck.contains("hoax")
+                    || textToCheck.contains("rumor")
+                    || textToCheck.contains("rumour")
+                    || textToCheck.contains("shocking")
+                    || textToCheck.contains("miracle cure")
+                    || textToCheck.contains("secret cure")) {
 
                 resultType = "fake";
 
@@ -93,6 +98,7 @@ public class activity_text_analysis extends AppCompatActivity {
 
             etTitle.setText("");
             etNews.setText("");
+            etUrl.setText("");
 
             etTitle.requestFocus();
         });
