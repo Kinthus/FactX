@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -18,6 +19,7 @@ public class activity_multimodal extends AppCompatActivity {
     EditText etNews;
 
     ImageView imgPreview;
+    TextView txtImagePlaceholder;
 
     Button btnSelectImage;
     Button btnAnalyze;
@@ -27,7 +29,7 @@ public class activity_multimodal extends AppCompatActivity {
 
 
     // ==========================================
-    // Image Picker
+    // IMAGE PICKER
     // ==========================================
 
     private final ActivityResultLauncher<String> imagePickerLauncher =
@@ -37,9 +39,21 @@ public class activity_multimodal extends AppCompatActivity {
 
                         if (uri != null) {
 
+                            // Save selected image
                             imageUri = uri;
 
+                            // Show selected image
                             imgPreview.setImageURI(imageUri);
+
+                            // Show ImageView
+                            imgPreview.setVisibility(
+                                    ImageView.VISIBLE
+                            );
+
+                            // Hide "No Image Selected"
+                            txtImagePlaceholder.setVisibility(
+                                    TextView.GONE
+                            );
 
                             Toast.makeText(
                                     activity_multimodal.this,
@@ -62,7 +76,7 @@ public class activity_multimodal extends AppCompatActivity {
 
 
         // ==========================================
-        // Find Views
+        // FIND VIEWS
         // ==========================================
 
         etTitle =
@@ -73,6 +87,9 @@ public class activity_multimodal extends AppCompatActivity {
 
         imgPreview =
                 findViewById(R.id.imgPreview);
+
+        txtImagePlaceholder =
+                findViewById(R.id.txtImagePlaceholder);
 
         btnSelectImage =
                 findViewById(R.id.btnSelectImage);
@@ -85,18 +102,33 @@ public class activity_multimodal extends AppCompatActivity {
 
 
         // ==========================================
-        // Select Image
+        // INITIAL IMAGE STATE
+        // ==========================================
+
+        imgPreview.setVisibility(
+                ImageView.VISIBLE
+        );
+
+        txtImagePlaceholder.setVisibility(
+                TextView.VISIBLE
+        );
+
+
+        // ==========================================
+        // SELECT IMAGE
         // ==========================================
 
         btnSelectImage.setOnClickListener(v -> {
 
-            imagePickerLauncher.launch("image/*");
+            imagePickerLauncher.launch(
+                    "image/*"
+            );
 
         });
 
 
         // ==========================================
-        // Analyze Multimodal
+        // ANALYZE MULTIMODAL
         // ==========================================
 
         btnAnalyze.setOnClickListener(v -> {
@@ -112,7 +144,12 @@ public class activity_multimodal extends AppCompatActivity {
                             .trim();
 
 
-            // At least text OR image
+            // ======================================
+            // VALIDATION
+            // ======================================
+
+            // Text OR Image required
+
             if (news.isEmpty()
                     && imageUri == null) {
 
@@ -127,8 +164,8 @@ public class activity_multimodal extends AppCompatActivity {
 
 
             // ======================================
-            // Dummy Result
-            // AI NOT CONNECTED YET
+            // DUMMY RESULT
+            // AI MODEL NOT CONNECTED YET
             // ======================================
 
             String resultType;
@@ -144,7 +181,7 @@ public class activity_multimodal extends AppCompatActivity {
 
 
             // ======================================
-            // Loading Screen
+            // OPEN LOADING SCREEN
             // ======================================
 
             Intent intent = new Intent(
@@ -168,20 +205,38 @@ public class activity_multimodal extends AppCompatActivity {
 
 
         // ==========================================
-        // Clear
+        // CLEAR
         // ==========================================
 
         btnClear.setOnClickListener(v -> {
 
+            // Clear text
             etTitle.setText("");
 
             etNews.setText("");
 
+
+            // Clear image
             imageUri = null;
 
-            imgPreview.setImageResource(
-                    R.drawable.logo
+            imgPreview.setImageDrawable(
+                    null
             );
+
+
+            // Keep image box visible
+            imgPreview.setVisibility(
+                    ImageView.VISIBLE
+            );
+
+
+            // Show placeholder
+            txtImagePlaceholder.setVisibility(
+                    TextView.VISIBLE
+            );
+
+
+            etTitle.requestFocus();
 
         });
 

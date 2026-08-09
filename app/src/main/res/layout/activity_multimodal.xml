@@ -23,6 +23,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="20dp"/>
 
+
         <!-- Description -->
 
         <TextView
@@ -35,6 +36,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="30dp"/>
 
+
         <!-- News Title -->
 
         <TextView
@@ -43,6 +45,7 @@
             android:text="News Title"
             android:textSize="17sp"
             android:textStyle="bold"/>
+
 
         <EditText
             android:id="@+id/etTitle"
@@ -53,6 +56,7 @@
             android:layout_marginTop="8dp"
             android:background="@android:drawable/edit_text"/>
 
+
         <!-- News Content -->
 
         <TextView
@@ -62,6 +66,7 @@
             android:textSize="17sp"
             android:textStyle="bold"
             android:layout_marginTop="20dp"/>
+
 
         <EditText
             android:id="@+id/etNews"
@@ -74,7 +79,8 @@
             android:layout_marginTop="8dp"
             android:background="@android:drawable/edit_text"/>
 
-        <!-- Image Preview -->
+
+        <!-- News Image -->
 
         <TextView
             android:layout_width="wrap_content"
@@ -84,15 +90,35 @@
             android:textStyle="bold"
             android:layout_marginTop="20dp"/>
 
-        <ImageView
-            android:id="@+id/imgPreview"
+
+        <!-- Simple Image Box -->
+
+        <FrameLayout
+            android:id="@+id/imageBox"
             android:layout_width="match_parent"
             android:layout_height="220dp"
             android:layout_marginTop="8dp"
-            android:src="@drawable/logo"
-            android:scaleType="centerInside"
-            android:background="#E8E8E8"
-            android:contentDescription="Selected news image"/>
+            android:background="#E8E8E8">
+
+            <ImageView
+                android:id="@+id/imgPreview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="8dp"
+                android:scaleType="centerInside"
+                android:contentDescription="Selected news image"/>
+
+            <TextView
+                android:id="@+id/txtImagePlaceholder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="No Image Selected"
+                android:textSize="16sp"
+                android:textColor="#777777"/>
+
+        </FrameLayout>
+
 
         <!-- Select Image -->
 
@@ -108,6 +134,7 @@
             android:backgroundTint="#173B91"
             android:textColor="#FFFFFF"/>
 
+
         <!-- Analyze -->
 
         <Button
@@ -121,6 +148,7 @@
             android:textStyle="bold"
             android:backgroundTint="#173B91"
             android:textColor="#FFFFFF"/>
+
 
         <!-- Clear -->
 
