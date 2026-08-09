@@ -1,9 +1,8 @@
 package com.example.factx;
 
-import android.net.Uri;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -15,47 +14,71 @@ import androidx.appcompat.app.AppCompatActivity;
 public class activity_image_analysis extends AppCompatActivity {
 
     ImageView imgPreview;
-    Button btnGallery, btnCamera, btnAnalyzeImage, btnClearImage;
 
-    Uri imageUri;
+    Button btnGallery;
+    Button btnCamera;
+    Button btnAnalyzeImage;
+    Button btnClearImage;
 
-    ActivityResultLauncher<Intent> imagePickerLauncher;
+    Uri imageUri = null;
+
+    // Modern Android Image Picker
+    private final ActivityResultLauncher<String> imagePickerLauncher =
+            registerForActivityResult(
+                    new ActivityResultContracts.GetContent(),
+                    uri -> {
+
+                        if (uri != null) {
+
+                            imageUri = uri;
+
+                            // Show selected image
+                            imgPreview.setImageURI(imageUri);
+
+                            Toast.makeText(
+                                    activity_image_analysis.this,
+                                    "Image selected successfully",
+                                    Toast.LENGTH_SHORT
+                            ).show();
+                        }
+                    }
+            );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_image_analysis);
 
+        // Find Views
         imgPreview = findViewById(R.id.imgPreview);
+
         btnGallery = findViewById(R.id.btnGallery);
-        btnAnalyzeImage = findViewById(R.id.btnAnalyzeImage);
-        btnClearImage = findViewById(R.id.btnClearImage);
+
         btnCamera = findViewById(R.id.btnCamera);
 
-        imagePickerLauncher =
-                registerForActivityResult(
-                        new ActivityResultContracts.StartActivityForResult(),
-                        result -> {
+        btnAnalyzeImage =
+                findViewById(R.id.btnAnalyzeImage);
 
-                            if(result.getResultCode() == RESULT_OK &&
-                                    result.getData()!=null){
+        btnClearImage =
+                findViewById(R.id.btnClearImage);
 
-                                imageUri = result.getData().getData();
 
-                                imgPreview.setImageURI(imageUri);
-                            }
-
-                        });
+        // ==========================================
+        // GALLERY
+        // ==========================================
 
         btnGallery.setOnClickListener(v -> {
 
-            Intent intent = new Intent(
-                    Intent.ACTION_PICK,
-                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
-            imagePickerLauncher.launch(intent);
+            // Open phone/emulator gallery
+            imagePickerLauncher.launch("image/*");
 
         });
+
+
+        // ==========================================
+        // CAMERA
+        // ==========================================
 
         btnCamera.setOnClickListener(v -> {
 
@@ -67,31 +90,60 @@ public class activity_image_analysis extends AppCompatActivity {
 
         });
 
+
+        // ==========================================
+        // ANALYZE IMAGE
+        // ==========================================
+
         btnAnalyzeImage.setOnClickListener(v -> {
 
-            if(imageUri == null){
+            if (imageUri == null) {
 
-                Toast.makeText(this,
+                Toast.makeText(
+                        activity_image_analysis.this,
                         "Please Select Image",
-                        Toast.LENGTH_SHORT).show();
+                        Toast.LENGTH_SHORT
+                ).show();
 
                 return;
             }
 
-            Toast.makeText(this,
-                    "Analyzing Image...",
-                    Toast.LENGTH_SHORT).show();
+            // Dummy result for now
+            String resultType = "fake";
+
+            Intent intent = new Intent(
+                    activity_image_analysis.this,
+                    activity_loading.class
+            );
+
+            intent.putExtra(
+                    "resultType",
+                    resultType
+            );
+
+            intent.putExtra(
+                    "analysis_type",
+                    "image"
+            );
+
+            startActivity(intent);
 
         });
 
+
+        // ==========================================
+        // CLEAR IMAGE
+        // ==========================================
+
         btnClearImage.setOnClickListener(v -> {
 
-            imgPreview.setImageResource(android.R.color.transparent);
-
             imageUri = null;
+
+            imgPreview.setImageResource(
+                    android.R.color.transparent
+            );
 
         });
 
     }
-
 }

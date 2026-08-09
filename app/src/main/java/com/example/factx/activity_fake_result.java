@@ -56,4 +56,5 @@ public class activity_fake_result extends AppCompatActivity {
         });
 
     }
+
 }
