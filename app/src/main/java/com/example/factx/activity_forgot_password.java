@@ -1,5 +1,6 @@
 package com.example.factx;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.widget.Button;
@@ -25,6 +26,7 @@ public class activity_forgot_password extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_forgot_password);
@@ -33,77 +35,145 @@ public class activity_forgot_password extends AppCompatActivity {
         btnSend = findViewById(R.id.btnSend);
         btnBack = findViewById(R.id.btnBack);
 
-        // Send Reset Link
+
+        // ==========================================
+        // SEND OTP
+        // ==========================================
+
         btnSend.setOnClickListener(v -> {
 
-            String email = etEmail.getText().toString().trim();
+            String email =
+                    etEmail.getText()
+                            .toString()
+                            .trim();
 
+
+            // Email empty
             if (email.isEmpty()) {
 
                 etEmail.setError("Enter Email");
                 etEmail.requestFocus();
+
                 return;
             }
 
-            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+
+            // Email validation
+            if (!Patterns.EMAIL_ADDRESS
+                    .matcher(email)
+                    .matches()) {
 
                 etEmail.setError("Enter Valid Email");
                 etEmail.requestFocus();
+
                 return;
             }
+
+
+            // Create request
 
             ForgotPasswordRequest request =
                     new ForgotPasswordRequest(email);
 
+
+            // API
+
             ApiService apiService =
-                    RetrofitClient.getClient()
+                    RetrofitClient
+                            .getClient()
                             .create(ApiService.class);
+
 
             Call<ForgotPasswordResponse> call =
                     apiService.forgotPassword(request);
 
-            call.enqueue(new Callback<ForgotPasswordResponse>() {
 
-                @Override
-                public void onResponse(
-                        Call<ForgotPasswordResponse> call,
-                        Response<ForgotPasswordResponse> response) {
+            call.enqueue(
+                    new Callback<ForgotPasswordResponse>() {
 
-                    if (response.isSuccessful()
-                            && response.body() != null) {
+                        @Override
+                        public void onResponse(
+                                Call<ForgotPasswordResponse> call,
+                                Response<ForgotPasswordResponse> response) {
 
-                        Toast.makeText(
-                                activity_forgot_password.this,
-                                response.body().getMessage(),
-                                Toast.LENGTH_LONG
-                        ).show();
+                            if (response.isSuccessful()
+                                    && response.body() != null) {
 
-                    } else {
+                                ForgotPasswordResponse result =
+                                        response.body();
 
-                        Toast.makeText(
-                                activity_forgot_password.this,
-                                "Invalid email address",
-                                Toast.LENGTH_LONG
-                        ).show();
+
+                                if (result.isSuccess()) {
+
+                                    Toast.makeText(
+                                            activity_forgot_password.this,
+                                            "OTP sent to your email",
+                                            Toast.LENGTH_LONG
+                                    ).show();
+
+
+                                    // ==================================
+                                    // OPEN OTP PAGE
+                                    // ==================================
+
+                                    Intent intent =
+                                            new Intent(
+                                                    activity_forgot_password.this,
+                                                    activity_reset_otp.class
+                                            );
+
+
+                                    // Send email
+
+                                    intent.putExtra(
+                                            "email",
+                                            email
+                                    );
+
+
+                                    startActivity(intent);
+
+                                    finish();
+
+                                } else {
+
+                                    Toast.makeText(
+                                            activity_forgot_password.this,
+                                            result.getMessage(),
+                                            Toast.LENGTH_LONG
+                                    ).show();
+                                }
+
+                            } else {
+
+                                Toast.makeText(
+                                        activity_forgot_password.this,
+                                        "Invalid email address",
+                                        Toast.LENGTH_LONG
+                                ).show();
+                            }
+                        }
+
+
+                        @Override
+                        public void onFailure(
+                                Call<ForgotPasswordResponse> call,
+                                Throwable t) {
+
+                            Toast.makeText(
+                                    activity_forgot_password.this,
+                                    "Connection failed: "
+                                            + t.getMessage(),
+                                    Toast.LENGTH_LONG
+                            ).show();
+                        }
                     }
-                }
-
-                @Override
-                public void onFailure(
-                        Call<ForgotPasswordResponse> call,
-                        Throwable t) {
-
-                    Toast.makeText(
-                            activity_forgot_password.this,
-                            "Connection failed: "
-                                    + t.getMessage(),
-                            Toast.LENGTH_LONG
-                    ).show();
-                }
-            });
+            );
         });
 
-        // Back to Login
+
+        // Back
+
         btnBack.setOnClickListener(v -> finish());
     }
 }

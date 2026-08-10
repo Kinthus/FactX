@@ -1,7 +1,6 @@
 package com.example.factx;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.factx.api.ApiService;
 import com.example.factx.api.RetrofitClient;
-import com.example.factx.model.ResetPasswordRequest;
 import com.example.factx.model.ResetPasswordResponse;
 
 import retrofit2.Call;
@@ -27,54 +25,120 @@ public class activity_reset_password extends AppCompatActivity {
     Button btnReset;
     TextView txtBackLogin;
 
-    String resetToken = null;
+    String email;
+    String otp;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_reset_password);
 
-        // Find views
-        etPassword = findViewById(R.id.etPassword);
-        etConfirmPassword = findViewById(R.id.etConfirmPassword);
 
-        btnReset = findViewById(R.id.btnReset);
-        txtBackLogin = findViewById(R.id.txtBackLogin);
+        // ==========================================
+        // FIND VIEWS
+        // ==========================================
 
-        // Get reset token from email link
-        getResetToken();
+        etPassword =
+                findViewById(R.id.etPassword);
 
-        // Reset password
+        etConfirmPassword =
+                findViewById(R.id.etConfirmPassword);
+
+        btnReset =
+                findViewById(R.id.btnReset);
+
+        txtBackLogin =
+                findViewById(R.id.txtBackLogin);
+
+
+        // ==========================================
+        // GET EMAIL AND OTP
+        // ==========================================
+
+        email =
+                getIntent().getStringExtra("email");
+
+        otp =
+                getIntent().getStringExtra("otp");
+
+
+        // ==========================================
+        // CHECK EMAIL
+        // ==========================================
+
+        if (email == null || email.isEmpty()) {
+
+            Toast.makeText(
+                    activity_reset_password.this,
+                    "Email not found. Please try again.",
+                    Toast.LENGTH_LONG
+            ).show();
+
+            finish();
+
+            return;
+        }
+
+
+        // ==========================================
+        // CHECK OTP
+        // ==========================================
+
+        if (otp == null || otp.isEmpty()) {
+
+            Toast.makeText(
+                    activity_reset_password.this,
+                    "OTP not found. Please try again.",
+                    Toast.LENGTH_LONG
+            ).show();
+
+            finish();
+
+            return;
+        }
+
+
+        // ==========================================
+        // RESET PASSWORD
+        // ==========================================
+
         btnReset.setOnClickListener(v -> {
 
             String password =
-                    etPassword.getText().toString().trim();
+                    etPassword.getText()
+                            .toString()
+                            .trim();
+
 
             String confirmPassword =
-                    etConfirmPassword.getText().toString().trim();
+                    etConfirmPassword.getText()
+                            .toString()
+                            .trim();
 
-            // Check token
-            if (resetToken == null || resetToken.isEmpty()) {
 
-                Toast.makeText(
-                        activity_reset_password.this,
-                        "Invalid or missing reset link.",
-                        Toast.LENGTH_LONG
-                ).show();
+            // ======================================
+            // PASSWORD EMPTY
+            // ======================================
 
-                return;
-            }
-
-            // Check password
             if (password.isEmpty()) {
 
-                etPassword.setError("Enter new password");
+                etPassword.setError(
+                        "Enter new password"
+                );
+
                 etPassword.requestFocus();
+
                 return;
             }
 
-            // Minimum 8 characters
+
+            // ======================================
+            // PASSWORD LENGTH
+            // ======================================
+
             if (password.length() < 8) {
 
                 etPassword.setError(
@@ -82,10 +146,15 @@ public class activity_reset_password extends AppCompatActivity {
                 );
 
                 etPassword.requestFocus();
+
                 return;
             }
 
-            // Check confirmation
+
+            // ======================================
+            // CONFIRM PASSWORD EMPTY
+            // ======================================
+
             if (confirmPassword.isEmpty()) {
 
                 etConfirmPassword.setError(
@@ -93,10 +162,15 @@ public class activity_reset_password extends AppCompatActivity {
                 );
 
                 etConfirmPassword.requestFocus();
+
                 return;
             }
 
-            // Password mismatch
+
+            // ======================================
+            // PASSWORD MATCH
+            // ======================================
+
             if (!password.equals(confirmPassword)) {
 
                 etConfirmPassword.setError(
@@ -104,24 +178,32 @@ public class activity_reset_password extends AppCompatActivity {
                 );
 
                 etConfirmPassword.requestFocus();
+
                 return;
             }
 
-            // Create request
-            ResetPasswordRequest request =
-                    new ResetPasswordRequest(
-                            resetToken,
-                            password
-                    );
 
-            // Retrofit
+            // ======================================
+            // API SERVICE
+            // ==========================================
+
             ApiService apiService =
                     RetrofitClient
                             .getClient()
                             .create(ApiService.class);
 
+
+            // ==========================================
+            // RESET PASSWORD API
+            // ==========================================
+
             Call<ResetPasswordResponse> call =
-                    apiService.resetPassword(request);
+                    apiService.resetPassword(
+                            email,
+                            otp,
+                            password
+                    );
+
 
             call.enqueue(
                     new Callback<ResetPasswordResponse>() {
@@ -137,25 +219,32 @@ public class activity_reset_password extends AppCompatActivity {
                                 ResetPasswordResponse result =
                                         response.body();
 
+
                                 Toast.makeText(
                                         activity_reset_password.this,
                                         result.getMessage(),
                                         Toast.LENGTH_LONG
                                 ).show();
 
+
+                                // ==================================
+                                // SUCCESS
+                                // ==================================
+
                                 if (result.isSuccess()) {
 
-                                    // Go to Login
                                     Intent intent =
                                             new Intent(
                                                     activity_reset_password.this,
                                                     activity_login.class
                                             );
 
-                                    intent.addFlags(
-                                            Intent.FLAG_ACTIVITY_CLEAR_TOP
-                                                    | Intent.FLAG_ACTIVITY_NEW_TASK
+
+                                    intent.setFlags(
+                                            Intent.FLAG_ACTIVITY_NEW_TASK
+                                                    | Intent.FLAG_ACTIVITY_CLEAR_TASK
                                     );
+
 
                                     startActivity(intent);
 
@@ -171,6 +260,7 @@ public class activity_reset_password extends AppCompatActivity {
                                 ).show();
                             }
                         }
+
 
                         @Override
                         public void onFailure(
@@ -188,7 +278,11 @@ public class activity_reset_password extends AppCompatActivity {
             );
         });
 
-        // Back to Login
+
+        // ==========================================
+        // BACK TO LOGIN
+        // ==========================================
+
         txtBackLogin.setOnClickListener(v -> {
 
             Intent intent =
@@ -201,39 +295,5 @@ public class activity_reset_password extends AppCompatActivity {
 
             finish();
         });
-    }
-
-
-    // =====================================================
-    // Get Reset Token
-    // =====================================================
-
-    private void getResetToken() {
-
-        Intent intent = getIntent();
-
-        Uri data = intent.getData();
-
-        if (data != null) {
-
-            resetToken = data.getQueryParameter("token");
-        }
-
-        // Also check Intent extra
-        if (resetToken == null || resetToken.isEmpty()) {
-
-            resetToken = intent.getStringExtra("token");
-        }
-
-        // Debug
-        android.util.Log.d(
-                "RESET_TOKEN",
-                "Intent Data = " + data
-        );
-
-        android.util.Log.d(
-                "RESET_TOKEN",
-                "Received Token = " + resetToken
-        );
     }
 }

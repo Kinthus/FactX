@@ -6,6 +6,8 @@ import com.example.factx.model.RegisterResponse;
 import com.example.factx.model.VerifyOTPRequest;
 import com.example.factx.model.VerifyOTPResponse;
 
+import retrofit2.http.Query;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -29,6 +31,9 @@ import com.example.factx.model.ResetPasswordResponse;
 
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+
+import com.example.factx.model.VerifyResetOTPRequest;
+import com.example.factx.model.VerifyResetOTPResponse;
 
 public interface ApiService {
 
@@ -56,9 +61,16 @@ public interface ApiService {
             @Body ForgotPasswordRequest request
     );
 
+    @POST("verify-reset-otp")
+    Call<VerifyResetOTPResponse> verifyResetOtp(
+            @Body VerifyResetOTPRequest request
+    );
+
     @POST("reset-password")
     Call<ResetPasswordResponse> resetPassword(
-            @Body ResetPasswordRequest request
+            @Query("email") String email,
+            @Query("otp") String otp,
+            @Query("new_password") String newPassword
     );
 
     @POST("report")
