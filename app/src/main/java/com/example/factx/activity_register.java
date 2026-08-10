@@ -46,16 +46,15 @@ public class activity_register extends AppCompatActivity {
                 String name = etName.getText().toString().trim();
                 String email = etEmail.getText().toString().trim();
                 String password = etPassword.getText().toString().trim();
-                String confirmPassword = etConfirmPassword.getText().toString().trim();
+                String confirmPassword =
+                        etConfirmPassword.getText().toString().trim();
 
-                // Name Validation
                 if (name.isEmpty()) {
                     etName.setError("Enter Full Name");
                     etName.requestFocus();
                     return;
                 }
 
-                // Email Validation
                 if (email.isEmpty()) {
                     etEmail.setError("Enter Email");
                     etEmail.requestFocus();
@@ -68,7 +67,6 @@ public class activity_register extends AppCompatActivity {
                     return;
                 }
 
-                // Password Validation
                 if (password.isEmpty()) {
                     etPassword.setError("Enter Password");
                     etPassword.requestFocus();
@@ -76,25 +74,29 @@ public class activity_register extends AppCompatActivity {
                 }
 
                 if (password.length() < 6) {
-                    etPassword.setError("Password must be at least 6 characters");
+                    etPassword.setError(
+                            "Password must be at least 6 characters"
+                    );
                     etPassword.requestFocus();
                     return;
                 }
 
-                // Confirm Password
                 if (confirmPassword.isEmpty()) {
-                    etConfirmPassword.setError("Confirm Password");
+                    etConfirmPassword.setError(
+                            "Confirm Password"
+                    );
                     etConfirmPassword.requestFocus();
                     return;
                 }
 
                 if (!password.equals(confirmPassword)) {
-                    etConfirmPassword.setError("Password does not match");
+                    etConfirmPassword.setError(
+                            "Password does not match"
+                    );
                     etConfirmPassword.requestFocus();
                     return;
                 }
 
-                // Call Register API
                 registerUser(name, email, password);
             }
         });
@@ -103,41 +105,62 @@ public class activity_register extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(activity_register.this, activity_login.class);
+                Intent intent = new Intent(
+                        activity_register.this,
+                        activity_login.class
+                );
+
                 startActivity(intent);
                 finish();
-
             }
         });
     }
 
-    private void registerUser(String fullname, String email, String password) {
+    private void registerUser(
+            String fullname,
+            String email,
+            String password
+    ) {
 
         ApiService apiService =
                 RetrofitClient.getClient().create(ApiService.class);
 
         RegisterRequest request =
-                new RegisterRequest(fullname, email, password);
+                new RegisterRequest(
+                        fullname,
+                        email,
+                        password
+                );
 
         Call<RegisterResponse> call =
                 apiService.registerUser(request);
 
         call.enqueue(new Callback<RegisterResponse>() {
+
             @Override
-            public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
+            public void onResponse(
+                    Call<RegisterResponse> call,
+                    Response<RegisterResponse> response
+            ) {
 
-                if (response.isSuccessful() && response.body() != null) {
+                if (response.isSuccessful()
+                        && response.body() != null) {
 
-                    RegisterResponse result = response.body();
+                    RegisterResponse result =
+                            response.body();
 
-                    Toast.makeText(activity_register.this,
+                    Toast.makeText(
+                            activity_register.this,
                             result.getMessage(),
-                            Toast.LENGTH_LONG).show();
+                            Toast.LENGTH_LONG
+                    ).show();
 
                     if (result.isSuccess()) {
 
-                        Intent intent = new Intent(activity_register.this,
-                                activity_verify_otp.class);
+                        Intent intent = new Intent(
+                                activity_register.this,
+                                activity_verify_otp.class
+                        );
 
                         startActivity(intent);
                         finish();
@@ -145,20 +168,25 @@ public class activity_register extends AppCompatActivity {
 
                 } else {
 
-                    Toast.makeText(activity_register.this,
+                    Toast.makeText(
+                            activity_register.this,
                             "Registration Failed",
-                            Toast.LENGTH_LONG).show();
-
+                            Toast.LENGTH_LONG
+                    ).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<RegisterResponse> call, Throwable t) {
+            public void onFailure(
+                    Call<RegisterResponse> call,
+                    Throwable t
+            ) {
 
-                Toast.makeText(activity_register.this,
+                Toast.makeText(
+                        activity_register.this,
                         "Connection Error : " + t.getMessage(),
-                        Toast.LENGTH_LONG).show();
-
+                        Toast.LENGTH_LONG
+                ).show();
             }
         });
     }

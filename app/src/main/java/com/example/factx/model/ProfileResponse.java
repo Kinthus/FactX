@@ -2,14 +2,14 @@ package com.example.factx.model;
 
 public class ProfileResponse {
 
-    private String getFullname;
+    private String fullname;
     private String email;
     private String phone;
     private String dob;
     private String gender;
 
     public String getFullname() {
-        return getFullname;
+        return fullname;
     }
 
     public String getEmail() {
