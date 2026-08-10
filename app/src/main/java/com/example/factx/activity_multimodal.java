@@ -27,7 +27,6 @@ public class activity_multimodal extends AppCompatActivity {
 
     Uri imageUri = null;
 
-
     // ==========================================
     // IMAGE PICKER
     // ==========================================
@@ -45,15 +44,11 @@ public class activity_multimodal extends AppCompatActivity {
                             // Show selected image
                             imgPreview.setImageURI(imageUri);
 
-                            // Show ImageView
-                            imgPreview.setVisibility(
-                                    ImageView.VISIBLE
-                            );
+                            // Show image
+                            imgPreview.setVisibility(ImageView.VISIBLE);
 
-                            // Hide "No Image Selected"
-                            txtImagePlaceholder.setVisibility(
-                                    TextView.GONE
-                            );
+                            // Hide placeholder
+                            txtImagePlaceholder.setVisibility(TextView.GONE);
 
                             Toast.makeText(
                                     activity_multimodal.this,
@@ -65,28 +60,27 @@ public class activity_multimodal extends AppCompatActivity {
             );
 
 
+    // ==========================================
+    // ON CREATE
+    // ==========================================
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
-        setContentView(
-                R.layout.activity_multimodal
-        );
+        setContentView(R.layout.activity_multimodal);
 
 
         // ==========================================
         // FIND VIEWS
         // ==========================================
 
-        etTitle =
-                findViewById(R.id.etTitle);
+        etTitle = findViewById(R.id.etTitle);
 
-        etNews =
-                findViewById(R.id.etNews);
+        etNews = findViewById(R.id.etNews);
 
-        imgPreview =
-                findViewById(R.id.imgPreview);
+        imgPreview = findViewById(R.id.imgPreview);
 
         txtImagePlaceholder =
                 findViewById(R.id.txtImagePlaceholder);
@@ -105,13 +99,11 @@ public class activity_multimodal extends AppCompatActivity {
         // INITIAL IMAGE STATE
         // ==========================================
 
-        imgPreview.setVisibility(
-                ImageView.VISIBLE
-        );
+        imageUri = null;
 
-        txtImagePlaceholder.setVisibility(
-                TextView.VISIBLE
-        );
+        imgPreview.setVisibility(ImageView.VISIBLE);
+
+        txtImagePlaceholder.setVisibility(TextView.VISIBLE);
 
 
         // ==========================================
@@ -120,15 +112,13 @@ public class activity_multimodal extends AppCompatActivity {
 
         btnSelectImage.setOnClickListener(v -> {
 
-            imagePickerLauncher.launch(
-                    "image/*"
-            );
+            imagePickerLauncher.launch("image/*");
 
         });
 
 
         // ==========================================
-        // ANALYZE MULTIMODAL
+        // ANALYZE BUTTON
         // ==========================================
 
         btnAnalyze.setOnClickListener(v -> {
@@ -145,17 +135,14 @@ public class activity_multimodal extends AppCompatActivity {
 
 
             // ======================================
-            // VALIDATION
+            // IMAGE IS REQUIRED
             // ======================================
 
-            // Text OR Image required
-
-            if (news.isEmpty()
-                    && imageUri == null) {
+            if (imageUri == null) {
 
                 Toast.makeText(
                         activity_multimodal.this,
-                        "Please enter News Content or select an Image",
+                        "Please select an image before analyzing",
                         Toast.LENGTH_LONG
                 ).show();
 
@@ -164,8 +151,18 @@ public class activity_multimodal extends AppCompatActivity {
 
 
             // ======================================
+            // IMAGE EXISTS
+            // ======================================
+
+            Toast.makeText(
+                    activity_multimodal.this,
+                    "Image selected. Starting analysis...",
+                    Toast.LENGTH_SHORT
+            ).show();
+
+
+            // ======================================
             // DUMMY RESULT
-            // AI MODEL NOT CONNECTED YET
             // ======================================
 
             String resultType;
@@ -199,43 +196,54 @@ public class activity_multimodal extends AppCompatActivity {
                     "multimodal"
             );
 
+            // Send selected image URI
+            intent.putExtra(
+                    "imageUri",
+                    imageUri.toString()
+            );
+
+            // Send title
+            intent.putExtra(
+                    "title",
+                    title
+            );
+
+            // Send news content
+            intent.putExtra(
+                    "news",
+                    news
+            );
+
             startActivity(intent);
 
         });
 
 
         // ==========================================
-        // CLEAR
+        // CLEAR BUTTON
         // ==========================================
 
         btnClear.setOnClickListener(v -> {
 
-            // Clear text
+            // Clear title
             etTitle.setText("");
 
+            // Clear news
             etNews.setText("");
 
-
-            // Clear image
+            // Remove image URI
             imageUri = null;
 
-            imgPreview.setImageDrawable(
-                    null
-            );
-
+            // Remove displayed image
+            imgPreview.setImageDrawable(null);
 
             // Keep image box visible
-            imgPreview.setVisibility(
-                    ImageView.VISIBLE
-            );
-
+            imgPreview.setVisibility(ImageView.VISIBLE);
 
             // Show placeholder
-            txtImagePlaceholder.setVisibility(
-                    TextView.VISIBLE
-            );
+            txtImagePlaceholder.setVisibility(TextView.VISIBLE);
 
-
+            // Focus title
             etTitle.requestFocus();
 
         });
