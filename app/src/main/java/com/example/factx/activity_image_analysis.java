@@ -2,6 +2,7 @@ package com.example.factx;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -17,6 +18,10 @@ import androidx.core.content.ContextCompat;
 
 public class activity_image_analysis extends AppCompatActivity {
 
+    // ==========================================
+    // VIEWS
+    // ==========================================
+
     ImageView imgPreview;
 
     Button btnGallery;
@@ -24,11 +29,20 @@ public class activity_image_analysis extends AppCompatActivity {
     Button btnAnalyzeImage;
     Button btnClearImage;
 
+
+    // ==========================================
+    // IMAGE DATA
+    // ==========================================
+
     Uri imageUri = null;
+
+    Bitmap cameraBitmap = null;
+
+    boolean imageSelected = false;
 
 
     // ==========================================
-    // Gallery Picker
+    // GALLERY PICKER
     // ==========================================
 
     private final ActivityResultLauncher<String> galleryLauncher =
@@ -39,6 +53,10 @@ public class activity_image_analysis extends AppCompatActivity {
                         if (uri != null) {
 
                             imageUri = uri;
+
+                            cameraBitmap = null;
+
+                            imageSelected = true;
 
                             imgPreview.setImageURI(imageUri);
 
@@ -52,7 +70,9 @@ public class activity_image_analysis extends AppCompatActivity {
             );
 
 
-
+    // ==========================================
+    // CAMERA
+    // ==========================================
 
     private final ActivityResultLauncher<Intent> cameraLauncher =
             registerForActivityResult(
@@ -62,30 +82,42 @@ public class activity_image_analysis extends AppCompatActivity {
                         if (result.getResultCode() == RESULT_OK
                                 && result.getData() != null) {
 
-                            // Camera thumbnail
-                            android.graphics.Bitmap bitmap =
-                                    (android.graphics.Bitmap)
-                                            result.getData()
-                                                    .getExtras()
-                                                    .get("data");
+                            Intent data = result.getData();
 
-                            if (bitmap != null) {
+                            if (data.getExtras() != null) {
 
-                                imgPreview.setImageBitmap(bitmap);
+                                Bitmap bitmap =
+                                        (Bitmap) data
+                                                .getExtras()
+                                                .get("data");
 
-                                // We use bitmap as selected image
-                                imageUri = null;
+                                if (bitmap != null) {
 
-                                Toast.makeText(
-                                        activity_image_analysis.this,
-                                        "Photo captured successfully",
-                                        Toast.LENGTH_SHORT
-                                ).show();
+                                    cameraBitmap = bitmap;
+
+                                    imageUri = null;
+
+                                    imageSelected = true;
+
+                                    imgPreview.setImageBitmap(
+                                            cameraBitmap
+                                    );
+
+                                    Toast.makeText(
+                                            activity_image_analysis.this,
+                                            "Photo captured successfully",
+                                            Toast.LENGTH_SHORT
+                                    ).show();
+                                }
                             }
                         }
                     }
             );
 
+
+    // ==========================================
+    // ON CREATE
+    // ==========================================
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +129,9 @@ public class activity_image_analysis extends AppCompatActivity {
         );
 
 
-
+        // ==========================================
+        // FIND VIEWS
+        // ==========================================
 
         imgPreview =
                 findViewById(R.id.imgPreview);
@@ -115,7 +149,9 @@ public class activity_image_analysis extends AppCompatActivity {
                 findViewById(R.id.btnClearImage);
 
 
-
+        // ==========================================
+        // GALLERY BUTTON
+        // ==========================================
 
         btnGallery.setOnClickListener(v -> {
 
@@ -124,7 +160,9 @@ public class activity_image_analysis extends AppCompatActivity {
         });
 
 
-
+        // ==========================================
+        // CAMERA BUTTON
+        // ==========================================
 
         btnCamera.setOnClickListener(v -> {
 
@@ -149,16 +187,21 @@ public class activity_image_analysis extends AppCompatActivity {
         });
 
 
-
+        // ==========================================
+        // ANALYZE IMAGE BUTTON
+        // ==========================================
 
         btnAnalyzeImage.setOnClickListener(v -> {
 
-            if (imageUri == null
-                    && imgPreview.getDrawable() == null) {
+            // --------------------------------------
+            // CHECK IMAGE SELECTED
+            // --------------------------------------
+
+            if (!imageSelected) {
 
                 Toast.makeText(
                         activity_image_analysis.this,
-                        "Please select or capture an image",
+                        "Please select or capture an image first.",
                         Toast.LENGTH_LONG
                 ).show();
 
@@ -166,43 +209,109 @@ public class activity_image_analysis extends AppCompatActivity {
             }
 
 
-            // Dummy result
+            // --------------------------------------
+            // IMAGE EXISTS
+            // --------------------------------------
+
+            Toast.makeText(
+                    activity_image_analysis.this,
+                    "Analyzing image...",
+                    Toast.LENGTH_SHORT
+            ).show();
+
+
+            // --------------------------------------
+            // TEMPORARY RESULT
+            // --------------------------------------
+            //
+            // NOTE:
+            // This is your existing dummy result logic.
+            // Later this can be replaced with your
+            // trained CNN/MobileNetV2 API.
+            // --------------------------------------
+
             String resultType;
 
             if (System.currentTimeMillis() % 2 == 0) {
+
                 resultType = "real";
+
             } else {
+
                 resultType = "fake";
             }
 
-            Intent intent = new Intent(
-                    activity_image_analysis.this,
-                    activity_loading.class
-            );
+
+            // --------------------------------------
+            // OPEN LOADING PAGE
+            // --------------------------------------
+
+            Intent intent =
+                    new Intent(
+                            activity_image_analysis.this,
+                            activity_loading.class
+                    );
+
 
             intent.putExtra(
                     "resultType",
                     resultType
             );
 
+
             intent.putExtra(
                     "analysis_type",
                     "image"
             );
+
+
+            // Send gallery image URI if available
+
+            if (imageUri != null) {
+
+                intent.putExtra(
+                        "imageUri",
+                        imageUri.toString()
+                );
+            }
+
 
             startActivity(intent);
 
         });
 
 
+        // ==========================================
+        // CLEAR IMAGE
+        // ==========================================
 
         btnClearImage.setOnClickListener(v -> {
 
+            // Clear URI
+
             imageUri = null;
 
-            imgPreview.setImageResource(
-                    android.R.color.transparent
-            );
+
+            // Clear camera bitmap
+
+            cameraBitmap = null;
+
+
+            // Mark image as not selected
+
+            imageSelected = false;
+
+
+            // Clear preview
+
+            imgPreview.setImageDrawable(null);
+
+
+            Toast.makeText(
+                    activity_image_analysis.this,
+                    "Image cleared",
+                    Toast.LENGTH_SHORT
+            ).show();
 
         });
 
@@ -210,14 +319,16 @@ public class activity_image_analysis extends AppCompatActivity {
 
 
     // ==========================================
-    // Open Camera
+    // OPEN CAMERA
     // ==========================================
 
     private void openCamera() {
 
-        Intent intent = new Intent(
-                MediaStore.ACTION_IMAGE_CAPTURE
-        );
+        Intent intent =
+                new Intent(
+                        MediaStore.ACTION_IMAGE_CAPTURE
+                );
+
 
         if (intent.resolveActivity(
                 getPackageManager()

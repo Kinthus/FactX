@@ -2,18 +2,26 @@ package com.example.factx.model;
 
 public class ReportRequest {
 
+    private String name;
     private String email;
     private String subject;
-    private String description;
+    private String message;
 
     public ReportRequest(
+            String name,
             String email,
             String subject,
-            String description
+            String message
     ) {
+
+        this.name = name;
         this.email = email;
         this.subject = subject;
-        this.description = description;
+        this.message = message;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public String getEmail() {
@@ -24,7 +32,7 @@ public class ReportRequest {
         return subject;
     }
 
-    public String getDescription() {
-        return description;
+    public String getMessage() {
+        return message;
     }
 }

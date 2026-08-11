@@ -139,6 +139,7 @@ public class activity_report_problem extends AppCompatActivity {
 
             ReportRequest request =
                     new ReportRequest(
+                            name,
                             email,
                             subject,
                             message
