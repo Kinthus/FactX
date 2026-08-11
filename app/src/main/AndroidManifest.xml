@@ -52,6 +52,7 @@
         </activity>
         <activity android:name=".activity_forgot_password" />
         <activity android:name=".activity_verify_otp"/>
+        <activity android:name=".activity_reset_otp"/>
         <activity android:name=".activity_profile"/>
         <activity android:name=".activity_news_type"/>
         <activity android:name=".activity_text_analysis"/>
@@ -62,6 +63,7 @@
         <activity android:name=".activity_fake_result"/>
         <activity android:name=".activity_report_problem"/>
         <activity android:name=".activity_logout"/>
+
 
 
     </application>

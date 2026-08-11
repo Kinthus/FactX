@@ -20,25 +20,46 @@ import retrofit2.Response;
 
 public class activity_forgot_password extends AppCompatActivity {
 
+    // =====================================================
+    // Views
+    // =====================================================
+
     EditText etEmail;
+
     Button btnSend;
     Button btnBack;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_forgot_password);
-
-        etEmail = findViewById(R.id.etEmail);
-        btnSend = findViewById(R.id.btnSend);
-        btnBack = findViewById(R.id.btnBack);
+        setContentView(
+                R.layout.activity_forgot_password
+        );
 
 
-        // ==========================================
-        // SEND OTP
-        // ==========================================
+        // =================================================
+        // Find Views
+        // =================================================
+
+        etEmail = findViewById(
+                R.id.etEmail
+        );
+
+        btnSend = findViewById(
+                R.id.btnSend
+        );
+
+        btnBack = findViewById(
+                R.id.btnBack
+        );
+
+
+        // =================================================
+        // SEND OTP BUTTON
+        // =================================================
 
         btnSend.setOnClickListener(v -> {
 
@@ -48,35 +69,56 @@ public class activity_forgot_password extends AppCompatActivity {
                             .trim();
 
 
-            // Email empty
+            // =============================================
+            // Validate Email
+            // =============================================
+
             if (email.isEmpty()) {
 
-                etEmail.setError("Enter Email");
+                etEmail.setError(
+                        "Enter Email"
+                );
+
                 etEmail.requestFocus();
 
                 return;
             }
 
 
-            // Email validation
             if (!Patterns.EMAIL_ADDRESS
                     .matcher(email)
                     .matches()) {
 
-                etEmail.setError("Enter Valid Email");
+                etEmail.setError(
+                        "Enter Valid Email"
+                );
+
                 etEmail.requestFocus();
 
                 return;
             }
 
 
-            // Create request
+            // =============================================
+            // Disable button while sending
+            // =============================================
+
+            btnSend.setEnabled(false);
+
+
+            // =============================================
+            // Create Request
+            // =============================================
 
             ForgotPasswordRequest request =
-                    new ForgotPasswordRequest(email);
+                    new ForgotPasswordRequest(
+                            email
+                    );
 
 
-            // API
+            // =============================================
+            // Retrofit API
+            // =============================================
 
             ApiService apiService =
                     RetrofitClient
@@ -85,8 +127,14 @@ public class activity_forgot_password extends AppCompatActivity {
 
 
             Call<ForgotPasswordResponse> call =
-                    apiService.forgotPassword(request);
+                    apiService.forgotPassword(
+                            request
+                    );
 
+
+            // =============================================
+            // API Call
+            // =============================================
 
             call.enqueue(
                     new Callback<ForgotPasswordResponse>() {
@@ -94,14 +142,28 @@ public class activity_forgot_password extends AppCompatActivity {
                         @Override
                         public void onResponse(
                                 Call<ForgotPasswordResponse> call,
-                                Response<ForgotPasswordResponse> response) {
+                                Response<ForgotPasswordResponse> response
+                        ) {
+
+                            // Enable button again
+                            btnSend.setEnabled(true);
+
+
+                            // =================================
+                            // Successful Response
+                            // =================================
 
                             if (response.isSuccessful()
                                     && response.body() != null) {
 
+
                                 ForgotPasswordResponse result =
                                         response.body();
 
+
+                                // =================================
+                                // OTP Successfully Sent
+                                // =================================
 
                                 if (result.isSuccess()) {
 
@@ -112,9 +174,9 @@ public class activity_forgot_password extends AppCompatActivity {
                                     ).show();
 
 
-                                    // ==================================
-                                    // OPEN OTP PAGE
-                                    // ==================================
+                                    // =================================
+                                    // Open OTP Page
+                                    // =================================
 
                                     Intent intent =
                                             new Intent(
@@ -123,7 +185,7 @@ public class activity_forgot_password extends AppCompatActivity {
                                             );
 
 
-                                    // Send email
+                                    // Send email to OTP page
 
                                     intent.putExtra(
                                             "email",
@@ -133,9 +195,17 @@ public class activity_forgot_password extends AppCompatActivity {
 
                                     startActivity(intent);
 
+
+                                    // Close Forgot Password page
+
                                     finish();
 
+
                                 } else {
+
+                                    // =================================
+                                    // Backend returned failure
+                                    // =================================
 
                                     Toast.makeText(
                                             activity_forgot_password.this,
@@ -144,11 +214,16 @@ public class activity_forgot_password extends AppCompatActivity {
                                     ).show();
                                 }
 
+
                             } else {
+
+                                // =================================
+                                // Server Response Error
+                                // =================================
 
                                 Toast.makeText(
                                         activity_forgot_password.this,
-                                        "Invalid email address",
+                                        "Unable to send OTP. Please try again.",
                                         Toast.LENGTH_LONG
                                 ).show();
                             }
@@ -158,7 +233,17 @@ public class activity_forgot_password extends AppCompatActivity {
                         @Override
                         public void onFailure(
                                 Call<ForgotPasswordResponse> call,
-                                Throwable t) {
+                                Throwable t
+                        ) {
+
+                            // Enable button again
+
+                            btnSend.setEnabled(true);
+
+
+                            // =================================
+                            // Connection Error
+                            // =================================
 
                             Toast.makeText(
                                     activity_forgot_password.this,
@@ -172,8 +257,14 @@ public class activity_forgot_password extends AppCompatActivity {
         });
 
 
-        // Back
+        // =====================================================
+        // BACK BUTTON
+        // =====================================================
 
-        btnBack.setOnClickListener(v -> finish());
+        btnBack.setOnClickListener(v -> {
+
+            finish();
+
+        });
     }
 }

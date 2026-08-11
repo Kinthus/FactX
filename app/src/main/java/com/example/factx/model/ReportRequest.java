@@ -11,7 +11,6 @@ public class ReportRequest {
             String subject,
             String description
     ) {
-
         this.email = email;
         this.subject = subject;
         this.description = description;

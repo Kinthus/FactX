@@ -33,19 +33,27 @@ public class activity_reset_otp extends AppCompatActivity {
 
         setContentView(R.layout.activity_reset_otp);
 
+        // =====================================================
+        // FIND VIEWS
+        // =====================================================
+
         etOtp = findViewById(R.id.etOtp);
 
         btnVerify = findViewById(R.id.btnVerify);
 
-        txtBackLogin =
-                findViewById(R.id.txtBackLogin);
+        txtBackLogin = findViewById(R.id.txtBackLogin);
 
 
-        // Get email from Forgot Password page
+        // =====================================================
+        // GET EMAIL
+        // =====================================================
 
-        email =
-                getIntent().getStringExtra("email");
+        email = getIntent().getStringExtra("email");
 
+
+        // =====================================================
+        // CHECK EMAIL
+        // =====================================================
 
         if (email == null || email.isEmpty()) {
 
@@ -61,13 +69,11 @@ public class activity_reset_otp extends AppCompatActivity {
         }
 
 
-        // ==========================================
+        // =====================================================
         // VERIFY OTP
-        // ==========================================
+        // =====================================================
 
         btnVerify.setOnClickListener(v -> {
-
-            // OTP MUST BE DECLARED HERE
 
             String otp =
                     etOtp.getText()
@@ -75,9 +81,9 @@ public class activity_reset_otp extends AppCompatActivity {
                             .trim();
 
 
-            // ======================================
+            // =================================================
             // OTP EMPTY
-            // ======================================
+            // =================================================
 
             if (otp.isEmpty()) {
 
@@ -89,9 +95,9 @@ public class activity_reset_otp extends AppCompatActivity {
             }
 
 
-            // ======================================
+            // =================================================
             // OTP LENGTH
-            // ======================================
+            // =================================================
 
             if (otp.length() != 6) {
 
@@ -105,9 +111,16 @@ public class activity_reset_otp extends AppCompatActivity {
             }
 
 
-            // ======================================
+            // =================================================
+            // DISABLE BUTTON
+            // =================================================
+
+            btnVerify.setEnabled(false);
+
+
+            // =================================================
             // CREATE REQUEST
-            // ======================================
+            // =================================================
 
             VerifyResetOTPRequest request =
                     new VerifyResetOTPRequest(
@@ -116,9 +129,9 @@ public class activity_reset_otp extends AppCompatActivity {
                     );
 
 
-            // ======================================
-            // API SERVICE
-            // ======================================
+            // =================================================
+            // CREATE API SERVICE
+            // =================================================
 
             ApiService apiService =
                     RetrofitClient
@@ -126,9 +139,19 @@ public class activity_reset_otp extends AppCompatActivity {
                             .create(ApiService.class);
 
 
-            Call<VerifyResetOTPResponse> call =
-                    apiService.verifyResetOtp(request);
+            // =================================================
+            // VERIFY RESET OTP
+            // =================================================
 
+            Call<VerifyResetOTPResponse> call =
+                    apiService.verifyResetOtp(
+                            request
+                    );
+
+
+            // =================================================
+            // API RESPONSE
+            // =================================================
 
             call.enqueue(
                     new Callback<VerifyResetOTPResponse>() {
@@ -136,7 +159,11 @@ public class activity_reset_otp extends AppCompatActivity {
                         @Override
                         public void onResponse(
                                 Call<VerifyResetOTPResponse> call,
-                                Response<VerifyResetOTPResponse> response) {
+                                Response<VerifyResetOTPResponse> response
+                        ) {
+
+                            btnVerify.setEnabled(true);
+
 
                             if (response.isSuccessful()
                                     && response.body() != null) {
@@ -152,9 +179,9 @@ public class activity_reset_otp extends AppCompatActivity {
                                 ).show();
 
 
-                                // ==================================
-                                // OTP CORRECT
-                                // ==================================
+                                // =================================
+                                // OTP VERIFIED
+                                // =================================
 
                                 if (result.isSuccess()) {
 
@@ -165,16 +192,14 @@ public class activity_reset_otp extends AppCompatActivity {
                                             );
 
 
-                                    // Send EMAIL
-
+                                    // Send email
                                     intent.putExtra(
                                             "email",
                                             email
                                     );
 
 
-                                    // Send VERIFIED OTP
-
+                                    // Send OTP
                                     intent.putExtra(
                                             "otp",
                                             otp
@@ -186,11 +211,13 @@ public class activity_reset_otp extends AppCompatActivity {
                                     finish();
                                 }
 
+
                             } else {
 
                                 Toast.makeText(
                                         activity_reset_otp.this,
-                                        "OTP verification failed.",
+                                        "OTP verification failed. Server Error: "
+                                                + response.code(),
                                         Toast.LENGTH_LONG
                                 ).show();
                             }
@@ -200,11 +227,15 @@ public class activity_reset_otp extends AppCompatActivity {
                         @Override
                         public void onFailure(
                                 Call<VerifyResetOTPResponse> call,
-                                Throwable t) {
+                                Throwable t
+                        ) {
+
+                            btnVerify.setEnabled(true);
+
 
                             Toast.makeText(
                                     activity_reset_otp.this,
-                                    "Connection error: "
+                                    "Connection failed: "
                                             + t.getMessage(),
                                     Toast.LENGTH_LONG
                             ).show();
@@ -214,9 +245,9 @@ public class activity_reset_otp extends AppCompatActivity {
         });
 
 
-        // ==========================================
+        // =====================================================
         // BACK TO LOGIN
-        // ==========================================
+        // =====================================================
 
         txtBackLogin.setOnClickListener(v -> {
 

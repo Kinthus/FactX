@@ -18,80 +18,124 @@ import retrofit2.Response;
 
 public class activity_report_problem extends AppCompatActivity {
 
-    EditText etName, etEmail, etSubject, etMessage;
+    EditText etName;
+    EditText etEmail;
+    EditText etSubject;
+    EditText etMessage;
 
-    Button btnSubmit, btnCancel;
+    Button btnSubmit;
+    Button btnCancel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_report_problem);
+        setContentView(
+                R.layout.activity_report_problem
+        );
+
+
+        // =====================================================
+        // FIND VIEWS
+        // =====================================================
 
         etName = findViewById(R.id.etName);
+
         etEmail = findViewById(R.id.etEmail);
+
         etSubject = findViewById(R.id.etSubject);
+
         etMessage = findViewById(R.id.etMessage);
 
         btnSubmit = findViewById(R.id.btnSubmit);
+
         btnCancel = findViewById(R.id.btnCancel);
 
 
-        // ==========================================
+        // =====================================================
         // SUBMIT REPORT
-        // ==========================================
+        // =====================================================
 
         btnSubmit.setOnClickListener(v -> {
 
             String name =
-                    etName.getText().toString().trim();
+                    etName.getText()
+                            .toString()
+                            .trim();
 
             String email =
-                    etEmail.getText().toString().trim();
+                    etEmail.getText()
+                            .toString()
+                            .trim();
 
             String subject =
-                    etSubject.getText().toString().trim();
+                    etSubject.getText()
+                            .toString()
+                            .trim();
 
             String message =
-                    etMessage.getText().toString().trim();
+                    etMessage.getText()
+                            .toString()
+                            .trim();
 
 
-            // ======================================
+            // =================================================
             // VALIDATION
-            // ======================================
+            // =================================================
 
             if (name.isEmpty()) {
 
-                etName.setError("Enter Name");
+                etName.setError(
+                        "Enter Name"
+                );
+
                 etName.requestFocus();
+
                 return;
             }
+
 
             if (email.isEmpty()) {
 
-                etEmail.setError("Enter Email");
+                etEmail.setError(
+                        "Enter Email"
+                );
+
                 etEmail.requestFocus();
+
                 return;
             }
+
 
             if (subject.isEmpty()) {
 
-                etSubject.setError("Enter Subject");
+                etSubject.setError(
+                        "Enter Subject"
+                );
+
                 etSubject.requestFocus();
+
                 return;
             }
+
 
             if (message.isEmpty()) {
 
-                etMessage.setError("Enter Message");
+                etMessage.setError(
+                        "Enter Message"
+                );
+
                 etMessage.requestFocus();
+
                 return;
             }
 
 
-            // ======================================
-            // CREATE REPORT REQUEST
-            // ======================================
+            // =================================================
+            // CREATE REQUEST
+            // =================================================
 
             ReportRequest request =
                     new ReportRequest(
@@ -101,9 +145,9 @@ public class activity_report_problem extends AppCompatActivity {
                     );
 
 
-            // ======================================
-            // API SERVICE
-            // ======================================
+            // =================================================
+            // RETROFIT API
+            // =================================================
 
             ApiService apiService =
                     RetrofitClient
@@ -111,86 +155,98 @@ public class activity_report_problem extends AppCompatActivity {
                             .create(ApiService.class);
 
 
-            // ======================================
-            // SEND TO BACKEND
-            // ======================================
+            // =================================================
+            // SUBMIT REPORT
+            // =================================================
 
             Call<ReportResponse> call =
-                    apiService.submitReport(request);
+                    apiService.submitReport(
+                            request
+                    );
 
 
-            call.enqueue(new Callback<ReportResponse>() {
+            // =================================================
+            // API RESPONSE
+            // =================================================
 
-                @Override
-                public void onResponse(
-                        Call<ReportResponse> call,
-                        Response<ReportResponse> response) {
+            call.enqueue(
+                    new Callback<ReportResponse>() {
+
+                        @Override
+                        public void onResponse(
+                                Call<ReportResponse> call,
+                                Response<ReportResponse> response
+                        ) {
+
+                            if (response.isSuccessful()
+                                    && response.body() != null) {
+
+                                ReportResponse result =
+                                        response.body();
 
 
-                    if (response.isSuccessful()
-                            && response.body() != null) {
+                                if (result.isSuccess()) {
 
-                        ReportResponse result =
-                                response.body();
+                                    Toast.makeText(
+                                            activity_report_problem.this,
+                                            result.getMessage(),
+                                            Toast.LENGTH_SHORT
+                                    ).show();
 
 
-                        if (result.isSuccess()) {
+                                    // Close report page
+                                    finish();
+
+
+                                } else {
+
+                                    Toast.makeText(
+                                            activity_report_problem.this,
+                                            result.getMessage(),
+                                            Toast.LENGTH_LONG
+                                    ).show();
+                                }
+
+
+                            } else {
+
+                                Toast.makeText(
+                                        activity_report_problem.this,
+                                        "Server Error: "
+                                                + response.code(),
+                                        Toast.LENGTH_LONG
+                                ).show();
+                            }
+                        }
+
+
+                        @Override
+                        public void onFailure(
+                                Call<ReportResponse> call,
+                                Throwable t
+                        ) {
 
                             Toast.makeText(
                                     activity_report_problem.this,
-                                    result.getMessage(),
-                                    Toast.LENGTH_SHORT
-                            ).show();
-
-                            finish();
-
-                        } else {
-
-                            Toast.makeText(
-                                    activity_report_problem.this,
-                                    result.getMessage(),
+                                    "Connection Error: "
+                                            + t.getMessage(),
                                     Toast.LENGTH_LONG
                             ).show();
                         }
-
-                    } else {
-
-                        Toast.makeText(
-                                activity_report_problem.this,
-                                "Server Error: "
-                                        + response.code(),
-                                Toast.LENGTH_LONG
-                        ).show();
                     }
-                }
-
-
-                @Override
-                public void onFailure(
-                        Call<ReportResponse> call,
-                        Throwable t) {
-
-                    Toast.makeText(
-                            activity_report_problem.this,
-                            "Connection Error: "
-                                    + t.getMessage(),
-                            Toast.LENGTH_LONG
-                    ).show();
-                }
-            });
+            );
 
         });
 
 
-        // ==========================================
+        // =====================================================
         // CANCEL
-        // ==========================================
+        // =====================================================
 
         btnCancel.setOnClickListener(v -> {
 
             finish();
 
         });
-
     }
 }

@@ -2,22 +2,29 @@ package com.example.factx.model;
 
 public class ResetPasswordRequest {
 
-    private String token;
-    private String password;
+    private String email;
+    private String otp;
+    private String new_password;
 
     public ResetPasswordRequest(
-            String token,
-            String password
+            String email,
+            String otp,
+            String new_password
     ) {
-        this.token = token;
-        this.password = password;
+        this.email = email;
+        this.otp = otp;
+        this.new_password = new_password;
     }
 
-    public String getToken() {
-        return token;
+    public String getEmail() {
+        return email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getOtp() {
+        return otp;
+    }
+
+    public String getNew_password() {
+        return new_password;
     }
 }

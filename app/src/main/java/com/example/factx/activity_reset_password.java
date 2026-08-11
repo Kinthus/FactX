@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.factx.api.ApiService;
 import com.example.factx.api.RetrofitClient;
+import com.example.factx.model.ResetPasswordRequest;
 import com.example.factx.model.ResetPasswordResponse;
 
 import retrofit2.Call;
@@ -37,9 +38,9 @@ public class activity_reset_password extends AppCompatActivity {
         setContentView(R.layout.activity_reset_password);
 
 
-        // ==========================================
+        // =====================================================
         // FIND VIEWS
-        // ==========================================
+        // =====================================================
 
         etPassword =
                 findViewById(R.id.etPassword);
@@ -54,9 +55,9 @@ public class activity_reset_password extends AppCompatActivity {
                 findViewById(R.id.txtBackLogin);
 
 
-        // ==========================================
+        // =====================================================
         // GET EMAIL AND OTP
-        // ==========================================
+        // =====================================================
 
         email =
                 getIntent().getStringExtra("email");
@@ -65,9 +66,9 @@ public class activity_reset_password extends AppCompatActivity {
                 getIntent().getStringExtra("otp");
 
 
-        // ==========================================
+        // =====================================================
         // CHECK EMAIL
-        // ==========================================
+        // =====================================================
 
         if (email == null || email.isEmpty()) {
 
@@ -83,15 +84,15 @@ public class activity_reset_password extends AppCompatActivity {
         }
 
 
-        // ==========================================
+        // =====================================================
         // CHECK OTP
-        // ==========================================
+        // =====================================================
 
         if (otp == null || otp.isEmpty()) {
 
             Toast.makeText(
                     activity_reset_password.this,
-                    "OTP not found. Please try again.",
+                    "OTP not found. Please verify OTP again.",
                     Toast.LENGTH_LONG
             ).show();
 
@@ -101,9 +102,9 @@ public class activity_reset_password extends AppCompatActivity {
         }
 
 
-        // ==========================================
+        // =====================================================
         // RESET PASSWORD
-        // ==========================================
+        // =====================================================
 
         btnReset.setOnClickListener(v -> {
 
@@ -112,16 +113,15 @@ public class activity_reset_password extends AppCompatActivity {
                             .toString()
                             .trim();
 
-
             String confirmPassword =
                     etConfirmPassword.getText()
                             .toString()
                             .trim();
 
 
-            // ======================================
+            // =================================================
             // PASSWORD EMPTY
-            // ======================================
+            // =================================================
 
             if (password.isEmpty()) {
 
@@ -135,9 +135,9 @@ public class activity_reset_password extends AppCompatActivity {
             }
 
 
-            // ======================================
+            // =================================================
             // PASSWORD LENGTH
-            // ======================================
+            // =================================================
 
             if (password.length() < 8) {
 
@@ -151,9 +151,9 @@ public class activity_reset_password extends AppCompatActivity {
             }
 
 
-            // ======================================
-            // CONFIRM PASSWORD EMPTY
-            // ======================================
+            // =================================================
+            // CONFIRM PASSWORD
+            // =================================================
 
             if (confirmPassword.isEmpty()) {
 
@@ -167,9 +167,9 @@ public class activity_reset_password extends AppCompatActivity {
             }
 
 
-            // ======================================
+            // =================================================
             // PASSWORD MATCH
-            // ======================================
+            // =================================================
 
             if (!password.equals(confirmPassword)) {
 
@@ -183,9 +183,21 @@ public class activity_reset_password extends AppCompatActivity {
             }
 
 
-            // ======================================
+            // =================================================
+            // CREATE REQUEST
+            // =================================================
+
+            ResetPasswordRequest request =
+                    new ResetPasswordRequest(
+                            email,
+                            otp,
+                            password
+                    );
+
+
+            // =================================================
             // API SERVICE
-            // ==========================================
+            // =================================================
 
             ApiService apiService =
                     RetrofitClient
@@ -193,15 +205,13 @@ public class activity_reset_password extends AppCompatActivity {
                             .create(ApiService.class);
 
 
-            // ==========================================
-            // RESET PASSWORD API
-            // ==========================================
+            // =================================================
+            // RESET PASSWORD
+            // =================================================
 
             Call<ResetPasswordResponse> call =
                     apiService.resetPassword(
-                            email,
-                            otp,
-                            password
+                            request
                     );
 
 
@@ -211,7 +221,8 @@ public class activity_reset_password extends AppCompatActivity {
                         @Override
                         public void onResponse(
                                 Call<ResetPasswordResponse> call,
-                                Response<ResetPasswordResponse> response) {
+                                Response<ResetPasswordResponse> response
+                        ) {
 
                             if (response.isSuccessful()
                                     && response.body() != null) {
@@ -227,9 +238,9 @@ public class activity_reset_password extends AppCompatActivity {
                                 ).show();
 
 
-                                // ==================================
+                                // =================================
                                 // SUCCESS
-                                // ==================================
+                                // =================================
 
                                 if (result.isSuccess()) {
 
@@ -239,23 +250,23 @@ public class activity_reset_password extends AppCompatActivity {
                                                     activity_login.class
                                             );
 
-
                                     intent.setFlags(
                                             Intent.FLAG_ACTIVITY_NEW_TASK
                                                     | Intent.FLAG_ACTIVITY_CLEAR_TASK
                                     );
-
 
                                     startActivity(intent);
 
                                     finish();
                                 }
 
+
                             } else {
 
                                 Toast.makeText(
                                         activity_reset_password.this,
-                                        "Password reset failed.",
+                                        "Password reset failed. Server Error: "
+                                                + response.code(),
                                         Toast.LENGTH_LONG
                                 ).show();
                             }
@@ -265,7 +276,8 @@ public class activity_reset_password extends AppCompatActivity {
                         @Override
                         public void onFailure(
                                 Call<ResetPasswordResponse> call,
-                                Throwable t) {
+                                Throwable t
+                        ) {
 
                             Toast.makeText(
                                     activity_reset_password.this,
@@ -279,9 +291,9 @@ public class activity_reset_password extends AppCompatActivity {
         });
 
 
-        // ==========================================
+        // =====================================================
         // BACK TO LOGIN
-        // ==========================================
+        // =====================================================
 
         txtBackLogin.setOnClickListener(v -> {
 
