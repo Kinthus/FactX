@@ -28,9 +28,6 @@ import retrofit2.http.Path;
 
 public interface ApiService {
 
-    // =====================================================
-    // REGISTER
-    // =====================================================
 
     @POST("register")
     Call<RegisterResponse> registerUser(
@@ -38,9 +35,6 @@ public interface ApiService {
     );
 
 
-    // =====================================================
-    // LOGIN
-    // =====================================================
 
     @POST("login")
     Call<LoginResponse> loginUser(
@@ -48,9 +42,7 @@ public interface ApiService {
     );
 
 
-    // =====================================================
-    // VERIFY REGISTRATION OTP
-    // =====================================================
+
 
     @POST("verify")
     Call<VerifyOTPResponse> verifyOtp(
@@ -58,9 +50,6 @@ public interface ApiService {
     );
 
 
-    // =====================================================
-    // GET PROFILE
-    // =====================================================
 
     @GET("profile/{email}")
     Call<ProfileResponse> getProfile(
@@ -68,9 +57,7 @@ public interface ApiService {
     );
 
 
-    // =====================================================
-    // UPDATE PROFILE
-    // =====================================================
+
 
     @PUT("profile")
     Call<RegisterResponse> updateProfile(
@@ -78,9 +65,7 @@ public interface ApiService {
     );
 
 
-    // =====================================================
-    // TEXT ANALYSIS
-    // =====================================================
+
 
     @POST("text-analysis")
     Call<TextAnalysisResponse> analyzeText(
@@ -88,9 +73,7 @@ public interface ApiService {
     );
 
 
-    // =====================================================
-    // FORGOT PASSWORD - SEND OTP
-    // =====================================================
+
 
     @POST("forgot-password")
     Call<ForgotPasswordResponse> forgotPassword(
@@ -98,9 +81,7 @@ public interface ApiService {
     );
 
 
-    // =====================================================
-    // VERIFY RESET PASSWORD OTP
-    // =====================================================
+
 
     @POST("verify-reset-otp")
     Call<VerifyResetOTPResponse> verifyResetOtp(
@@ -108,9 +89,7 @@ public interface ApiService {
     );
 
 
-    // =====================================================
-    // RESET PASSWORD
-    // =====================================================
+
 
     @POST("reset-password")
     Call<ResetPasswordResponse> resetPassword(
@@ -118,9 +97,7 @@ public interface ApiService {
     );
 
 
-    // =====================================================
-    // REPORT PROBLEM
-    // =====================================================
+
 
     @POST("report")
     Call<ReportResponse> submitReport(
