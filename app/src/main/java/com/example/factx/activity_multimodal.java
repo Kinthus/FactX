@@ -28,9 +28,7 @@ public class activity_multimodal extends AppCompatActivity {
 
     Uri imageUri = null;
 
-    // ==========================================
-    // IMAGE PICKER
-    // ==========================================
+
 
     private final ActivityResultLauncher<String> imagePickerLauncher =
             registerForActivityResult(
@@ -61,9 +59,6 @@ public class activity_multimodal extends AppCompatActivity {
             );
 
 
-    // ==========================================
-    // ON CREATE
-    // ==========================================
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,9 +68,7 @@ public class activity_multimodal extends AppCompatActivity {
         setContentView(R.layout.activity_multimodal);
 
 
-        // ==========================================
-        // FIND VIEWS
-        // ==========================================
+
 
         etTitle = findViewById(R.id.etTitle);
 
@@ -98,9 +91,7 @@ public class activity_multimodal extends AppCompatActivity {
         btnLogout = findViewById(R.id.btnLogout);
 
 
-        // ==========================================
-        // INITIAL IMAGE STATE
-        // ==========================================
+
 
         imageUri = null;
 
@@ -109,9 +100,7 @@ public class activity_multimodal extends AppCompatActivity {
         txtImagePlaceholder.setVisibility(TextView.VISIBLE);
 
 
-        // ==========================================
-        // SELECT IMAGE
-        // ==========================================
+
 
         btnSelectImage.setOnClickListener(v -> {
 
@@ -120,9 +109,7 @@ public class activity_multimodal extends AppCompatActivity {
         });
 
 
-        // ==========================================
-        // ANALYZE BUTTON
-        // ==========================================
+
 
         btnAnalyze.setOnClickListener(v -> {
 
@@ -137,9 +124,7 @@ public class activity_multimodal extends AppCompatActivity {
                             .trim();
 
 
-            // ======================================
-            // IMAGE IS REQUIRED
-            // ======================================
+
 
             if (imageUri == null) {
 
@@ -153,9 +138,6 @@ public class activity_multimodal extends AppCompatActivity {
             }
 
 
-            // ======================================
-            // IMAGE EXISTS
-            // ======================================
 
             Toast.makeText(
                     activity_multimodal.this,
@@ -164,9 +146,7 @@ public class activity_multimodal extends AppCompatActivity {
             ).show();
 
 
-            // ======================================
-            // DUMMY RESULT
-            // ======================================
+
 
             String resultType;
 
@@ -180,9 +160,7 @@ public class activity_multimodal extends AppCompatActivity {
             }
 
 
-            // ======================================
-            // OPEN LOADING SCREEN
-            // ======================================
+
 
             Intent intent = new Intent(
                     activity_multimodal.this,
@@ -222,9 +200,7 @@ public class activity_multimodal extends AppCompatActivity {
         });
 
 
-        // ==========================================
-        // CLEAR BUTTON
-        // ==========================================
+
 
         btnClear.setOnClickListener(v -> {
 

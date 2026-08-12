@@ -21,9 +21,6 @@ public class activity_logout extends AppCompatActivity {
         btnCancel = findViewById(R.id.btnCancel);
 
 
-        // ==========================================
-        // LOGOUT
-        // ==========================================
 
         btnLogout.setOnClickListener(v -> {
 
@@ -44,9 +41,7 @@ public class activity_logout extends AppCompatActivity {
         });
 
 
-        // ==========================================
-        // CANCEL
-        // ==========================================
+
 
         btnCancel.setOnClickListener(v -> {
 

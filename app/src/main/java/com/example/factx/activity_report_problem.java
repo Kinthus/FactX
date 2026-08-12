@@ -37,9 +37,7 @@ public class activity_report_problem extends AppCompatActivity {
         );
 
 
-        // =====================================================
-        // FIND VIEWS
-        // =====================================================
+
 
         etName = findViewById(R.id.etName);
 
@@ -54,9 +52,6 @@ public class activity_report_problem extends AppCompatActivity {
         btnCancel = findViewById(R.id.btnCancel);
 
 
-        // =====================================================
-        // SUBMIT REPORT
-        // =====================================================
 
         btnSubmit.setOnClickListener(v -> {
 
@@ -81,9 +76,6 @@ public class activity_report_problem extends AppCompatActivity {
                             .trim();
 
 
-            // =================================================
-            // VALIDATION
-            // =================================================
 
             if (name.isEmpty()) {
 
@@ -133,9 +125,7 @@ public class activity_report_problem extends AppCompatActivity {
             }
 
 
-            // =================================================
-            // CREATE REQUEST
-            // =================================================
+
 
             ReportRequest request =
                     new ReportRequest(
@@ -146,9 +136,7 @@ public class activity_report_problem extends AppCompatActivity {
                     );
 
 
-            // =================================================
-            // RETROFIT API
-            // =================================================
+
 
             ApiService apiService =
                     RetrofitClient
@@ -156,9 +144,7 @@ public class activity_report_problem extends AppCompatActivity {
                             .create(ApiService.class);
 
 
-            // =================================================
-            // SUBMIT REPORT
-            // =================================================
+
 
             Call<ReportResponse> call =
                     apiService.submitReport(
@@ -166,9 +152,7 @@ public class activity_report_problem extends AppCompatActivity {
                     );
 
 
-            // =================================================
-            // API RESPONSE
-            // =================================================
+
 
             call.enqueue(
                     new Callback<ReportResponse>() {
@@ -240,9 +224,7 @@ public class activity_report_problem extends AppCompatActivity {
         });
 
 
-        // =====================================================
-        // CANCEL
-        // =====================================================
+
 
         btnCancel.setOnClickListener(v -> {
 

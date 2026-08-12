@@ -18,9 +18,7 @@ import androidx.core.content.ContextCompat;
 
 public class activity_image_analysis extends AppCompatActivity {
 
-    // ==========================================
-    // VIEWS
-    // ==========================================
+
 
     ImageView imgPreview;
 
@@ -31,9 +29,7 @@ public class activity_image_analysis extends AppCompatActivity {
     Button btnLogout;
 
 
-    // ==========================================
-    // IMAGE DATA
-    // ==========================================
+
 
     Uri imageUri = null;
 
@@ -42,9 +38,7 @@ public class activity_image_analysis extends AppCompatActivity {
     boolean imageSelected = false;
 
 
-    // ==========================================
-    // GALLERY PICKER
-    // ==========================================
+
 
     private final ActivityResultLauncher<String> galleryLauncher =
             registerForActivityResult(
@@ -71,9 +65,7 @@ public class activity_image_analysis extends AppCompatActivity {
             );
 
 
-    // ==========================================
-    // CAMERA
-    // ==========================================
+
 
     private final ActivityResultLauncher<Intent> cameraLauncher =
             registerForActivityResult(
@@ -116,9 +108,7 @@ public class activity_image_analysis extends AppCompatActivity {
             );
 
 
-    // ==========================================
-    // ON CREATE
-    // ==========================================
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,9 +120,7 @@ public class activity_image_analysis extends AppCompatActivity {
         );
 
 
-        // ==========================================
-        // FIND VIEWS
-        // ==========================================
+
 
         imgPreview =
                 findViewById(R.id.imgPreview);
@@ -151,9 +139,6 @@ public class activity_image_analysis extends AppCompatActivity {
 
         btnLogout = findViewById(R.id.btnLogout);
 
-        // ==========================================
-        // GALLERY BUTTON
-        // ==========================================
 
         btnGallery.setOnClickListener(v -> {
 
@@ -162,9 +147,7 @@ public class activity_image_analysis extends AppCompatActivity {
         });
 
 
-        // ==========================================
-        // CAMERA BUTTON
-        // ==========================================
+
 
         btnCamera.setOnClickListener(v -> {
 
@@ -189,15 +172,9 @@ public class activity_image_analysis extends AppCompatActivity {
         });
 
 
-        // ==========================================
-        // ANALYZE IMAGE BUTTON
-        // ==========================================
 
         btnAnalyzeImage.setOnClickListener(v -> {
 
-            // --------------------------------------
-            // CHECK IMAGE SELECTED
-            // --------------------------------------
 
             if (!imageSelected) {
 
@@ -211,9 +188,7 @@ public class activity_image_analysis extends AppCompatActivity {
             }
 
 
-            // --------------------------------------
-            // IMAGE EXISTS
-            // --------------------------------------
+
 
             Toast.makeText(
                     activity_image_analysis.this,
@@ -222,15 +197,7 @@ public class activity_image_analysis extends AppCompatActivity {
             ).show();
 
 
-            // --------------------------------------
-            // TEMPORARY RESULT
-            // --------------------------------------
-            //
-            // NOTE:
-            // This is your existing dummy result logic.
-            // Later this can be replaced with your
-            // trained CNN/MobileNetV2 API.
-            // --------------------------------------
+
 
             String resultType;
 
@@ -244,9 +211,7 @@ public class activity_image_analysis extends AppCompatActivity {
             }
 
 
-            // --------------------------------------
-            // OPEN LOADING PAGE
-            // --------------------------------------
+
 
             Intent intent =
                     new Intent(
@@ -283,9 +248,6 @@ public class activity_image_analysis extends AppCompatActivity {
         });
 
 
-        // ==========================================
-        // CLEAR IMAGE
-        // ==========================================
 
         btnClearImage.setOnClickListener(v -> {
 
@@ -320,9 +282,6 @@ public class activity_image_analysis extends AppCompatActivity {
     }
 
 
-    // ==========================================
-    // OPEN CAMERA
-    // ==========================================
 
     private void openCamera() {
 
