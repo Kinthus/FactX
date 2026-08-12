@@ -16,6 +16,10 @@ public class activity_text_analysis extends AppCompatActivity {
 
     Button btnAnalyze;
     Button btnClear;
+    Button btnLogout;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,7 @@ public class activity_text_analysis extends AppCompatActivity {
 
         btnAnalyze = findViewById(R.id.btnAnalyze);
         btnClear = findViewById(R.id.btnClear);
+        btnLogout = findViewById(R.id.btnLogout);
 
 
         // ==========================================
@@ -125,6 +130,17 @@ public class activity_text_analysis extends AppCompatActivity {
             etUrl.setText("");
 
             etTitle.requestFocus();
+        });
+
+        btnLogout.setOnClickListener(v -> {
+
+            Intent intent = new Intent(
+                    activity_text_analysis.this,
+                    activity_logout.class
+            );
+
+            startActivity(intent);
+
         });
     }
 }

@@ -28,6 +28,7 @@ public class activity_image_analysis extends AppCompatActivity {
     Button btnCamera;
     Button btnAnalyzeImage;
     Button btnClearImage;
+    Button btnLogout;
 
 
     // ==========================================
@@ -148,6 +149,7 @@ public class activity_image_analysis extends AppCompatActivity {
         btnClearImage =
                 findViewById(R.id.btnClearImage);
 
+        btnLogout = findViewById(R.id.btnLogout);
 
         // ==========================================
         // GALLERY BUTTON
