@@ -24,7 +24,6 @@ public class activity_multimodal extends AppCompatActivity {
     Button btnSelectImage;
     Button btnAnalyze;
     Button btnClear;
-    Button btnLogout;
 
     Uri imageUri = null;
 
@@ -88,7 +87,6 @@ public class activity_multimodal extends AppCompatActivity {
         btnClear =
                 findViewById(R.id.btnClear);
 
-        btnLogout = findViewById(R.id.btnLogout);
 
 
 
@@ -227,16 +225,6 @@ public class activity_multimodal extends AppCompatActivity {
 
         });
 
-        btnLogout.setOnClickListener(v -> {
-
-            Intent intent = new Intent(
-                    activity_multimodal.this,
-                    activity_logout.class
-            );
-
-            startActivity(intent);
-
-        });
 
     }
 }

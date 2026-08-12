@@ -16,7 +16,7 @@ public class activity_text_analysis extends AppCompatActivity {
 
     Button btnAnalyze;
     Button btnClear;
-    Button btnLogout;
+
 
 
 
@@ -34,12 +34,9 @@ public class activity_text_analysis extends AppCompatActivity {
 
         btnAnalyze = findViewById(R.id.btnAnalyze);
         btnClear = findViewById(R.id.btnClear);
-        btnLogout = findViewById(R.id.btnLogout);
 
 
-        // ==========================================
-        // Analyze Button
-        // ==========================================
+
 
         btnAnalyze.setOnClickListener(v -> {
 
@@ -53,9 +50,7 @@ public class activity_text_analysis extends AppCompatActivity {
                     etUrl.getText().toString().trim();
 
 
-            // ==========================================
-            // Content OR URL must be provided
-            // ==========================================
+
 
             if (news.isEmpty() && url.isEmpty()) {
 
@@ -69,10 +64,7 @@ public class activity_text_analysis extends AppCompatActivity {
             }
 
 
-            // ==========================================
-            // Demo Result
-            // AI MODEL NOT CONNECTED YET
-            // ==========================================
+
 
             String textToCheck =
                     (title + " " + news + " " + url)
@@ -96,9 +88,7 @@ public class activity_text_analysis extends AppCompatActivity {
             }
 
 
-            // ==========================================
-            // Open Loading Screen
-            // ==========================================
+
 
             Intent intent = new Intent(
                     activity_text_analysis.this,
@@ -119,9 +109,7 @@ public class activity_text_analysis extends AppCompatActivity {
         });
 
 
-        // ==========================================
-        // Clear Button
-        // ==========================================
+
 
         btnClear.setOnClickListener(v -> {
 
@@ -132,15 +120,6 @@ public class activity_text_analysis extends AppCompatActivity {
             etTitle.requestFocus();
         });
 
-        btnLogout.setOnClickListener(v -> {
 
-            Intent intent = new Intent(
-                    activity_text_analysis.this,
-                    activity_logout.class
-            );
-
-            startActivity(intent);
-
-        });
     }
 }

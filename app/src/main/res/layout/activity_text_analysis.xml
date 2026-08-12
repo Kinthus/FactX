@@ -122,13 +122,6 @@
             android:backgroundTint="#BDBDBD"
             android:textColor="#000000"/>
 
-        <Button
-            android:id="@+id/btnLogout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="Logout"
-            android:textAllCaps="false" />
 
     </LinearLayout>
 
