@@ -2,11 +2,17 @@ package com.example.factx.model;
 
 public class TextAnalysisRequest {
 
-    private String title;
-    private String news;
+    private String text;
 
-    public TextAnalysisRequest(String title, String news) {
-        this.title = title;
-        this.news = news;
+    public TextAnalysisRequest(String text) {
+        this.text = text;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 }

@@ -67,11 +67,10 @@ public interface ApiService {
 
 
 
-    @POST("text-analysis")
+    @POST("analyze-text")
     Call<TextAnalysisResponse> analyzeText(
             @Body TextAnalysisRequest request
     );
-
 
 
 
