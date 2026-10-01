@@ -101,6 +101,7 @@ public class activity_text_analysis extends AppCompatActivity {
 
             TextAnalysisRequest request =
                     new TextAnalysisRequest(
+                            1,
                             (title + " " + news).trim()
                     );
 

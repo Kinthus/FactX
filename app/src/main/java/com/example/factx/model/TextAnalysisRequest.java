@@ -2,17 +2,27 @@ package com.example.factx.model;
 
 public class TextAnalysisRequest {
 
-    private String text;
+    private int user_id;
+    private String news_text;
 
-    public TextAnalysisRequest(String text) {
-        this.text = text;
+    public TextAnalysisRequest(int user_id, String news_text) {
+        this.user_id = user_id;
+        this.news_text = news_text;
     }
 
-    public String getText() {
-        return text;
+    public int getUser_id() {
+        return user_id;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
+    public String getNews_text() {
+        return news_text;
+    }
+
+    public void setNews_text(String news_text) {
+        this.news_text = news_text;
     }
 }
