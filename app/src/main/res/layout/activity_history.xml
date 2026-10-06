@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#ECECFF"
+    android:padding="20dp">
+
+    <!-- ========================================== -->
+    <!-- HEADER -->
+    <!-- ========================================== -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp">
+
+        <!-- History Title -->
+
+        <TextView
+            android:id="@+id/txtHistoryTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="View Results History"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:textColor="#173B91" />
+
+        <!-- Three Dots -->
+
+        <Button
+            android:id="@+id/btnHistoryMenu"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="⋮"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="#173B91"
+            android:backgroundTint="@android:color/transparent"
+            android:padding="0dp" />
+
+    </LinearLayout>
+
+
+    <!-- ========================================== -->
+    <!-- DELETE SELECTED -->
+    <!-- Hidden initially -->
+    <!-- ========================================== -->
+
+    <Button
+        android:id="@+id/btnDeleteSelected"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Delete Selected"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#D32F2F"
+        android:visibility="gone"
+        android:layout_marginBottom="15dp" />
+
+
+    <!-- ========================================== -->
+    <!-- HISTORY LIST -->
+    <!-- ========================================== -->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerHistory"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+</LinearLayout>

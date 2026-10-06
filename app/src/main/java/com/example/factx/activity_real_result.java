@@ -17,6 +17,9 @@ public class activity_real_result extends AppCompatActivity {
 
     ProgressBar progressConfidence;
 
+    // Logged-in user's email
+    String email;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,14 @@ public class activity_real_result extends AppCompatActivity {
 
         btnHome =
                 findViewById(R.id.btnHome);
+
+
+        // ==========================================
+        // GET LOGGED-IN USER EMAIL
+        // ==========================================
+
+        email =
+                getIntent().getStringExtra("email");
 
 
         // ==========================================
@@ -117,6 +128,12 @@ public class activity_real_result extends AppCompatActivity {
                             activity_news_type.class
                     );
 
+            // Send email back
+            intent.putExtra(
+                    "email",
+                    email
+            );
+
             startActivity(intent);
 
             finish();
@@ -134,6 +151,12 @@ public class activity_real_result extends AppCompatActivity {
                             activity_real_result.this,
                             activity_news_type.class
                     );
+
+            // Send email back
+            intent.putExtra(
+                    "email",
+                    email
+            );
 
             startActivity(intent);
 

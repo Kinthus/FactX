@@ -27,7 +27,13 @@ public class activity_multimodal extends AppCompatActivity {
 
     Uri imageUri = null;
 
+    // Logged-in user's email
+    String email;
 
+
+    // ==========================================
+    // IMAGE PICKER
+    // ==========================================
 
     private final ActivityResultLauncher<String> imagePickerLauncher =
             registerForActivityResult(
@@ -58,7 +64,6 @@ public class activity_multimodal extends AppCompatActivity {
             );
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -67,7 +72,16 @@ public class activity_multimodal extends AppCompatActivity {
         setContentView(R.layout.activity_multimodal);
 
 
+        // ==========================================
+        // GET LOGGED-IN USER EMAIL
+        // ==========================================
 
+        email = getIntent().getStringExtra("email");
+
+
+        // ==========================================
+        // FIND VIEWS
+        // ==========================================
 
         etTitle = findViewById(R.id.etTitle);
 
@@ -88,8 +102,9 @@ public class activity_multimodal extends AppCompatActivity {
                 findViewById(R.id.btnClear);
 
 
-
-
+        // ==========================================
+        // INITIAL IMAGE STATE
+        // ==========================================
 
         imageUri = null;
 
@@ -98,7 +113,9 @@ public class activity_multimodal extends AppCompatActivity {
         txtImagePlaceholder.setVisibility(TextView.VISIBLE);
 
 
-
+        // ==========================================
+        // SELECT IMAGE
+        // ==========================================
 
         btnSelectImage.setOnClickListener(v -> {
 
@@ -107,7 +124,9 @@ public class activity_multimodal extends AppCompatActivity {
         });
 
 
-
+        // ==========================================
+        // ANALYZE BUTTON
+        // ==========================================
 
         btnAnalyze.setOnClickListener(v -> {
 
@@ -122,7 +141,9 @@ public class activity_multimodal extends AppCompatActivity {
                             .trim();
 
 
-
+            // ==========================================
+            // VALIDATION
+            // ==========================================
 
             if (imageUri == null) {
 
@@ -136,7 +157,6 @@ public class activity_multimodal extends AppCompatActivity {
             }
 
 
-
             Toast.makeText(
                     activity_multimodal.this,
                     "Image selected. Starting analysis...",
@@ -144,7 +164,9 @@ public class activity_multimodal extends AppCompatActivity {
             ).show();
 
 
-
+            // ==========================================
+            // TEMPORARY RESULT
+            // ==========================================
 
             String resultType;
 
@@ -158,47 +180,76 @@ public class activity_multimodal extends AppCompatActivity {
             }
 
 
-
+            // ==========================================
+            // OPEN LOADING SCREEN
+            // ==========================================
 
             Intent intent = new Intent(
                     activity_multimodal.this,
                     activity_loading.class
             );
 
+
             intent.putExtra(
                     "resultType",
                     resultType
             );
+
 
             intent.putExtra(
                     "analysis_type",
                     "multimodal"
             );
 
-            // Send selected image URI
+
+            // ==========================================
+            // SEND USER EMAIL
+            // ==========================================
+
+            intent.putExtra(
+                    "email",
+                    email
+            );
+
+
+            // ==========================================
+            // SEND SELECTED IMAGE URI
+            // ==========================================
+
             intent.putExtra(
                     "imageUri",
                     imageUri.toString()
             );
 
-            // Send title
+
+            // ==========================================
+            // SEND TITLE
+            // ==========================================
+
             intent.putExtra(
                     "title",
                     title
             );
 
-            // Send news content
+
+            // ==========================================
+            // SEND NEWS CONTENT
+            // ==========================================
+
             intent.putExtra(
                     "news",
                     news
             );
+
 
             startActivity(intent);
 
         });
 
 
-
+        // ==========================================
+        // CLEAR BUTTON
+        // ==========================================
 
         btnClear.setOnClickListener(v -> {
 

@@ -13,6 +13,10 @@ import com.example.factx.api.ApiService;
 import com.example.factx.model.TextAnalysisRequest;
 import com.example.factx.model.TextAnalysisResponse;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -28,6 +32,9 @@ public class activity_text_analysis extends AppCompatActivity {
 
     ApiService apiService;
 
+    // Logged-in user's email
+    String email;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +42,13 @@ public class activity_text_analysis extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_text_analysis);
+
+
+        // ==========================================
+        // GET LOGGED-IN USER EMAIL
+        // ==========================================
+
+        email = getIntent().getStringExtra("email");
 
 
         // ==========================================
@@ -63,16 +77,21 @@ public class activity_text_analysis extends AppCompatActivity {
 
         btnAnalyze.setOnClickListener(v -> {
 
+            // Get title
             String title =
                     etTitle.getText()
                             .toString()
                             .trim();
 
+
+            // Get news content
             String news =
                     etNews.getText()
                             .toString()
                             .trim();
 
+
+            // Get URL
             String url =
                     etUrl.getText()
                             .toString()
@@ -141,7 +160,7 @@ public class activity_text_analysis extends AppCompatActivity {
 
 
                                         // ==================================
-                                        // GET SHAP WORDS
+                                        // GET SHAP IMPORTANT WORDS
                                         // ==================================
 
                                         StringBuilder importantWords =
@@ -157,34 +176,96 @@ public class activity_text_analysis extends AppCompatActivity {
                                                     : result.getImportant_words()
                                             ) {
 
-                                                importantWords.append(
-                                                        word.getWord()
-                                                );
+                                                if (word.getWord() != null
+                                                        && !word.getWord().trim().isEmpty()) {
 
-                                                importantWords.append(
-                                                        " | "
-                                                );
+                                                    importantWords.append(
+                                                            word.getWord()
+                                                    );
+
+                                                    importantWords.append(
+                                                            " | "
+                                                    );
+                                                }
                                             }
                                         }
+
+
+                                        // ==================================
+                                        // CREATE EXPLANATION
+                                        // ==================================
+
+                                        String explanation;
+
+                                        if (importantWords.length() > 0) {
+
+                                            explanation =
+                                                    "Important words that influenced "
+                                                            + "the prediction: "
+                                                            + importantWords.toString();
+
+                                        } else {
+
+                                            explanation =
+                                                    "No explanation was provided "
+                                                            + "by the model.";
+                                        }
+
+
+                                        // ==================================
+                                        // DATE AND TIME
+                                        // ==================================
+
+                                        String historyDate =
+                                                new SimpleDateFormat(
+                                                        "dd MMM yyyy, hh:mm a",
+                                                        Locale.getDefault()
+                                                ).format(new Date());
+
+
+                                        // ==================================
+                                        // SAVE TEXT RESULT TO HISTORY
+                                        // ==================================
+
+                                        HistoryStorage.saveHistory(
+                                                activity_text_analysis.this,
+                                                email,
+                                                "Text News",
+                                                (title + " " + news).trim(),
+                                                explanation,
+                                                prediction,
+                                                String.format(
+                                                        Locale.getDefault(),
+                                                        "%.2f%%",
+                                                        confidence
+                                                ),
+                                                historyDate
+                                        );
 
 
                                         // ==================================
                                         // OPEN RESULT SCREEN
                                         // ==================================
 
-                                        // ==========================================
-// OPEN CORRECT RESULT PAGE
-// ==========================================
-
                                         Intent intent;
 
-                                        if (prediction.equalsIgnoreCase("FAKE")) {
+
+                                        if (
+                                                prediction.equalsIgnoreCase(
+                                                        "FAKE"
+                                                )
+                                        ) {
 
                                             // BERT says FAKE
+
                                             intent = new Intent(
                                                     activity_text_analysis.this,
                                                     activity_fake_result.class
                                             );
+
+
+                                            // Send SHAP important words
+                                            // to Fake Result screen
 
                                             intent.putExtra(
                                                     "important_words",
@@ -194,6 +275,7 @@ public class activity_text_analysis extends AppCompatActivity {
                                         } else {
 
                                             // BERT says REAL
+
                                             intent = new Intent(
                                                     activity_text_analysis.this,
                                                     activity_real_result.class
@@ -201,24 +283,41 @@ public class activity_text_analysis extends AppCompatActivity {
                                         }
 
 
-// ==========================================
-// SEND COMMON RESULT DATA
-// ==========================================
+                                        // ==================================
+                                        // SEND COMMON RESULT DATA
+                                        // ==================================
 
                                         intent.putExtra(
                                                 "prediction",
                                                 prediction
                                         );
 
+
                                         intent.putExtra(
                                                 "confidence",
                                                 confidence
                                         );
 
+
                                         intent.putExtra(
                                                 "analysis_type",
                                                 "text"
                                         );
+
+
+                                        // ==================================
+                                        // SEND LOGGED-IN USER EMAIL
+                                        // ==================================
+
+                                        intent.putExtra(
+                                                "email",
+                                                email
+                                        );
+
+
+                                        // ==================================
+                                        // OPEN RESULT ACTIVITY
+                                        // ==================================
 
                                         startActivity(intent);
 
@@ -234,6 +333,10 @@ public class activity_text_analysis extends AppCompatActivity {
                                 }
 
 
+                                // ==========================================
+                                // API FAILURE
+                                // ==========================================
+
                                 @Override
                                 public void onFailure(
                                         Call<TextAnalysisResponse> call,
@@ -245,7 +348,8 @@ public class activity_text_analysis extends AppCompatActivity {
                                     Toast.makeText(
                                             activity_text_analysis.this,
                                             "ERROR: "
-                                                    + t.getClass().getSimpleName()
+                                                    + t.getClass()
+                                                    .getSimpleName()
                                                     + "\n"
                                                     + t.getMessage(),
                                             Toast.LENGTH_LONG
@@ -263,11 +367,12 @@ public class activity_text_analysis extends AppCompatActivity {
         btnClear.setOnClickListener(v -> {
 
             etTitle.setText("");
+
             etNews.setText("");
+
             etUrl.setText("");
 
             etTitle.requestFocus();
         });
-
     }
 }

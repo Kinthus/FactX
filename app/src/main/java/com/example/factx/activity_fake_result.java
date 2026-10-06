@@ -19,6 +19,9 @@ public class activity_fake_result extends AppCompatActivity {
 
     ProgressBar progressConfidence;
 
+    // Logged-in user's email
+    String email;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +35,8 @@ public class activity_fake_result extends AppCompatActivity {
         // FIND VIEWS
         // ==========================================
 
-        txtResult = findViewById(R.id.txtResult);
+        txtResult =
+                findViewById(R.id.txtResult);
 
         txtConfidence =
                 findViewById(R.id.txtConfidence);
@@ -42,7 +46,6 @@ public class activity_fake_result extends AppCompatActivity {
 
         progressConfidence =
                 findViewById(R.id.progressConfidence);
-
 
         btnAgain =
                 findViewById(R.id.btnAgain);
@@ -55,6 +58,14 @@ public class activity_fake_result extends AppCompatActivity {
 
         txtExplanationTitle =
                 findViewById(R.id.txtExplanationTitle);
+
+
+        // ==========================================
+        // GET LOGGED-IN USER EMAIL
+        // ==========================================
+
+        email =
+                getIntent().getStringExtra("email");
 
 
         // ==========================================
@@ -140,6 +151,7 @@ public class activity_fake_result extends AppCompatActivity {
             StringBuilder explanation =
                     new StringBuilder();
 
+
             explanation.append(
                     "Words that influenced the AI prediction:\n\n"
             );
@@ -191,6 +203,12 @@ public class activity_fake_result extends AppCompatActivity {
                             activity_news_type.class
                     );
 
+            // Send email back
+            intent.putExtra(
+                    "email",
+                    email
+            );
+
             startActivity(intent);
 
             finish();
@@ -209,6 +227,12 @@ public class activity_fake_result extends AppCompatActivity {
                             activity_report_problem.class
                     );
 
+            // Send email to Report Problem screen
+            intent.putExtra(
+                    "email",
+                    email
+            );
+
             startActivity(intent);
         });
 
@@ -224,6 +248,12 @@ public class activity_fake_result extends AppCompatActivity {
                             activity_fake_result.this,
                             activity_news_type.class
                     );
+
+            // Send email back
+            intent.putExtra(
+                    "email",
+                    email
+            );
 
             startActivity(intent);
 

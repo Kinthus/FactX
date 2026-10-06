@@ -103,8 +103,13 @@ public class activity_profile extends AppCompatActivity {
                                 response.body().getMessage(),
                                 Toast.LENGTH_SHORT).show();
 
-                        Intent intent = new Intent(activity_profile.this,
-                                activity_news_type.class);
+                        Intent intent = new Intent(
+                                activity_profile.this,
+                                activity_news_type.class
+                        );
+
+// Send logged-in user's email to News Type Activity
+                        intent.putExtra("email", email);
 
                         startActivity(intent);
                         finish();

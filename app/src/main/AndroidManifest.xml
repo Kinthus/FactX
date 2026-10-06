@@ -32,6 +32,7 @@
 
         <activity android:name=".activity_login" />
         <activity android:name=".activity_register" />
+
         <activity
             android:name=".activity_reset_password"
             android:exported="true">
@@ -50,6 +51,7 @@
             </intent-filter>
 
         </activity>
+
         <activity android:name=".activity_forgot_password" />
         <activity android:name=".activity_verify_otp"/>
         <activity android:name=".activity_reset_otp"/>
@@ -64,7 +66,10 @@
         <activity android:name=".activity_report_problem"/>
         <activity android:name=".activity_logout"/>
 
-
+        <!-- History Screen -->
+        <activity
+            android:name=".activity_History"
+            android:exported="false"/>
 
     </application>
 

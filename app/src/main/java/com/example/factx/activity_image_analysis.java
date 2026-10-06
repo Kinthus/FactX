@@ -18,8 +18,6 @@ import androidx.core.content.ContextCompat;
 
 public class activity_image_analysis extends AppCompatActivity {
 
-
-
     ImageView imgPreview;
 
     Button btnGallery;
@@ -27,17 +25,19 @@ public class activity_image_analysis extends AppCompatActivity {
     Button btnAnalyzeImage;
     Button btnClearImage;
 
-
-
-
     Uri imageUri = null;
 
     Bitmap cameraBitmap = null;
 
     boolean imageSelected = false;
 
+    // Logged-in user's email
+    String email;
 
 
+    // ==========================================
+    // GALLERY LAUNCHER
+    // ==========================================
 
     private final ActivityResultLauncher<String> galleryLauncher =
             registerForActivityResult(
@@ -64,7 +64,9 @@ public class activity_image_analysis extends AppCompatActivity {
             );
 
 
-
+    // ==========================================
+    // CAMERA LAUNCHER
+    // ==========================================
 
     private final ActivityResultLauncher<Intent> cameraLauncher =
             registerForActivityResult(
@@ -107,8 +109,6 @@ public class activity_image_analysis extends AppCompatActivity {
             );
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -119,7 +119,16 @@ public class activity_image_analysis extends AppCompatActivity {
         );
 
 
+        // ==========================================
+        // GET LOGGED-IN USER EMAIL
+        // ==========================================
 
+        email = getIntent().getStringExtra("email");
+
+
+        // ==========================================
+        // FIND VIEWS
+        // ==========================================
 
         imgPreview =
                 findViewById(R.id.imgPreview);
@@ -137,6 +146,9 @@ public class activity_image_analysis extends AppCompatActivity {
                 findViewById(R.id.btnClearImage);
 
 
+        // ==========================================
+        // GALLERY BUTTON
+        // ==========================================
 
         btnGallery.setOnClickListener(v -> {
 
@@ -145,7 +157,9 @@ public class activity_image_analysis extends AppCompatActivity {
         });
 
 
-
+        // ==========================================
+        // CAMERA BUTTON
+        // ==========================================
 
         btnCamera.setOnClickListener(v -> {
 
@@ -170,6 +184,9 @@ public class activity_image_analysis extends AppCompatActivity {
         });
 
 
+        // ==========================================
+        // ANALYZE IMAGE BUTTON
+        // ==========================================
 
         btnAnalyzeImage.setOnClickListener(v -> {
 
@@ -186,15 +203,11 @@ public class activity_image_analysis extends AppCompatActivity {
             }
 
 
-
-
             Toast.makeText(
                     activity_image_analysis.this,
                     "Analyzing image...",
                     Toast.LENGTH_SHORT
             ).show();
-
-
 
 
             String resultType;
@@ -207,8 +220,6 @@ public class activity_image_analysis extends AppCompatActivity {
 
                 resultType = "fake";
             }
-
-
 
 
             Intent intent =
@@ -230,7 +241,19 @@ public class activity_image_analysis extends AppCompatActivity {
             );
 
 
-            // Send gallery image URI if available
+            // ==========================================
+            // SEND LOGGED-IN USER EMAIL
+            // ==========================================
+
+            intent.putExtra(
+                    "email",
+                    email
+            );
+
+
+            // ==========================================
+            // SEND GALLERY IMAGE URI
+            // ==========================================
 
             if (imageUri != null) {
 
@@ -246,26 +269,25 @@ public class activity_image_analysis extends AppCompatActivity {
         });
 
 
+        // ==========================================
+        // CLEAR IMAGE BUTTON
+        // ==========================================
 
         btnClearImage.setOnClickListener(v -> {
 
             // Clear URI
-
             imageUri = null;
 
 
             // Clear camera bitmap
-
             cameraBitmap = null;
 
 
             // Mark image as not selected
-
             imageSelected = false;
 
 
             // Clear preview
-
             imgPreview.setImageDrawable(null);
 
 
@@ -280,6 +302,9 @@ public class activity_image_analysis extends AppCompatActivity {
     }
 
 
+    // ==========================================
+    // OPEN CAMERA
+    // ==========================================
 
     private void openCamera() {
 

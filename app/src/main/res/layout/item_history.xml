@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    android:padding="16dp"
+    android:layout_marginBottom="12dp">
+
+
+    <!-- Select History -->
+    <!-- Hidden initially.
+         It will be shown only in Delete Mode. -->
+
+    <CheckBox
+        android:id="@+id/checkHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select"
+        android:textSize="14sp"
+        android:textColor="#555555"
+        android:visibility="gone" />
+
+
+    <!-- News Type -->
+
+    <TextView
+        android:id="@+id/txtHistoryType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Text News"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#173B91"
+        android:layout_marginTop="4dp" />
+
+
+    <!-- News -->
+
+    <TextView
+        android:id="@+id/txtHistoryNews"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="News content will appear here"
+        android:textSize="15sp"
+        android:textColor="#222222"
+        android:layout_marginTop="12dp" />
+
+
+    <!-- Explanation -->
+
+    <TextView
+        android:id="@+id/txtHistoryExplanation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Explanation will appear here"
+        android:textSize="15sp"
+        android:textColor="#555555"
+        android:layout_marginTop="10dp" />
+
+
+    <!-- Prediction -->
+
+    <TextView
+        android:id="@+id/txtHistoryResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Prediction: FAKE"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="#D32F2F"
+        android:layout_marginTop="12dp" />
+
+
+    <!-- Confidence -->
+
+    <TextView
+        android:id="@+id/txtHistoryConfidence"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Confidence: 96.50%"
+        android:textSize="15sp"
+        android:textColor="#555555"
+        android:layout_marginTop="5dp" />
+
+
+    <!-- Date and Time -->
+
+    <TextView
+        android:id="@+id/txtHistoryDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="04 Oct 2026, 08:05 PM"
+        android:textSize="14sp"
+        android:textColor="#777777"
+        android:layout_marginTop="8dp" />
+
+</LinearLayout>
