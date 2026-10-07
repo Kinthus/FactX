@@ -5,15 +5,30 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class activity_news_type extends AppCompatActivity {
 
-    LinearLayout cardText, cardImage, cardMulti;
-    Button btnLogout, btnHistory;
+    // ==========================================
+    // VIEWS
+    // ==========================================
 
-    // Logged-in user's email
+    LinearLayout cardText;
+    LinearLayout cardImage;
+    LinearLayout cardMulti;
+
+    Button btnLogout;
+    Button btnHistory;
+
+
+    // ==========================================
+    // USER EMAIL
+    // ==========================================
+
     String email;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,110 +37,209 @@ public class activity_news_type extends AppCompatActivity {
 
         setContentView(R.layout.activity_news_type);
 
+
         // ==========================================
         // GET LOGGED-IN USER EMAIL
         // ==========================================
 
-        email = getIntent().getStringExtra("email");
+        email =
+                getIntent().getStringExtra("email");
 
 
         // ==========================================
-        // INITIALIZE VIEWS
+        // FIND VIEWS
         // ==========================================
 
-        cardText = findViewById(R.id.cardText);
-        cardImage = findViewById(R.id.cardImage);
-        cardMulti = findViewById(R.id.cardMulti);
+        cardText =
+                findViewById(R.id.cardText);
 
-        btnLogout = findViewById(R.id.btnLogout);
-        btnHistory = findViewById(R.id.btnHistory);
+        cardImage =
+                findViewById(R.id.cardImage);
+
+        cardMulti =
+                findViewById(R.id.cardMulti);
+
+        btnLogout =
+                findViewById(R.id.btnLogout);
+
+        btnHistory =
+                findViewById(R.id.btnHistory);
 
 
         // ==========================================
-        // OPEN TEXT ANALYSIS
+        // TEXT NEWS
         // ==========================================
 
         cardText.setOnClickListener(v -> {
 
-            Intent intent = new Intent(
-                    activity_news_type.this,
-                    activity_text_analysis.class
-            );
+            Intent intent =
+                    new Intent(
+                            activity_news_type.this,
+                            activity_text_analysis.class
+                    );
 
-            // Send user's email
-            intent.putExtra("email", email);
+            intent.putExtra(
+                    "email",
+                    email
+            );
 
             startActivity(intent);
         });
 
 
         // ==========================================
-        // OPEN IMAGE ANALYSIS
+        // IMAGE NEWS
         // ==========================================
 
         cardImage.setOnClickListener(v -> {
 
-            Intent intent = new Intent(
-                    activity_news_type.this,
-                    activity_image_analysis.class
-            );
+            Intent intent =
+                    new Intent(
+                            activity_news_type.this,
+                            activity_image_analysis.class
+                    );
 
-            // Send user's email
-            intent.putExtra("email", email);
+            intent.putExtra(
+                    "email",
+                    email
+            );
 
             startActivity(intent);
         });
 
 
         // ==========================================
-        // OPEN MULTIMODAL ANALYSIS
+        // MULTIMODAL NEWS
         // ==========================================
 
         cardMulti.setOnClickListener(v -> {
 
-            Intent intent = new Intent(
-                    activity_news_type.this,
-                    activity_multimodal.class
-            );
+            Intent intent =
+                    new Intent(
+                            activity_news_type.this,
+                            activity_multimodal.class
+                    );
 
-            // Send user's email
-            intent.putExtra("email", email);
+            intent.putExtra(
+                    "email",
+                    email
+            );
 
             startActivity(intent);
         });
 
 
         // ==========================================
-        // OPEN RESULTS HISTORY
+        // VIEW RESULTS HISTORY
         // ==========================================
 
         btnHistory.setOnClickListener(v -> {
 
-            Intent intent = new Intent(
-                    activity_news_type.this,
-                    activity_History.class
-            );
+            Intent intent =
+                    new Intent(
+                            activity_news_type.this,
+                            activity_History.class
+                    );
 
-            // Send user's email to History
-            intent.putExtra("email", email);
+            intent.putExtra(
+                    "email",
+                    email
+            );
 
             startActivity(intent);
         });
 
 
         // ==========================================
-        // LOGOUT
+        // LOGOUT BUTTON
         // ==========================================
 
         btnLogout.setOnClickListener(v -> {
 
-            Intent intent = new Intent(
-                    activity_news_type.this,
-                    activity_logout.class
-            );
+            showLogoutDialog();
 
-            startActivity(intent);
         });
 
+
+        // ==========================================
+        // ANDROID BACK BUTTON
+        // ==========================================
+
+        getOnBackPressedDispatcher().addCallback(
+                this,
+                new OnBackPressedCallback(true) {
+
+                    @Override
+                    public void handleOnBackPressed() {
+
+                        showLogoutDialog();
+                    }
+                }
+        );
+    }
+
+
+    // ==========================================
+    // LOGOUT CONFIRMATION DIALOG
+    // ==========================================
+
+    private void showLogoutDialog() {
+
+        new AlertDialog.Builder(this)
+
+                .setTitle("Logout")
+
+                .setMessage(
+                        "Do you want to logout?"
+                )
+
+                .setNegativeButton(
+                        "Cancel",
+                        null
+                )
+
+                .setPositiveButton(
+                        "Yes",
+                        (dialog, which) -> {
+
+                            logoutUser();
+
+                        }
+                )
+
+                .show();
+    }
+
+
+    // ==========================================
+    // LOGOUT USER
+    // ==========================================
+
+    private void logoutUser() {
+
+        Intent intent =
+                new Intent(
+                        activity_news_type.this,
+                        activity_login.class
+                );
+
+
+        // ==========================================
+        // CLEAR PREVIOUS ACTIVITIES
+        // ==========================================
+
+        intent.setFlags(
+                Intent.FLAG_ACTIVITY_NEW_TASK
+                        | Intent.FLAG_ACTIVITY_CLEAR_TASK
+        );
+
+
+        // ==========================================
+        // OPEN LOGIN PAGE
+        // ==========================================
+
+        startActivity(intent);
+
+        finish();
     }
 }
