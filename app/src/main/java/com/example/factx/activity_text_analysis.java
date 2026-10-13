@@ -118,11 +118,19 @@ public class activity_text_analysis extends AppCompatActivity {
             // CREATE REQUEST
             // ==========================================
 
+            String newsText = (title + " " + news).trim();
+
+            if (email == null || email.trim().isEmpty()) {
+                Toast.makeText(
+                        activity_text_analysis.this,
+                        "User email is missing. Please login again.",
+                        Toast.LENGTH_LONG
+                ).show();
+                return;
+            }
+
             TextAnalysisRequest request =
-                    new TextAnalysisRequest(
-                            1,
-                            (title + " " + news).trim()
-                    );
+                    new TextAnalysisRequest(email, newsText);
 
 
             // ==========================================
@@ -163,52 +171,29 @@ public class activity_text_analysis extends AppCompatActivity {
                                         // GET SHAP IMPORTANT WORDS
                                         // ==================================
 
-                                        StringBuilder importantWords =
-                                                new StringBuilder();
 
-                                        if (
-                                                result.getImportant_words()
-                                                        != null
-                                        ) {
 
-                                            for (
-                                                    TextAnalysisResponse.ImportantWord word
-                                                    : result.getImportant_words()
-                                            ) {
+                                        StringBuilder importantWords = new StringBuilder();
 
-                                                if (word.getWord() != null
-                                                        && !word.getWord().trim().isEmpty()) {
-
-                                                    importantWords.append(
-                                                            word.getWord()
-                                                    );
-
-                                                    importantWords.append(
-                                                            " | "
-                                                    );
+                                        if (result.getImportant_words() != null) {
+                                            for (String word : result.getImportant_words()) {
+                                                if (word != null && !word.trim().isEmpty()) {
+                                                    if (importantWords.length() > 0) {
+                                                        importantWords.append(" | ");
+                                                    }
+                                                    importantWords.append(word);
                                                 }
                                             }
                                         }
 
+                                        String explanation = result.getExplanation();
 
-                                        // ==================================
-                                        // CREATE EXPLANATION
-                                        // ==================================
-
-                                        String explanation;
-
-                                        if (importantWords.length() > 0) {
-
-                                            explanation =
-                                                    "Important words that influenced "
-                                                            + "the prediction: "
-                                                            + importantWords.toString();
-
-                                        } else {
-
-                                            explanation =
-                                                    "No explanation was provided "
-                                                            + "by the model.";
+                                        if (explanation == null || explanation.trim().isEmpty()) {
+                                            if (importantWords.length() > 0) {
+                                                explanation = "Important words: " + importantWords;
+                                            } else {
+                                                explanation = "No explanation available.";
+                                            }
                                         }
 
 

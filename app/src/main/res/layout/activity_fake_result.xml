@@ -84,6 +84,44 @@
             android:padding="15dp"
             android:textSize="16sp" />
 
+
+        <!-- Grad-CAM Explanation Image -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:text="Grad-CAM Heatmap"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imgGradCAM"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="10dp"
+            android:scaleType="fitCenter"
+            android:contentDescription="Grad-CAM explanation" />
+
+        <!-- SHAP Explanation Image -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:text="SHAP Explanation"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imgSHAP"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="10dp"
+            android:scaleType="fitCenter"
+            android:contentDescription="SHAP explanation" />
+
+
         <!-- Analyze Again -->
 
         <Button

@@ -1,3 +1,4 @@
+
 package com.example.factx.model;
 
 import java.util.List;
@@ -6,49 +7,32 @@ public class TextAnalysisResponse {
 
     private String prediction;
     private double confidence;
-    private double fake_probability;
-    private double real_probability;
-    private List<ImportantWord> important_words;
-
+    private double text_score;
+    private int analysis_id;
+    private List<String> important_words;
+    private String explanation;
 
     public String getPrediction() {
         return prediction;
     }
 
-
     public double getConfidence() {
         return confidence;
     }
 
-
-    public double getFake_probability() {
-        return fake_probability;
+    public double getText_score() {
+        return text_score;
     }
 
-
-    public double getReal_probability() {
-        return real_probability;
+    public int getAnalysis_id() {
+        return analysis_id;
     }
 
-
-    public List<ImportantWord> getImportant_words() {
+    public List<String> getImportant_words() {
         return important_words;
     }
 
-
-    public static class ImportantWord {
-
-        private String word;
-        private double importance;
-
-
-        public String getWord() {
-            return word;
-        }
-
-
-        public double getImportance() {
-            return importance;
-        }
+    public String getExplanation() {
+        return explanation;
     }
 }

@@ -31,6 +31,8 @@ public class activity_loading extends AppCompatActivity {
 
     // Confidence
     double confidence;
+    String gradcamImage;
+    String shapImage;
 
     // News data
     String title;
@@ -74,6 +76,8 @@ public class activity_loading extends AppCompatActivity {
 
         analysisType =
                 getIntent().getStringExtra("analysis_type");
+        gradcamImage = getIntent().getStringExtra("gradcam_image");
+        shapImage = getIntent().getStringExtra("shap_image");
 
 
         // ==========================================
@@ -120,8 +124,11 @@ public class activity_loading extends AppCompatActivity {
         // TEMPORARY CONFIDENCE
         // ==========================================
 
-        confidence = 95.0;
-
+// GET ACTUAL CONFIDENCE FROM BACKEND
+        confidence = getIntent().getDoubleExtra(
+                "confidence",
+                0.0
+        );
 
         // ==========================================
         // LOADING STATUS
@@ -336,7 +343,13 @@ public class activity_loading extends AppCompatActivity {
                 // ==========================================
                 // OPEN RESULT
                 // ==========================================
+                // Send explanations only for FAKE image results
+                if (resultType.equalsIgnoreCase("fake")
+                        && analysisType.equalsIgnoreCase("image")) {
 
+                    intent.putExtra("gradcam_image", gradcamImage);
+                    intent.putExtra("shap_image", shapImage);
+                }
                 startActivity(intent);
 
                 finish();

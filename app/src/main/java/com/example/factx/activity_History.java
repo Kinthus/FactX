@@ -120,7 +120,7 @@ public class activity_History extends AppCompatActivity {
     private void loadHistory() {
 
         historyList =
-                HistoryStorage.getHistory(
+                com.example.factx.HistoryStorage.getHistory(
                         this,
                         email
                 );
@@ -252,7 +252,7 @@ public class activity_History extends AppCompatActivity {
         // DELETE SELECTED ITEMS
         // ==========================================
 
-        HistoryStorage.deleteSelectedHistory(
+        com.example.factx.HistoryStorage.deleteSelectedHistory(
                 this,
                 email,
                 selectedItems

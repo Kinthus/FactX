@@ -5,6 +5,11 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.graphics.BitmapFactory;
+
+import android.graphics.Bitmap;
+import android.util.Base64;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,6 +21,12 @@ public class activity_fake_result extends AppCompatActivity {
     TextView txtConfidence;
     TextView txtReason;
     TextView txtExplanationTitle;
+
+    ImageView imgGradCAM;
+    ImageView imgSHAP;
+
+    String gradcamImage;
+    String shapImage;
 
     ProgressBar progressConfidence;
 
@@ -58,6 +69,12 @@ public class activity_fake_result extends AppCompatActivity {
 
         txtExplanationTitle =
                 findViewById(R.id.txtExplanationTitle);
+
+        imgGradCAM = findViewById(R.id.imgGradCAM);
+        imgSHAP = findViewById(R.id.imgSHAP);
+
+        gradcamImage = getIntent().getStringExtra("gradcam_image");
+        shapImage = getIntent().getStringExtra("shap_image");
 
 
         // ==========================================
@@ -131,6 +148,28 @@ public class activity_fake_result extends AppCompatActivity {
                         confidence
                 )
         );
+
+        if (gradcamImage != null && !gradcamImage.isEmpty()) {
+            byte[] gradBytes = Base64.decode(gradcamImage, Base64.DEFAULT);
+            Bitmap gradBitmap = BitmapFactory.decodeByteArray(
+                    gradBytes, 0, gradBytes.length
+            );
+
+            if (gradBitmap != null) {
+                imgGradCAM.setImageBitmap(gradBitmap);
+            }
+        }
+
+        if (shapImage != null && !shapImage.isEmpty()) {
+            byte[] shapBytes = Base64.decode(shapImage, Base64.DEFAULT);
+            Bitmap shapBitmap = BitmapFactory.decodeByteArray(
+                    shapBytes, 0, shapBytes.length
+            );
+
+            if (shapBitmap != null) {
+                imgSHAP.setImageBitmap(shapBitmap);
+            }
+        }
 
 
         // ==========================================

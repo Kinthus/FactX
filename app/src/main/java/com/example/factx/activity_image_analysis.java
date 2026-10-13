@@ -16,6 +16,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.factx.api.ApiService;
+import com.example.factx.api.RetrofitClient;
+import com.example.factx.model.ImageAnalysisResponse;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class activity_image_analysis extends AppCompatActivity {
 
     ImageView imgPreview;
@@ -188,7 +204,8 @@ public class activity_image_analysis extends AppCompatActivity {
         // ANALYZE IMAGE BUTTON
         // ==========================================
 
-        btnAnalyzeImage.setOnClickListener(v -> {
+        btnAnalyzeImage.setOnClickListener(
+                v -> {
 
 
             if (!imageSelected) {
@@ -210,16 +227,7 @@ public class activity_image_analysis extends AppCompatActivity {
             ).show();
 
 
-            String resultType;
 
-            if (System.currentTimeMillis() % 2 == 0) {
-
-                resultType = "real";
-
-            } else {
-
-                resultType = "fake";
-            }
 
 
             Intent intent =
@@ -229,10 +237,6 @@ public class activity_image_analysis extends AppCompatActivity {
                     );
 
 
-            intent.putExtra(
-                    "resultType",
-                    resultType
-            );
 
 
             intent.putExtra(
