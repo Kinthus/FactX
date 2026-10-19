@@ -25,6 +25,13 @@ public class activity_fake_result extends AppCompatActivity {
     ImageView imgGradCAM;
     ImageView imgSHAP;
 
+    TextView txtImportantWordsTitle;
+    TextView txtImportantWords;
+    TextView txtGradCAMTitle;
+    TextView txtSHAPTitle;
+
+    String analysisType;
+
     String gradcamImage;
     String shapImage;
 
@@ -40,6 +47,27 @@ public class activity_fake_result extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_fake_result);
+
+        TextView txtImportantWordsTitle;
+        TextView txtImportantWords;
+        TextView txtGradCAMTitle;
+        TextView txtSHAPTitle;
+
+        String analysisType;
+
+        txtImportantWordsTitle =
+                findViewById(R.id.txtImportantWordsTitle);
+
+        txtImportantWords =
+                findViewById(R.id.txtImportantWords);
+
+        txtGradCAMTitle =
+                findViewById(R.id.txtGradCAMTitle);
+
+        txtSHAPTitle =
+                findViewById(R.id.txtSHAPTitle);
+
+        analysisType = getIntent().getStringExtra("analysis_type");
 
 
         // ==========================================
@@ -73,6 +101,17 @@ public class activity_fake_result extends AppCompatActivity {
         imgGradCAM = findViewById(R.id.imgGradCAM);
         imgSHAP = findViewById(R.id.imgSHAP);
 
+        txtImportantWordsTitle =
+                findViewById(R.id.txtImportantWordsTitle);
+
+        txtImportantWords =
+                findViewById(R.id.txtImportantWords);
+
+        analysisType = getIntent().getStringExtra("analysis_type");
+
+        txtGradCAMTitle = findViewById(R.id.txtGradCAMTitle);
+        txtSHAPTitle = findViewById(R.id.txtSHAPTitle);
+
         gradcamImage = getIntent().getStringExtra("gradcam_image");
         shapImage = getIntent().getStringExtra("shap_image");
 
@@ -102,10 +141,42 @@ public class activity_fake_result extends AppCompatActivity {
                 );
 
 
+
+
+        // Show AI Explanation
         String importantWords =
                 getIntent().getStringExtra(
                         "important_words"
                 );
+
+// Show AI Explanation
+        if (importantWords != null &&
+                !importantWords.trim().isEmpty()) {
+
+            txtReason.setText(
+                    importantWords.replace("|", "\n")
+            );
+
+        } else {
+            txtReason.setText(
+                    "Explanation is not available."
+            );
+        }
+
+        txtReason.setVisibility(android.view.View.VISIBLE);
+
+        android.util.Log.d("FAKE_RESULT",
+                "important_words = " + importantWords);
+
+        android.util.Log.d("FAKE_RESULT",
+                "gradcam_image = " +
+                        (gradcamImage == null ? "null" : gradcamImage.length()));
+
+        android.util.Log.d("FAKE_RESULT",
+                "shap_image = " +
+                        (shapImage == null ? "null" : shapImage.length()));
+
+
 
 
         // ==========================================
@@ -130,102 +201,173 @@ public class activity_fake_result extends AppCompatActivity {
 
 
         // ==========================================
-        // SHOW CONFIDENCE
-        // ==========================================
+// SHOW CONFIDENCE
+// ==========================================
 
-        int confidenceValue =
-                (int) Math.round(confidence);
+// If confidence comes as decimal (0 to 1),
+// convert it into percentage.
+        double confidencePercent = confidence;
 
+        if (confidencePercent >= 0.0 && confidencePercent <= 1.0) {
+            confidencePercent = confidencePercent * 100.0;
+        }
+
+// Keep confidence between 0 and 100
+        confidencePercent = Math.max(
+                0.0,
+                Math.min(100.0, confidencePercent)
+        );
+
+// Progress bar
+        progressConfidence.setMax(100);
 
         progressConfidence.setProgress(
-                confidenceValue
+                (int) Math.round(confidencePercent)
         );
 
-
+// Display percentage
         txtConfidence.setText(
                 String.format(
+                        java.util.Locale.US,
                         "%.2f%%",
-                        confidence
+                        confidencePercent
                 )
         );
+        // ==========================================
+// SHOW CONFIDENCE
+// ==========================================
+        try {
+            confidencePercent = confidence;
 
-        if (gradcamImage != null && !gradcamImage.isEmpty()) {
-            byte[] gradBytes = Base64.decode(gradcamImage, Base64.DEFAULT);
-            Bitmap gradBitmap = BitmapFactory.decodeByteArray(
-                    gradBytes, 0, gradBytes.length
+            // If backend sends decimal probability (0 to 1)
+            if (confidencePercent >= 0.0 &&
+                    confidencePercent <= 1.0) {
+                confidencePercent *= 100.0;
+            }
+
+            confidencePercent = Math.max(
+                    0.0,
+                    Math.min(100.0, confidencePercent)
             );
 
-            if (gradBitmap != null) {
-                imgGradCAM.setImageBitmap(gradBitmap);
-            }
+            progressConfidence.setMax(100);
+            progressConfidence.setProgress(
+                    (int) Math.round(confidencePercent)
+            );
+
+            txtConfidence.setText(
+                    String.format(
+                            java.util.Locale.US,
+                            "%.2f%%",
+                            confidencePercent
+                    )
+            );
+
+        } catch (Exception e) {
+            txtConfidence.setText("Confidence unavailable");
+
+            android.util.Log.e(
+                    "FakeResult",
+                    "Confidence display error",
+                    e
+            );
         }
 
-        if (shapImage != null && !shapImage.isEmpty()) {
-            byte[] shapBytes = Base64.decode(shapImage, Base64.DEFAULT);
-            Bitmap shapBitmap = BitmapFactory.decodeByteArray(
-                    shapBytes, 0, shapBytes.length
-            );
 
-            if (shapBitmap != null) {
-                imgSHAP.setImageBitmap(shapBitmap);
-            }
-        }
+// ==========================================
+// SHOW GRAD-CAM IMAGE
+// ==========================================
+        try {
+            if (gradcamImage != null &&
+                    !gradcamImage.trim().isEmpty()) {
 
+                String imageData = gradcamImage;
 
-        // ==========================================
-        // SHOW SHAP EXPLANATION
-        // ==========================================
-
-        if (
-                importantWords != null
-                        && !importantWords.isEmpty()
-        ) {
-
-            String[] words =
-                    importantWords.split(
-                            "\\|"
-                    );
-
-
-            StringBuilder explanation =
-                    new StringBuilder();
-
-
-            explanation.append(
-                    "Words that influenced the AI prediction:\n\n"
-            );
-
-
-            for (String word : words) {
-
-                String cleanWord =
-                        word.trim();
-
-                if (!cleanWord.isEmpty()) {
-
-                    explanation.append(
-                            "• "
-                    );
-
-                    explanation.append(
-                            cleanWord
-                    );
-
-                    explanation.append(
-                            "\n"
+                if (imageData.startsWith("data:") &&
+                        imageData.contains(",")) {
+                    imageData = imageData.substring(
+                            imageData.indexOf(",") + 1
                     );
                 }
+
+                byte[] gradBytes = Base64.decode(
+                        imageData,
+                        Base64.DEFAULT
+                );
+
+                Bitmap gradBitmap =
+                        BitmapFactory.decodeByteArray(
+                                gradBytes,
+                                0,
+                                gradBytes.length
+                        );
+
+                if (gradBitmap != null) {
+                    imgGradCAM.setImageBitmap(gradBitmap);
+                } else {
+                    imgGradCAM.setImageDrawable(null);
+                }
+
+            } else {
+                imgGradCAM.setImageDrawable(null);
             }
 
+        } catch (Exception e) {
+            imgGradCAM.setImageDrawable(null);
 
-            txtReason.setText(
-                    explanation.toString()
+            android.util.Log.e(
+                    "FakeResult",
+                    "Grad-CAM loading error",
+                    e
             );
+        }
 
-        } else {
 
-            txtReason.setText(
-                    "No explanation available."
+// ==========================================
+// SHOW SHAP IMAGE
+// ==========================================
+        try {
+            if (shapImage != null &&
+                    !shapImage.trim().isEmpty()) {
+
+                String imageData = shapImage;
+
+                if (imageData.startsWith("data:") &&
+                        imageData.contains(",")) {
+                    imageData = imageData.substring(
+                            imageData.indexOf(",") + 1
+                    );
+                }
+
+                byte[] shapBytes = Base64.decode(
+                        imageData,
+                        Base64.DEFAULT
+                );
+
+                Bitmap shapBitmap =
+                        BitmapFactory.decodeByteArray(
+                                shapBytes,
+                                0,
+                                shapBytes.length
+                        );
+
+                if (shapBitmap != null) {
+                    imgSHAP.setImageBitmap(shapBitmap);
+                } else {
+                    imgSHAP.setImageDrawable(null);
+                }
+
+            } else {
+                imgSHAP.setImageDrawable(null);
+            }
+
+        } catch (Exception e) {
+            imgSHAP.setImageDrawable(null);
+
+            android.util.Log.e(
+                    "FakeResult",
+                    "SHAP image loading error",
+                    e
             );
         }
 

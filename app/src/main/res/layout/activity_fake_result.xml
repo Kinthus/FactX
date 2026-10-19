@@ -93,7 +93,8 @@
             android:layout_marginTop="25dp"
             android:text="Grad-CAM Heatmap"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:id="@+id/txtGradCAMTitle"/>
 
         <ImageView
             android:id="@+id/imgGradCAM"
@@ -103,6 +104,30 @@
             android:scaleType="fitCenter"
             android:contentDescription="Grad-CAM explanation" />
 
+
+        <!-- Multimodal BERT Important Words -->
+        <TextView
+            android:id="@+id/txtImportantWordsTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:text="Important News Words (BERT)"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/txtImportantWords"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="#FFFFFF"
+            android:padding="15dp"
+            android:textColor="#222222"
+            android:textSize="16sp"
+            android:visibility="gone" />
+
+
         <!-- SHAP Explanation Image -->
 
         <TextView
@@ -111,7 +136,8 @@
             android:layout_marginTop="25dp"
             android:text="SHAP Explanation"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:id="@+id/txtSHAPTitle"/>
 
         <ImageView
             android:id="@+id/imgSHAP"

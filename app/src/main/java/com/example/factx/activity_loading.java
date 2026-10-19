@@ -344,12 +344,27 @@ public class activity_loading extends AppCompatActivity {
                 // OPEN RESULT
                 // ==========================================
                 // Send explanations only for FAKE image results
-                if (resultType.equalsIgnoreCase("fake")
-                        && analysisType.equalsIgnoreCase("image")) {
 
-                    intent.putExtra("gradcam_image", gradcamImage);
-                    intent.putExtra("shap_image", shapImage);
+                if (resultType.equalsIgnoreCase("fake")) {
+
+                    if (analysisType.equalsIgnoreCase("image")) {
+                        intent.putExtra("gradcam_image", gradcamImage);
+                        intent.putExtra("shap_image", shapImage);
+                    }
+
+                    if (analysisType.equalsIgnoreCase("multimodal")) {
+                        intent.putExtra(
+                                "gradcam_image",
+                                getIntent().getStringExtra("gradcam_image")
+                        );
+
+                        intent.putExtra(
+                                "important_words",
+                                getIntent().getStringExtra("important_words")
+                        );
+                    }
                 }
+
                 startActivity(intent);
 
                 finish();

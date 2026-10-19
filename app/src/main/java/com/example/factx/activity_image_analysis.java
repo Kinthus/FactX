@@ -204,21 +204,41 @@ public class activity_image_analysis extends AppCompatActivity {
         // ANALYZE IMAGE BUTTON
         // ==========================================
 
-        btnAnalyzeImage.setOnClickListener(
-                v -> {
 
+        btnAnalyzeImage.setOnClickListener(v -> {
 
             if (!imageSelected) {
-
                 Toast.makeText(
                         activity_image_analysis.this,
                         "Please select or capture an image first.",
                         Toast.LENGTH_LONG
                 ).show();
-
                 return;
             }
 
+            byte[] imageBytes;
+
+            try {
+                imageBytes = getImageBytes();
+            } catch (IOException e) {
+                Toast.makeText(
+                        activity_image_analysis.this,
+                        "Unable to read image: " + e.getMessage(),
+                        Toast.LENGTH_LONG
+                ).show();
+                return;
+            }
+
+            if (imageBytes == null || imageBytes.length == 0) {
+                Toast.makeText(
+                        activity_image_analysis.this,
+                        "Unable to read selected image.",
+                        Toast.LENGTH_LONG
+                ).show();
+                return;
+            }
+
+            btnAnalyzeImage.setEnabled(false);
 
             Toast.makeText(
                     activity_image_analysis.this,
@@ -226,50 +246,104 @@ public class activity_image_analysis extends AppCompatActivity {
                     Toast.LENGTH_SHORT
             ).show();
 
+            RequestBody requestBody = RequestBody.create(
+                    MediaType.parse("image/jpeg"),
+                    imageBytes
+            );
 
-
-
-
-            Intent intent =
-                    new Intent(
-                            activity_image_analysis.this,
-                            activity_loading.class
+            MultipartBody.Part imagePart =
+                    MultipartBody.Part.createFormData(
+                            "file",
+                            "image.jpg",
+                            requestBody
                     );
 
+            ApiService apiService = RetrofitClient
+                    .getClient()
+                    .create(ApiService.class);
 
+            apiService.analyzeImage(imagePart).enqueue(
+                    new Callback<ImageAnalysisResponse>() {
 
+                        @Override
+                        public void onResponse(
+                                Call<ImageAnalysisResponse> call,
+                                Response<ImageAnalysisResponse> response) {
 
-            intent.putExtra(
-                    "analysis_type",
-                    "image"
+                            btnAnalyzeImage.setEnabled(true);
+
+                            if (!response.isSuccessful()
+                                    || response.body() == null) {
+                                Toast.makeText(
+                                        activity_image_analysis.this,
+                                        "Image analysis failed. HTTP "
+                                                + response.code(),
+                                        Toast.LENGTH_LONG
+                                ).show();
+                                return;
+                            }
+
+                            ImageAnalysisResponse result = response.body();
+                            String prediction = result.getPrediction();
+
+                            if (prediction == null
+                                    || (!prediction.equalsIgnoreCase("REAL")
+                                    && !prediction.equalsIgnoreCase("FAKE"))) {
+                                Toast.makeText(
+                                        activity_image_analysis.this,
+                                        "Invalid prediction received.",
+                                        Toast.LENGTH_LONG
+                                ).show();
+                                return;
+                            }
+
+                            Intent intent = new Intent(
+                                    activity_image_analysis.this,
+                                    activity_loading.class
+                            );
+
+                            intent.putExtra(
+                                    "resultType",
+                                    prediction.toLowerCase(
+                                            java.util.Locale.ROOT
+                                    )
+                            );
+                            intent.putExtra("analysis_type", "image");
+                            intent.putExtra("email", email);
+                            intent.putExtra(
+                                    "confidence",
+                                    (double) result.getConfidence()
+                            );
+
+                            if (prediction.equalsIgnoreCase("FAKE")) {
+                                intent.putExtra(
+                                        "gradcam_image",
+                                        result.getGradcam_image()
+                                );
+                                intent.putExtra(
+                                        "shap_image",
+                                        result.getShap_image()
+                                );
+                            }
+
+                            startActivity(intent);
+                        }
+
+                        @Override
+                        public void onFailure(
+                                Call<ImageAnalysisResponse> call,
+                                Throwable t) {
+
+                            btnAnalyzeImage.setEnabled(true);
+
+                            Toast.makeText(
+                                    activity_image_analysis.this,
+                                    "Connection failed: " + t.getMessage(),
+                                    Toast.LENGTH_LONG
+                            ).show();
+                        }
+                    }
             );
-
-
-            // ==========================================
-            // SEND LOGGED-IN USER EMAIL
-            // ==========================================
-
-            intent.putExtra(
-                    "email",
-                    email
-            );
-
-
-            // ==========================================
-            // SEND GALLERY IMAGE URI
-            // ==========================================
-
-            if (imageUri != null) {
-
-                intent.putExtra(
-                        "imageUri",
-                        imageUri.toString()
-                );
-            }
-
-
-            startActivity(intent);
-
         });
 
 
@@ -309,6 +383,49 @@ public class activity_image_analysis extends AppCompatActivity {
     // ==========================================
     // OPEN CAMERA
     // ==========================================
+
+
+    private byte[] getImageBytes() throws IOException {
+
+        if (imageUri != null) {
+            try (InputStream inputStream =
+                         getContentResolver().openInputStream(imageUri);
+                 ByteArrayOutputStream outputStream =
+                         new ByteArrayOutputStream()) {
+
+                if (inputStream == null) {
+                    throw new IOException("Cannot open selected image.");
+                }
+
+                byte[] buffer = new byte[8192];
+                int bytesRead;
+
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    outputStream.write(buffer, 0, bytesRead);
+                }
+
+                return outputStream.toByteArray();
+            }
+        }
+
+        if (cameraBitmap != null) {
+            ByteArrayOutputStream outputStream =
+                    new ByteArrayOutputStream();
+
+            cameraBitmap.compress(
+                    Bitmap.CompressFormat.JPEG,
+                    90,
+                    outputStream
+            );
+
+            return outputStream.toByteArray();
+        }
+
+        return null;
+    }
+
+
+
 
     private void openCamera() {
 

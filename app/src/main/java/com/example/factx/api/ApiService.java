@@ -18,6 +18,8 @@ import com.example.factx.model.VerifyResetOTPRequest;
 import com.example.factx.model.VerifyResetOTPResponse;
 import com.example.factx.model.ReportRequest;
 import com.example.factx.model.ReportResponse;
+import okhttp3.RequestBody;
+
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -30,6 +32,8 @@ import okhttp3.MultipartBody;
 import retrofit2.http.Multipart;
 import retrofit2.http.Part;
 import com.example.factx.model.ImageAnalysisResponse;
+import com.example.factx.model.MultimodalAnalysisResponse;
+
 
 public interface ApiService {
 
@@ -113,4 +117,13 @@ public interface ApiService {
     Call<ImageAnalysisResponse> analyzeImage(
             @Part MultipartBody.Part file
     );
+
+
+    @Multipart
+    @POST("analyze-multimodal")
+    Call<com.example.factx.model.MultimodalAnalysisResponse> analyzeMultimodal(
+            @Part MultipartBody.Part file,
+            @Part("text") RequestBody text
+    );
+
 }

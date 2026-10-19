@@ -1,10 +1,10 @@
+
 package com.example.factx;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,10 +13,25 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.factx.api.ApiService;
+import com.example.factx.api.RetrofitClient;
+import com.example.factx.model.MultimodalAnalysisResponse;
+
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.IOException;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class activity_multimodal extends AppCompatActivity {
 
-    EditText etTitle;
-    EditText etNews;
+
 
     ImageView imgPreview;
     TextView txtImagePlaceholder;
@@ -83,9 +98,7 @@ public class activity_multimodal extends AppCompatActivity {
         // FIND VIEWS
         // ==========================================
 
-        etTitle = findViewById(R.id.etTitle);
 
-        etNews = findViewById(R.id.etNews);
 
         imgPreview = findViewById(R.id.imgPreview);
 
@@ -128,123 +141,166 @@ public class activity_multimodal extends AppCompatActivity {
         // ANALYZE BUTTON
         // ==========================================
 
+
         btnAnalyze.setOnClickListener(v -> {
 
-            String title =
-                    etTitle.getText()
-                            .toString()
-                            .trim();
 
-            String news =
-                    etNews.getText()
-                            .toString()
-                            .trim();
-
-
-            // ==========================================
-            // VALIDATION
-            // ==========================================
 
             if (imageUri == null) {
-
-                Toast.makeText(
-                        activity_multimodal.this,
-                        "Please select an image before analyzing",
-                        Toast.LENGTH_LONG
-                ).show();
-
+                Toast.makeText(this, "Please select an image",
+                        Toast.LENGTH_LONG).show();
                 return;
             }
 
 
-            Toast.makeText(
-                    activity_multimodal.this,
-                    "Image selected. Starting analysis...",
-                    Toast.LENGTH_SHORT
-            ).show();
+
+            btnAnalyze.setEnabled(false);
+
+            new Thread(() -> {
+                try {
+                    byte[] imageBytes;
+
+                    try (InputStream input =
+                                 getContentResolver().openInputStream(imageUri);
+                         ByteArrayOutputStream output =
+                                 new ByteArrayOutputStream()) {
+
+                        if (input == null) {
+                            throw new IOException("Cannot read selected image");
+                        }
+
+                        byte[] buffer = new byte[8192];
+                        int count;
+
+                        while ((count = input.read(buffer)) != -1) {
+                            output.write(buffer, 0, count);
+                        }
+
+                        imageBytes = output.toByteArray();
+                    }
 
 
-            // ==========================================
-            // TEMPORARY RESULT
-            // ==========================================
-
-            String resultType;
-
-            if (System.currentTimeMillis() % 2 == 0) {
-
-                resultType = "real";
-
-            } else {
-
-                resultType = "fake";
-            }
 
 
-            // ==========================================
-            // OPEN LOADING SCREEN
-            // ==========================================
+                    RequestBody imageBody = RequestBody.create(
+                            MediaType.parse("image/*"), imageBytes);
 
-            Intent intent = new Intent(
-                    activity_multimodal.this,
-                    activity_loading.class
-            );
+                    MultipartBody.Part imagePart =
+                            MultipartBody.Part.createFormData(
+                                    "file", "news_image.jpg", imageBody);
 
+                    RequestBody textBody = RequestBody.create(
+                            MediaType.parse("text/plain"), "");
 
-            intent.putExtra(
-                    "resultType",
-                    resultType
-            );
+                    ApiService apiService = RetrofitClient.getClient()
+                            .create(ApiService.class);
 
+                    apiService.analyzeMultimodal(imagePart, textBody)
+                            .enqueue(new Callback<MultimodalAnalysisResponse>() {
 
-            intent.putExtra(
-                    "analysis_type",
-                    "multimodal"
-            );
+                                @Override
+                                public void onResponse(
+                                        Call<MultimodalAnalysisResponse> call,
+                                        Response<MultimodalAnalysisResponse> response) {
 
+                                    btnAnalyze.setEnabled(true);
 
-            // ==========================================
-            // SEND USER EMAIL
-            // ==========================================
+                                    if (!response.isSuccessful() || response.body() == null) {
+                                        Toast.makeText(
+                                                activity_multimodal.this,
+                                                "Analysis failed. HTTP " + response.code(),
+                                                Toast.LENGTH_LONG).show();
+                                        return;
+                                    }
 
-            intent.putExtra(
-                    "email",
-                    email
-            );
+                                    MultimodalAnalysisResponse data = response.body();
+                                    String prediction = data.getPrediction();
 
+                                    if (prediction == null ||
+                                            (!prediction.equalsIgnoreCase("FAKE")
+                                                    && !prediction.equalsIgnoreCase("REAL"))) {
+                                        Toast.makeText(
+                                                activity_multimodal.this,
+                                                "Invalid prediction from server",
+                                                Toast.LENGTH_LONG).show();
+                                        return;
+                                    }
 
-            // ==========================================
-            // SEND SELECTED IMAGE URI
-            // ==========================================
+                                    Intent intent = new Intent(
+                                            activity_multimodal.this,
+                                            activity_loading.class);
 
-            intent.putExtra(
-                    "imageUri",
-                    imageUri.toString()
-            );
+                                    intent.putExtra("resultType", prediction.toLowerCase());
+                                    intent.putExtra("analysis_type", "multimodal");
+                                    intent.putExtra("email", email);
+                                    intent.putExtra("imageUri", imageUri.toString());
 
-
-            // ==========================================
-            // SEND TITLE
-            // ==========================================
-
-            intent.putExtra(
-                    "title",
-                    title
-            );
-
-
-            // ==========================================
-            // SEND NEWS CONTENT
-            // ==========================================
-
-            intent.putExtra(
-                    "news",
-                    news
-            );
+                                    intent.putExtra("confidence", data.getConfidence());
 
 
-            startActivity(intent);
+                                    if ("FAKE".equalsIgnoreCase(prediction)) {
+                                        intent.putExtra(
+                                                "gradcam_image",
+                                                data.getGradcam_image()
+                                        );
 
+                                        if (data.getImportant_words() != null) {
+                                            StringBuilder wordsJson = new StringBuilder("[");
+
+                                            for (int i = 0; i < data.getImportant_words().size(); i++) {
+                                                MultimodalAnalysisResponse.ImportantWord word =
+                                                        data.getImportant_words().get(i);
+
+                                                if (i > 0) {
+                                                    wordsJson.append(",");
+                                                }
+
+                                                wordsJson.append("{\"token\":\"")
+                                                        .append(word.getToken().replace("\"", "\\\""))
+                                                        .append("\",\"importance\":")
+                                                        .append(word.getImportance())
+                                                        .append("}");
+                                            }
+
+                                            wordsJson.append("]");
+
+                                            intent.putExtra(
+                                                    "important_words",
+                                                    wordsJson.toString()
+                                            );
+                                        }
+                                    }
+
+
+                                    startActivity(intent);
+                                }
+
+                                @Override
+                                public void onFailure(
+                                        Call<MultimodalAnalysisResponse> call,
+                                        Throwable t) {
+
+                                    btnAnalyze.setEnabled(true);
+
+                                    Toast.makeText(
+                                            activity_multimodal.this,
+                                            "Connection failed: " + t.getMessage(),
+                                            Toast.LENGTH_LONG).show();
+                                }
+                            });
+
+                } catch (Exception e) {
+                    runOnUiThread(() -> {
+                        btnAnalyze.setEnabled(true);
+                        Toast.makeText(
+                                activity_multimodal.this,
+                                "Could not read image: " + e.getMessage(),
+                                Toast.LENGTH_LONG).show();
+                    });
+                }
+            }).start();
         });
+
 
 
         // ==========================================
@@ -254,10 +310,7 @@ public class activity_multimodal extends AppCompatActivity {
         btnClear.setOnClickListener(v -> {
 
             // Clear title
-            etTitle.setText("");
 
-            // Clear news
-            etNews.setText("");
 
             // Remove image URI
             imageUri = null;
@@ -271,8 +324,6 @@ public class activity_multimodal extends AppCompatActivity {
             // Show placeholder
             txtImagePlaceholder.setVisibility(TextView.VISIBLE);
 
-            // Focus title
-            etTitle.requestFocus();
 
         });
 

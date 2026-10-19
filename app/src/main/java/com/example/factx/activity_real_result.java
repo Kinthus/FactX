@@ -99,22 +99,32 @@ public class activity_real_result extends AppCompatActivity {
         // SHOW REAL BERT CONFIDENCE
         // ==========================================
 
-        int confidenceValue =
-                (int) Math.round(confidence);
+        double confidencePercentage;
 
+        if (confidence >= 0.0 && confidence <= 1.0) {
+            confidencePercentage = confidence * 100.0;
+        } else {
+            confidencePercentage = confidence;
+        }
 
-        progressConfidence.setProgress(
-                confidenceValue
+        confidencePercentage = Math.max(
+                0.0,
+                Math.min(100.0, confidencePercentage)
         );
 
+        progressConfidence.setMax(100);
+
+        progressConfidence.setProgress(
+                (int) Math.round(confidencePercentage)
+        );
 
         txtConfidence.setText(
                 String.format(
+                        java.util.Locale.US,
                         "%.2f%%",
-                        confidence
+                        confidencePercentage
                 )
         );
-
 
         // ==========================================
         // ANALYZE AGAIN

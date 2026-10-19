@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,92 +10,37 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-        <!-- Title -->
-
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Multimodal Analysis"
             android:textSize="28sp"
             android:textStyle="bold"
             android:textColor="#173B91"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"/>
-
-
-        <!-- Description -->
+            android:gravity="center"
+            android:layout_marginTop="20dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Analyze news using both text and image."
+            android:text="Upload a news image to check whether it is real or fake."
             android:textSize="16sp"
             android:textColor="#666666"
             android:gravity="center"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="30dp"/>
-
-
-        <!-- News Title -->
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="News Title"
-            android:textSize="17sp"
-            android:textStyle="bold"/>
-
-
-        <EditText
-            android:id="@+id/etTitle"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:hint="Enter News Title (Optional)"
-            android:padding="15dp"
-            android:layout_marginTop="8dp"
-            android:background="@android:drawable/edit_text"/>
-
-
-        <!-- News Content -->
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="News Content"
-            android:textSize="17sp"
-            android:textStyle="bold"
-            android:layout_marginTop="20dp"/>
-
-
-        <EditText
-            android:id="@+id/etNews"
-            android:layout_width="match_parent"
-            android:layout_height="170dp"
-            android:hint="Enter News Content (Optional)"
-            android:gravity="top|start"
-            android:padding="15dp"
-            android:inputType="textMultiLine"
-            android:layout_marginTop="5dp"
-            android:background="@android:drawable/edit_text"/>
-
-
-        <!-- News Image -->
+            android:layout_marginBottom="24dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="News Image"
             android:textSize="17sp"
-            android:textStyle="bold"
-            android:layout_marginTop="20dp"/>
-
-
-        <!-- Simple Image Box -->
+            android:textStyle="bold" />
 
         <FrameLayout
             android:id="@+id/imageBox"
             android:layout_width="match_parent"
-            android:layout_height="220dp"
+            android:layout_height="260dp"
             android:layout_marginTop="8dp"
             android:background="#E8E8E8">
 
@@ -105,8 +49,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="8dp"
-                android:scaleType="centerInside"
-                android:contentDescription="Selected news image"/>
+                android:scaleType="fitCenter"
+                android:contentDescription="Selected news image" />
 
             <TextView
                 android:id="@+id/txtImagePlaceholder"
@@ -115,57 +59,45 @@
                 android:layout_gravity="center"
                 android:text="No Image Selected"
                 android:textSize="16sp"
-                android:textColor="#777777"/>
+                android:textColor="#777777" />
 
         </FrameLayout>
-
-
-        <!-- Select Image -->
 
         <Button
             android:id="@+id/btnSelectImage"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="16dp"
             android:text="Select Image"
             android:textAllCaps="false"
             android:textSize="20sp"
             android:textStyle="bold"
             android:backgroundTint="#173B91"
-            android:textColor="#FFFFFF"/>
-
-
-        <!-- Analyze -->
+            android:textColor="#FFFFFF" />
 
         <Button
             android:id="@+id/btnAnalyze"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="8dp"
             android:text="Analyze News"
             android:textAllCaps="false"
             android:textSize="18sp"
             android:textStyle="bold"
             android:backgroundTint="#173B91"
-            android:textColor="#FFFFFF"/>
-
-
-        <!-- Clear -->
+            android:textColor="#FFFFFF" />
 
         <Button
             android:id="@+id/btnClear"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="8dp"
             android:text="Clear"
             android:textAllCaps="false"
             android:textSize="18sp"
             android:textStyle="bold"
             android:backgroundTint="#BDBDBD"
-            android:textColor="#000000"/>
-
-
+            android:textColor="#000000" />
 
     </LinearLayout>
-
 </ScrollView>
