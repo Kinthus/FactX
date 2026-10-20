@@ -32,12 +32,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import android.util.Base64;
+import java.io.File;
+import java.io.FileOutputStream;
+
 public class activity_image_analysis extends AppCompatActivity {
 
     ImageView imgPreview;
 
     Button btnGallery;
-    Button btnCamera;
     Button btnAnalyzeImage;
     Button btnClearImage;
 
@@ -125,6 +128,30 @@ public class activity_image_analysis extends AppCompatActivity {
             );
 
 
+    private String saveGradcamToCache(String base64Image) throws IOException {
+        if (base64Image == null || base64Image.trim().isEmpty()) {
+            return null;
+        }
+
+        String imageData = base64Image.trim();
+
+        if (imageData.startsWith("data:") && imageData.contains(",")) {
+            imageData = imageData.substring(imageData.indexOf(",") + 1);
+        }
+
+        byte[] imageBytes = Base64.decode(imageData, Base64.DEFAULT);
+
+        File imageFile = new File(getCacheDir(), "factx_image_gradcam.png");
+
+        try (FileOutputStream output = new FileOutputStream(imageFile)) {
+            output.write(imageBytes);
+        }
+
+        return imageFile.getAbsolutePath();
+    }
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -152,8 +179,7 @@ public class activity_image_analysis extends AppCompatActivity {
         btnGallery =
                 findViewById(R.id.btnGallery);
 
-        btnCamera =
-                findViewById(R.id.btnCamera);
+
 
         btnAnalyzeImage =
                 findViewById(R.id.btnAnalyzeImage);
@@ -177,27 +203,7 @@ public class activity_image_analysis extends AppCompatActivity {
         // CAMERA BUTTON
         // ==========================================
 
-        btnCamera.setOnClickListener(v -> {
 
-            if (ContextCompat.checkSelfPermission(
-                    activity_image_analysis.this,
-                    android.Manifest.permission.CAMERA
-            ) != PackageManager.PERMISSION_GRANTED) {
-
-                ActivityCompat.requestPermissions(
-                        activity_image_analysis.this,
-                        new String[]{
-                                android.Manifest.permission.CAMERA
-                        },
-                        100
-                );
-
-            } else {
-
-                openCamera();
-            }
-
-        });
 
 
         // ==========================================
@@ -315,16 +321,36 @@ public class activity_image_analysis extends AppCompatActivity {
                                     (double) result.getConfidence()
                             );
 
+
                             if (prediction.equalsIgnoreCase("FAKE")) {
-                                intent.putExtra(
-                                        "gradcam_image",
-                                        result.getGradcam_image()
-                                );
+                                try {
+                                    String gradcamPath = saveGradcamToCache(
+                                            result.getGradcam_image()
+                                    );
+
+                                    android.util.Log.d(
+                                            "IMAGE_ANALYSIS",
+                                            "Saved Grad-CAM path = " + gradcamPath
+                                    );
+
+                                    if (gradcamPath != null) {
+                                        intent.putExtra("gradcam_path", gradcamPath);
+                                    }
+
+                                } catch (IOException e) {
+                                    android.util.Log.e(
+                                            "IMAGE_ANALYSIS",
+                                            "Failed to save Grad-CAM",
+                                            e
+                                    );
+                                }
+
                                 intent.putExtra(
                                         "shap_image",
                                         result.getShap_image()
                                 );
                             }
+
 
                             startActivity(intent);
                         }

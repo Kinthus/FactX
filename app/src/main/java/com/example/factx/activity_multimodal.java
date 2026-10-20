@@ -30,6 +30,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import android.util.Base64;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 public class activity_multimodal extends AppCompatActivity {
 
     private static final String TAG = "MULTIMODAL_FLOW";
@@ -64,6 +69,30 @@ public class activity_multimodal extends AppCompatActivity {
                         }
                     }
             );
+
+
+    private String saveGradcamToCache(String base64Image) throws IOException {
+        if (base64Image == null || base64Image.trim().isEmpty()) {
+            return null;
+        }
+
+        String imageData = base64Image.trim();
+
+        if (imageData.startsWith("data:") && imageData.contains(",")) {
+            imageData = imageData.substring(imageData.indexOf(",") + 1);
+        }
+
+        byte[] imageBytes = Base64.decode(imageData, Base64.DEFAULT);
+
+        File imageFile = new File(getCacheDir(), "factx_gradcam.png");
+
+        try (FileOutputStream output = new FileOutputStream(imageFile)) {
+            output.write(imageBytes);
+        }
+
+        return imageFile.getAbsolutePath();
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -279,10 +308,19 @@ public class activity_multimodal extends AppCompatActivity {
                                             if ("FAKE".equalsIgnoreCase(prediction)) {
 
                                                 // Grad-CAM image
-                                                intent.putExtra(
-                                                        "gradcam_image",
-                                                        data.getGradcam_image()
-                                                );
+
+                                                try {
+                                                    String gradcamPath = saveGradcamToCache(
+                                                            data.getGradcam_image()
+                                                    );
+
+                                                    if (gradcamPath != null) {
+                                                        intent.putExtra("gradcam_path", gradcamPath);
+                                                    }
+                                                } catch (IOException e) {
+                                                    Log.e(TAG, "Could not save Grad-CAM image", e);
+                                                }
+
 
                                                 // Important words
                                                 if (data.getImportant_words() != null) {

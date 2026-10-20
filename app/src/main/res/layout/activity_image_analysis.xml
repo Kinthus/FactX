@@ -61,17 +61,7 @@
 
         <!-- Camera -->
 
-        <Button
-            android:id="@+id/btnCamera"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginTop="15dp"
-            android:text="Open Camera"
-            android:textAllCaps="false"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:backgroundTint="#1976D2"
-            android:textColor="#FFFFFF"/>
+
 
         <!-- Analyze -->
 

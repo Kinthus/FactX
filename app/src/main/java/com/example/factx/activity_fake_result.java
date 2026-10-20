@@ -113,6 +113,7 @@ public class activity_fake_result extends AppCompatActivity {
         txtSHAPTitle = findViewById(R.id.txtSHAPTitle);
 
         gradcamImage = getIntent().getStringExtra("gradcam_image");
+        String gradcamPath = getIntent().getStringExtra("gradcam_path");
         shapImage = getIntent().getStringExtra("shap_image");
 
 
@@ -144,6 +145,11 @@ public class activity_fake_result extends AppCompatActivity {
 
         android.util.Log.d("FAKE_RESULT",
                 "Intent extras = " + getIntent().getExtras());
+
+        android.util.Log.d(
+                "FakeResult",
+                "Grad-CAM path = " + gradcamPath
+        );
 
 
 
@@ -282,50 +288,26 @@ public class activity_fake_result extends AppCompatActivity {
 // ==========================================
 // SHOW GRAD-CAM IMAGE
 // ==========================================
+
         try {
-            if (gradcamImage != null &&
-                    !gradcamImage.trim().isEmpty()) {
-
-                String imageData = gradcamImage;
-
-                if (imageData.startsWith("data:") &&
-                        imageData.contains(",")) {
-                    imageData = imageData.substring(
-                            imageData.indexOf(",") + 1
-                    );
-                }
-
-                byte[] gradBytes = Base64.decode(
-                        imageData,
-                        Base64.DEFAULT
-                );
-
-                Bitmap gradBitmap =
-                        BitmapFactory.decodeByteArray(
-                                gradBytes,
-                                0,
-                                gradBytes.length
-                        );
+            if (gradcamPath != null && !gradcamPath.trim().isEmpty()) {
+                Bitmap gradBitmap = BitmapFactory.decodeFile(gradcamPath);
 
                 if (gradBitmap != null) {
                     imgGradCAM.setImageBitmap(gradBitmap);
                 } else {
                     imgGradCAM.setImageDrawable(null);
+                    android.util.Log.e("FakeResult", "Grad-CAM bitmap is null");
                 }
-
             } else {
                 imgGradCAM.setImageDrawable(null);
+                android.util.Log.w("FakeResult", "Grad-CAM path is missing");
             }
-
         } catch (Exception e) {
             imgGradCAM.setImageDrawable(null);
-
-            android.util.Log.e(
-                    "FakeResult",
-                    "Grad-CAM loading error",
-                    e
-            );
+            android.util.Log.e("FakeResult", "Grad-CAM loading error", e);
         }
+
 
 
 // ==========================================

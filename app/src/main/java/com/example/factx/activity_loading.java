@@ -31,7 +31,8 @@ public class activity_loading extends AppCompatActivity {
 
     // Confidence
     double confidence;
-    String gradcamImage;
+    //String gradcamImage;
+    String gradcamPath;
     String shapImage;
 
     // News data
@@ -76,8 +77,9 @@ public class activity_loading extends AppCompatActivity {
 
         analysisType =
                 getIntent().getStringExtra("analysis_type");
-        gradcamImage = getIntent().getStringExtra("gradcam_image");
+        //gradcamImage = getIntent().getStringExtra("gradcam_image");
         shapImage = getIntent().getStringExtra("shap_image");
+        gradcamPath = getIntent().getStringExtra("gradcam_path");
 
 
         // ==========================================
@@ -348,7 +350,8 @@ public class activity_loading extends AppCompatActivity {
                 if (resultType.equalsIgnoreCase("fake")) {
 
                     if (analysisType.equalsIgnoreCase("image")) {
-                        intent.putExtra("gradcam_image", gradcamImage);
+                        //intent.putExtra("gradcam_image", gradcamImage);
+                        intent.putExtra("gradcam_path", gradcamPath);
                         intent.putExtra("shap_image", shapImage);
                     }
 
