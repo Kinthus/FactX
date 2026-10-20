@@ -122,8 +122,7 @@ public interface ApiService {
     @Multipart
     @POST("analyze-multimodal")
     Call<com.example.factx.model.MultimodalAnalysisResponse> analyzeMultimodal(
-            @Part MultipartBody.Part file,
-            @Part("text") RequestBody text
+            @Part MultipartBody.Part file
     );
 
 }

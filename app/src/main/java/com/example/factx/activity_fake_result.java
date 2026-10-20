@@ -134,11 +134,16 @@ public class activity_fake_result extends AppCompatActivity {
                 );
 
 
-        double confidence =
-                getIntent().getDoubleExtra(
-                        "confidence",
-                        0.0
-                );
+        double confidence = getIntent().getDoubleExtra(
+                "confidence",
+                (double) getIntent().getFloatExtra("confidence", 0.0f)
+        );
+
+        android.util.Log.d("FAKE_RESULT",
+                "Received confidence = " + confidence);
+
+        android.util.Log.d("FAKE_RESULT",
+                "Intent extras = " + getIntent().getExtras());
 
 
 
